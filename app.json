@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/main/login/login",
+    "pages/main/main_page",
+    "pages/main/register/register",
+    "pages/main/erro/erro_login",
+    "pages/main/user/user",
+    "pages/index/shaoma/shaoma",
+    "pages/index/fit_up/fit_up",
+    "pages/index/weld/weld",
+    "pages/index/inspect_fit/inspect_fit",
+    "pages/index/inspect_visual/inspect_visual",
+    "pages/main/erro/erro_page",
+    "pages/main/erro/erro_register",
+    "pages/main/success/up_success",
+    "pages/index/hand_write/hand_write"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "小程序在使用过程中将获取您当前的位置信息"
+    }
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/main/main_page",
+        "text": "功能页面",
+        "selectedIconPath": "/pages/image/logo/home_1.png",
+        "iconPath": "/pages/image/logo/home_1.png"
+      },
+      {
+        "pagePath": "pages/main/user/user",
+        "text": "用户中心",
+        "selectedIconPath": "/pages/image/logo/user_1.png",
+        "iconPath": "/pages/image/logo/user_1.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

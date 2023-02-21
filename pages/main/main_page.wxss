@@ -1,0 +1,32 @@
+/* pages/main/main_page.wxss */
+page{/*页面背景—————统一浅灰*/
+  background-color: #ededed;
+}
+.left-icon {
+  display: flex;
+  margin: 14px;
+}
+.icon-picture {/*图标*/
+  display: flex;
+  width: 28px;
+  height: 28px;
+}
+
+.text {/*文字*/
+  font-size: 17px;
+  font-style: normal;
+  font-weight: normal;
+  width: 68px;
+  position: relative;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #000000;
+}
+.right-icon {/*右边图片*/
+  display: flex;
+  margin: 14px;
+  position: absolute;
+  right: 14px;
+}

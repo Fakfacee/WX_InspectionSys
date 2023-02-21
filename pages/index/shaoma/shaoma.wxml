@@ -1,0 +1,8 @@
+<!--pages/index/fit_shaoma.wxml-->
+
+<button bindtap="scanCodeEvent">扫码</button>
+
+<button bindtap="to_hand_write">手动输入</button>
+
+<input type ="type_input_1" bindinput="get_text" placeholder ="{{spool}}"></input>
+<button type="primary" bindtap="submit">提交</button>

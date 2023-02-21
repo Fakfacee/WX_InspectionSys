@@ -1,0 +1,41 @@
+<!--pages/main/user/user.wxml-->
+<view class="top_box">
+</view>
+
+<view class="graydivide"></view>
+
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" ><!--左边图片&文字-->
+      <view class="text">姓名</view><!--文字-->
+      <view class="right-text">{{user_name}}</view><!--文字-->
+    </view>
+  </view>
+</view>
+<view class="whitedivide"></view>
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" ><!--左边图片&文字-->
+      <view class="text">单位</view><!--文字-->
+      <view class="right-text">{{subcontractor}}</view><!--文字-->
+    </view>
+  </view>
+</view>
+<view class="whitedivide"></view>
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" ><!--左边图片&文字-->
+      <view class="text">工种</view><!--文字-->
+      <view class="right-text">{{usr_class}}</view><!--文字-->
+    </view>
+  </view>
+</view>
+<view class="whitedivide"></view>
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" ><!--左边图片&文字-->
+      <view class="text">身份号</view><!--文字-->
+      <view class="right-text">{{class_id}}</view><!--文字-->
+    </view>
+  </view>
+</view>

@@ -1,0 +1,100 @@
+/**app.wxss**/
+/**主文字样式**/
+.main_text {
+  display: flex;
+  background-color: #ffffff;
+}
+.main_text-imf{
+  color: #000000;
+  font-size: 22px;
+  font-weight: bold;
+  width: 600rpx;
+  height: 120px;
+  line-height: 120px;
+}
+.main_text-logo{
+  background-color: #ffffff;
+  margin: 0 auto;  
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  width: 160rpx;
+  height: 230rpx;
+  margin: 20rpx;
+  margin-top: 30rpx;
+  margin-left: 40rpx;
+  border-color: #ffffff;
+}
+.icon-picture-logo {/*图标*/
+  display: flex;
+  width: 100px;
+  height: 100px;
+}
+.function {
+  width: 100%;
+  background-color: #ffffff;
+  margin-top: 0rpx;
+  overflow: hidden;
+  display: flex;/**/
+}
+
+.functioninformation {/*左边动作图标&文字说明*/
+  display: flex;
+}
+
+.whitedivide {/*白色分割线*/
+  height: 1px;
+  background-color: #ffffff;
+  width: 56px;
+  position:relative;
+  top: 0px;
+}
+
+.graydivide {/*灰色分割条*/
+  height: 10px;
+  background-color: #ededed;
+  position:relative;
+  top: 0px;
+}
+.blanke{
+height: 10px;
+display: flex;
+background-color: #ffffff;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+
+.main_button {
+height: 40px;
+background-color:blue;
+
+}
+.container_text{
+height: 60px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+}
+.container_button{
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  }
+  .container_text_left{
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-between;
+    }

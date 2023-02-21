@@ -1,0 +1,4 @@
+<!--pages/index/erro_page.wxml-->
+
+<text>没有查询到单管号{{spool}}信息，请检查确认后重新输入</text>
+<button type="primary" bindtap="submit">重新输入</button>

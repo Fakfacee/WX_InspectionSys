@@ -1,0 +1,22 @@
+/* pages/index/inspect_fit.wxss */
+.label-1, .label-2{
+  margin: 30rpx 0;
+}
+.label-3-text{
+  color: #576B95;
+  font-size: 28rpx;
+}
+.checkbox-3{
+  display: block;
+  margin: 30rpx 0;
+}
+input{
+border:1px solid #eee;
+margin: 5px;
+padding: 5px;
+border-radius: 3px;
+}
+.intro {
+  margin: 30px;
+  text-align: center;
+}

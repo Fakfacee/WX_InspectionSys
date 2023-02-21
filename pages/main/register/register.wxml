@@ -1,0 +1,47 @@
+<!--pages/main/register.wxml-->
+<view class="container_text">
+<text>请填写以下信息以完成注册</text>
+</view>
+
+<view class="page-section page-section-gap">
+      <view class="page-section-title">人员类别：</view>
+      <radio-group class="group" bindchange="radioChange_id">
+        <view class="label-2" wx:for="{{id}}">
+          <radio value="{{item.value}}" checked="{{item.checked}}"></radio>
+          <label class="label-2-text" for="{{item.id}}"><text>{{item.id}}</text></label>
+        </view>
+      </radio-group>
+</view>
+
+<view>
+<text class="main_text">承包商</text>
+<view class="blanke"></view>
+<input type ="type_input_1"  bindinput="get_text_sub"></input>
+</view>
+
+
+
+<view>
+<text class="main_text">焊工号或其它标识ID</text>
+<view class="blanke"></view>
+<input type ="type_input_1"  bindinput="get_text_welder"></input>
+</view>
+
+<view>
+<text class="main_text">手机号</text>
+<view class="blanke"></view>
+<input type ="type_input_1"  bindinput="get_text_phoneno"></input>
+</view>
+
+<view>
+<text class="main_text">密码</text>
+<view class="blanke"></view>
+<input type ="type_input_1"  bindinput="get_text_password"></input>
+</view>
+
+
+<view class="container">
+<button type="primary" bindtap="submit">提交
+</button>
+
+</view>

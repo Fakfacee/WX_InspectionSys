@@ -1,0 +1,66 @@
+<!--pages/main/main_page.wxml-->
+<!--0：管理员，1：车间管理人员，2：QC,3:焊工-->
+<view class="main_text">
+    <view class = "main_text-logo">
+    <image class ="icon-picture-logo" src="../image/CFHI_logo.png"></image>
+    </view>
+    <view wx:if="{{class_code === 2}}">
+       <view class = "main_text-imf">请选择您当前检验内容</view>
+    </view>
+    <view wx:if="{{class_code === 3}}">
+       <view class = "main_text-imf">请选择您当前报检内容</view>
+    </view>
+    <view wx:if="{{class_code === 0}}">
+       <view class = "main_text-imf">请选择所需功能</view>
+    </view>
+</view>
+<!--间隔灰横条-->
+<view class="graydivide"></view>
+<view wx:if="{{ class_code === 2 || class_code === 0}}">
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" bindtap="jump2inspect_fit"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="../image/logo/fit_up.JPG"></image>
+      </view>
+      <view class="text">组对检验</view><!--文字-->
+    </view>
+  </view>
+</view>
+<!--间隔灰横条-->
+<view class="graydivide"></view>
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" bindtap="jump2inspect_visual"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="../image/logo/visual.webp"></image>
+      </view>
+      <view class="text">外观检验</view><!--文字-->
+    </view>
+  </view>
+</view>
+</view>
+<view wx:if="{{class_code === 3 || class_code === 0}}">
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" bindtap="jump2fitup"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="../image/logo/fit_up.JPG"></image>
+      </view>
+      <view class="text">组对报检</view><!--文字-->
+    </view>
+  </view>
+</view>
+<!--间隔灰横条-->
+<view class="graydivide"></view>
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" bindtap="jump2weld"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="../image/logo/visual.webp"></image>
+      </view>
+      <view class="text">外观报检</view><!--文字-->
+    </view>
+  </view>
+</view>
+</view>

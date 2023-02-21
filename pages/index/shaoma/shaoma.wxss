@@ -1,0 +1,7 @@
+/* pages/index/fit_shaoma.wxss */
+input{
+  border:1px solid #eee;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  }

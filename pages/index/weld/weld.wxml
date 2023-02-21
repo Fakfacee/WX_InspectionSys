@@ -1,0 +1,40 @@
+<!--pages/index/weld.wxml-->
+<view class="Drawing_info">
+  <view class="drawing">图纸号</view>
+  <view class = "drawing">{{drawing_num}}</view>
+  <view class="drawing">单管号</view>
+  <view class = "spool">{{spool_num}}</view>
+</view>
+
+<view class="page-section page-section-gap">
+      <view class="page-section-title">焊口号：</view>
+      <radio-group class="group" bindchange="radioChange_joint">
+        <view class="label-2" wx:for="{{joint}}">
+          <radio value="{{item.joint}}" checked="{{item.checked}}"></radio>
+          <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
+        </view>
+      </radio-group>
+</view>
+
+
+<view class="page-section page-section-gap">
+      <view class="page-section-title">使用工艺</view>
+      <radio-group class="group" bindchange="radioChange_wps">
+        <view class="label-2" wx:for="{{wps}}">
+          <radio id="{{item.name}}" value="{{item.name}}" checked="{{item.checked}}"></radio>
+          <label class="label-2-text" for="{{item.name}}"><text>{{item.name}}</text></label>
+        </view>
+      </radio-group>
+</view>
+
+<view class="page-section page-section-gap">焊工号</view>
+<view class="page-section page-section-gap">{{welder}}</view>
+
+<view class="page-section page-section-gap">焊接日期</view>
+<input type ="type_input_1" bindinput="get_text" placeholder ="{{currenTime}}"></input>
+<view class="page-section page-section-gap">地点</view>
+<button bindtap="getCenterLocation" class="page-body-button" type="primary">获取位置</button>
+<view class="page-section page-section-gap">{{latitude}}</view>
+<view class="page-section page-section-gap">{{longitude}}</view>
+<button type="primary" bindtap="submit">提交
+</button>
