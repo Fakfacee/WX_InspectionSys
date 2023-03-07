@@ -6,6 +6,11 @@ page{/*页面背景—————统一浅灰*/
   display: flex;
   margin: 14px;
 }
+.icon-picture-logo {/*LOGO图标*/
+  display: flex;
+  width: 55px;
+  height: 55px;
+}
 .icon-picture {/*图标*/
   display: flex;
   width: 28px;

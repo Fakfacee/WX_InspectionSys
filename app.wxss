@@ -17,6 +17,7 @@
   margin: 0 auto;  
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   overflow: hidden;
   width: 160rpx;
   height: 230rpx;
@@ -25,11 +26,7 @@
   margin-left: 40rpx;
   border-color: #ffffff;
 }
-.icon-picture-logo {/*图标*/
-  display: flex;
-  width: 100px;
-  height: 100px;
-}
+
 .function {
   width: 100%;
   background-color: #ffffff;

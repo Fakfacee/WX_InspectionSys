@@ -27,7 +27,7 @@
 </view>
 
 <view class="page-section page-section-gap">焊工号</view>
-<view class="page-section page-section-gap">{{welder}}</view>
+<view class="page-section page-section-gap">{{WelderNo}}</view>
 
 <view class="page-section page-section-gap">焊接日期</view>
 <input type ="type_input_1" bindinput="get_text" placeholder ="{{currenTime}}"></input>

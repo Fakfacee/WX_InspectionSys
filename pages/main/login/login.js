@@ -40,8 +40,9 @@ Page({
     },
     success:(res) =>{
     var result = JSON.parse(res.data)
-    console.log('success')
-    console.log(result.Status)
+    console.log('*****')
+    console.log(result)
+    //Status,UserId,Name,User_Identity,Contractor,Email,PhoneNo,PowerId,WelderNo
     if(result.Status =='0'){
     wx.showToast({
 
@@ -51,12 +52,15 @@ Page({
       })   
     }else if(result.Status =='1'){
     //姓名
+
     app.globalData.name = result.Name,
     //承包商
     app.globalData.subcontractor =  result.Contractor,
     app.globalData.class = result.User_Identity,
     app.globalData.class_id = result.PowerId,
     app.globalData.class_code = result.PowerId,
+    app.globalData.WelderNo = result.WelderNo
+    console.log(result.WelderNo)
     //result.UserId
     wx.switchTab({
    
@@ -105,7 +109,7 @@ onLoad: function (options){
     //承包商
     app.globalData.subcontractor =  result.Contractor,
     app.globalData.class = result.User_Identity,
-    app.globalData.class_id = result.UserId,
+    app.globalData.WelderNo = result.WelderNo,
     app.globalData.class_code = result.PowerId,
     //result.UserId
     wx.switchTab({

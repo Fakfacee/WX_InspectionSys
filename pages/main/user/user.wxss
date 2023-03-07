@@ -3,6 +3,7 @@ page{/*页面背景—————统一浅灰*/
   background-color: #ededed;
 }
 .top_box{/*顶部空白栏*/
+  
   background-color: aliceblue;
   width: 100%;
   height: 120px;
@@ -28,4 +29,22 @@ flex-direction: column;
 justify-content: center;
 color: #000000;
 position: relative;
+}
+.blanke{
+background-color: #ededed;
+height: 80px;
+
+}
+.logOut-box{
+width: 100%;
+background-color: #ededed;
+display: flex;
+justify-content: center;
+}
+.log-out{
+  background-color: #ffffff;
+  width:60% ;
+  height: 25px;
+  display: flex;
+  justify-content: center;
 }

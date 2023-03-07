@@ -5,21 +5,21 @@ Page({
     latitude: 23.099994,
     longitude: 113.324520,
     currenTime:[],
-    joint : [],
+
     joint_submit :[],
     radio_state_joint: 'false',
     radio_state_wps: 'false',
     wps_submit :[],
-    welder:[],
+    WelderNo:[],
     drawing_num:['10-CR-15001-B0CF3S-HT46-W_SHT2'],
     spool_num:['10-CR-15001-B0CF3S-HT46-W-02'],
-    /*
-    items: [
-      {value: '1', name: '1'},
-      {value: '2', name: '2', checked: 'false'},
-      {value: '3', name: 'FW-3'}
+    
+    joint: [
+      {value: '1', joint: '1'},
+      {value: '2', joint: '2', checked: 'false'},
+      {value: '3', joint: 'FW-3'}
     ],
-    */
+  
     wps: [
       {value: '1', name: 'CS-101',checked: 'true'},
       {value: '2', name: 'CS-301'},
@@ -49,7 +49,7 @@ Page({
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
-        WelderNo : this.data.welder,
+        WelderNo : this.data.WelderNo,
         Wps : this.data.wps_submit,
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
@@ -131,7 +131,7 @@ Page({
       this.setData({
         currenTime: currenTime,
         spool_num : spool,
-        welder : app.globalData.class_id,
+        WelderNo : app.globalData.WelderNo,
       });
   
       wx.request({
@@ -141,6 +141,7 @@ Page({
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
           var result = JSON.parse(res.data)
+          
           var data = result.Data
           var drawing = data[0].DrawingNo
           var lists = []
@@ -157,11 +158,11 @@ Page({
               lists.push(object)
 
           }
-        
+  
           this.setData({
           joint : lists,
           drawing_num : drawing,
-          spool_num : spool
+          spool_num : spool,
           }); 
         }, 
         });

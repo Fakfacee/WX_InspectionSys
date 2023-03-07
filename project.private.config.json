@@ -22,6 +22,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/main/user/user",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "主页面",
+          "pathName": "pages/main/main_page",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
