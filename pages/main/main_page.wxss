@@ -1,5 +1,5 @@
 /* pages/main/main_page.wxss */
-page{/*页面背景—————统一浅灰*/
+.page{/*页面背景—————统一浅灰*/
   background-color: #ededed;
 }
 .left-icon {
@@ -21,7 +21,7 @@ page{/*页面背景—————统一浅灰*/
   font-size: 17px;
   font-style: normal;
   font-weight: normal;
-  width: 68px;
+
   position: relative;
   left: 0px;
   display: flex;

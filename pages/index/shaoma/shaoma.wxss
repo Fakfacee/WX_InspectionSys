@@ -1,7 +1,19 @@
 /* pages/index/fit_shaoma.wxss */
-input{
-  border:1px solid #eee;
+.type_input_1{
+  border:1px solid #333333;
   margin: 5px;
   padding: 5px;
   border-radius: 3px;
+
   }
+.blank1{
+  height: 20px;
+
+  }
+.blank2{
+  height: 125px;
+}
+.window{
+display: flex;
+flex-direction: column;
+}

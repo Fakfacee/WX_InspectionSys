@@ -1,5 +1,5 @@
 {
-  "projectname": "Inspect_system",
+  "projectname": "WX_InspectionSys",
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": true,
@@ -33,6 +33,27 @@
         {
           "name": "主页面",
           "pathName": "pages/main/main_page",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "saoma",
+          "pathName": "pages/index/shaoma/shaoma",
+          "query": "active_type=fit_up",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "jianyan",
+          "pathName": "pages/index/inspect_fit/inspect_fit",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/inspect_fit/inspect_fit",
           "query": "",
           "launchMode": "default",
           "scene": null

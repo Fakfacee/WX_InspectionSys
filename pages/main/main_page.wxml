@@ -27,6 +27,7 @@
     </view>
   </view>
 </view>
+
 <!--间隔灰横条-->
 <view class="graydivide"></view>
 <view class='function'>
@@ -47,10 +48,12 @@
       <view class="left-icon"><!--图片-->
         <image class="icon-picture" src="../image/logo/fit_up.JPG"></image>
       </view>
-      <view class="text">组对报检</view><!--文字-->
+      <view class="text">组对信息提交</view><!--文字-->
     </view>
   </view>
 </view>
+
+
 <!--间隔灰横条-->
 <view class="graydivide"></view>
 <view class='function'>
@@ -59,8 +62,11 @@
       <view class="left-icon"><!--图片-->
         <image class="icon-picture" src="../image/logo/visual.webp"></image>
       </view>
-      <view class="text">外观报检</view><!--文字-->
+      <view class="text">焊接信息提交</view><!--文字-->
     </view>
   </view>
 </view>
+
+
+
 </view>

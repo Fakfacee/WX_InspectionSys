@@ -14,7 +14,7 @@ Page({
     var that = this
     wx.scanCode({
       success(res){
-        console.log(res.result)
+      
         //10-CR-15001-B0CF3S-HT46-W-02
         var spool_num = res.result
         // 扫码成功后  在此处理接下来的逻辑
@@ -48,8 +48,7 @@ Page({
       data:{value :'0',spool:that.spool},
       success:(res) =>{
         var result = JSON.parse(res.data)
-        console.log(result.Status)
-        console.log(result)
+        
       if (result.Status =='0') {
 
 //未查询到检验结果

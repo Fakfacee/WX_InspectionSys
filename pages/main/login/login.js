@@ -25,7 +25,7 @@ Page({
     if(this.data.phone.length == 0 || this.data.password.length == 0){ 
       wx.showToast({   
         title: '用户名和密码不能为空',   
-        icon: 'loading',   
+        icon: 'none',   
         duration: 2000   
       })   
 }else { 
@@ -40,14 +40,13 @@ Page({
     },
     success:(res) =>{
     var result = JSON.parse(res.data)
-    console.log('*****')
-    console.log(result)
+    
     //Status,UserId,Name,User_Identity,Contractor,Email,PhoneNo,PowerId,WelderNo
     if(result.Status =='0'){
     wx.showToast({
 
       title: '用户名不存在,请进行注册',   
-      icon: 'loading',   
+      icon: 'none',   
       duration: 2000   
       })   
     }else if(result.Status =='1'){
@@ -60,7 +59,7 @@ Page({
     app.globalData.class_id = result.PowerId,
     app.globalData.class_code = result.PowerId,
     app.globalData.WelderNo = result.WelderNo
-    console.log(result.WelderNo)
+    
     //result.UserId
     wx.switchTab({
    

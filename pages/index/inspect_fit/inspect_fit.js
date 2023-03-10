@@ -12,8 +12,8 @@ Page({
     radio_state_result: 'false',
     result_submit :[],
     people_qc:[],
-    drawing_num:['10-CR-15001-B0CF3S-HT46-W_SHT2'],
-    spool_num:['10-CR-15001-B0CF3S-HT46-W-02'],
+    drawing_num:'',
+    spool_num:'',
     result: [
       {value: '1', name: 'ACC',checked: 'true'},
       {value: '2', name: 'REJ'},
@@ -43,6 +43,7 @@ Page({
         welder : this.data.people_qc,
         wps : this.data.result_submit,
         weld_date : this.data.currenTime,
+        result :this.data.result_submit,
         longitude: this.data.longitude,
         latitude : this.data.latitude
       },
@@ -64,19 +65,21 @@ Page({
         people_qc:e.detail.value
       })
     },
-  //获取location信息
-    getCenterLocation: function () {
-        wx.getLocation({
-          type :'wsg84',
-          success:(res)=>{
-          console.log('11')
-          this.setData({
-            latitude: res.latitude,
-            longitude: res.longitude
-          });
-        }
-        });
-        },
+ getCenterLocation: function () {
+  wx.chooseLocation({
+    success: function (res) {
+      this.setData({
+        latitude: res.latitude,
+        longitude: res.longitude
+      }); 
+     },
+     fail: function () {
+     },
+     complete: function () {
+     }
+ })
+
+ },
 
    radioChange_joint:function(e){
     this.setData({
@@ -107,14 +110,13 @@ Page({
       });
   
       wx.request({
-
         url: app.globalData.url+'query_joint',
         method : 'POST',
         dataType : 'JSON',
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
           var result = JSON.parse(res.data)
-          var data = result.data
+          var data = result
           var drawing = data[0].DrawngNo
           var lists = []
   

@@ -5,14 +5,14 @@ Page({
     latitude: 23.099994,
     longitude: 113.324520,
     currenTime:[],
-
+    location_submit : [],
     joint_submit :[],
     radio_state_joint: 'false',
     radio_state_wps: 'false',
     wps_submit :[],
     WelderNo:[],
-    drawing_num:['10-CR-15001-B0CF3S-HT46-W_SHT2'],
-    spool_num:['10-CR-15001-B0CF3S-HT46-W-02'],
+    drawing_num:'',
+    spool_num:'',
     
     joint: [
       {value: '1', joint: '1'},
@@ -24,8 +24,8 @@ Page({
       {value: '1', name: 'CS-101',checked: 'true'},
       {value: '2', name: 'CS-301'},
       {value: '3', name: 'CS-102'}
-    ]
-
+    ],
+ 
   },
 
   submit(e) {
@@ -41,7 +41,7 @@ Page({
       })
     }
     wx.request({
-      url: app.globalData.url+'addweldinginfo',
+      url: app.globalData.url+'addzuduiinfo',
       method : 'POST',
       //data:that.spool_num,
       dataType : 'JSON',
@@ -53,7 +53,8 @@ Page({
         Wps : this.data.wps_submit,
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
-        Latitude : this.data.latitude
+        Latitude : this.data.latitude,
+        
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -73,40 +74,24 @@ Page({
       })
        
     },
+    
   //获取location信息
-    getCenterLocation: function () {
-
-      let that = this;
-      wx.getSetting({
-        success(res) {
-          if (res.authSetting['scope.userLocation'] == false){// 如果已拒绝授权，则打开设置页面
-            wx.openSetting({
-              success(res) {}
-            })
-          }  else { // 第一次授权，或者已授权，直接调用相关api
-            that.getMyLocation()
-          }
-        }
-      })
-        },
-        getMyLocation(){
-          wx.chooseAddress({
-            type: 'wgs84',
-            success:(res) =>{
-              console.log(res),
-              console.log(res.latitude),
-              this.setData({
-                latitude: res.latitude,
-                longitude: res.longitude
-                })
-            },
-            fail:(res)=>{
-            console.log(res)
-            console.log("获取失败")
-            }
-          })
-        },
-        
+    getCenterLocation: function (){
+      var that = this
+      wx.chooseLocation({
+        success: function (res) {
+          that.setData({
+            latitude: res.latitude,
+            longitude: res.longitude
+          });
+         },
+         fail: function () {
+         },
+         complete: function () {
+         }
+     })
+    
+    },
 
    radioChange_joint:function(e){
     this.setData({
@@ -119,8 +104,8 @@ Page({
         radio_state_wps : 'ture',
         wps_submit:e.detail.value
       })
-    },
-
+  },
+    
     onLoad: function (options) {
       var that = this.data;
       var spool = options.spool;
@@ -141,8 +126,7 @@ Page({
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
           var result = JSON.parse(res.data)
-          
-          var data = result.Data
+          var data = result
           var drawing = data[0].DrawingNo
           var lists = []
           //for 循环
@@ -158,7 +142,6 @@ Page({
               lists.push(object)
 
           }
-  
           this.setData({
           joint : lists,
           drawing_num : drawing,

@@ -101,8 +101,8 @@ Page({
       }else if(result.Status =='0'){
         console.log('erro')
         wx.showToast({   
-            title: '该手机号码已注册',   
-            icon: 'loading',   
+            title: '该手机号码已注册,请确认后重试', 
+            icon: 'none',  
             duration: 2000   
           })   
       }
@@ -110,7 +110,7 @@ Page({
       fail(res){
         wx.showToast({   
           title: '请求失败，请重试或与管理员取得联系',   
-          icon: 'loading',   
+          icon: 'none',
           duration: 2000   
         })  
 
