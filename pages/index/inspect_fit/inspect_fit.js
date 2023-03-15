@@ -1,27 +1,41 @@
-// pages/index/inspect_fit.js
-var app = getApp()
 var util = require('../../../util/util.js')
+var app = getApp()
 Page({
   data:{
     latitude: 23.099994,
     longitude: 113.324520,
     currenTime:[],
-    joint : [],
+    location_submit : [],
     joint_submit :[],
     radio_state_joint: 'false',
     radio_state_result: 'false',
+    radio_state_location: 'false',
     result_submit :[],
-    people_qc:[],
+    WelderNo:[],
     drawing_num:'',
     spool_num:'',
+    
+    joint: [
+      {value: '1', joint: '1',checked: 'true'},
+      {value: '2', joint: '2'},
+      {value: '3', joint: 'FW-3'}
+    ],
+  
     result: [
       {value: '1', name: 'ACC',checked: 'true'},
       {value: '2', name: 'REJ'},
-    ]
+    ],
+
+    location: [
+      {value: '1', name: '配套车间',checked: 'true'},
+      {value: '2', name: '三号堆场'},
+      {value: '3', name: '总装场地'}
+    ],
+
   },
 
   submit(e) {
-    //指代到下一级
+    //radiochange函数默认未选取时，状态取第一位
     if(this.data.radio_state_joint ==='false'){
     this.setData({
     joint_submit : this.data.joint[0].joint
@@ -29,57 +43,66 @@ Page({
   }
     if(this.data.radio_state_result ==='false'){
       this.setData({
-      result_submit : this.data.result[0].name
+      wps_submit : this.data.result[0].name
+      })
+    }
+    if(this.data.radio_state_location ==='false'){
+      this.setData({
+      wps_submit : this.data.location[0].name
       })
     }
     wx.request({
-      url: app.globalData.url+'insert_inspect_fit', //仅为示例，并非真实的接口地址
+      url: app.globalData.url+'zuduiinspectionrequest',
       method : 'POST',
       //data:that.spool_num,
       dataType : 'JSON',
       data: {
-        joint: this.data.joint_submit,
-        drawing: this.data.drawing_num,
-        welder : this.data.people_qc,
-        wps : this.data.result_submit,
-        weld_date : this.data.currenTime,
-        result :this.data.result_submit,
-        longitude: this.data.longitude,
-        latitude : this.data.latitude
+        WeldNo: this.data.joint_submit,
+        DrawingNo: this.data.drawing_num,
+        PipeNo:this.data.spool_num,
+        WelderNo : this.data.WelderNo,
+        Result : this.data.result_submit,
+        WeldDate : this.data.currenTime,
+        Longitude: this.data.longitude,
+        Latitude : this.data.latitude,
+        Location : this.data.location_submit
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success (res) {
-        //console.log(res.data)
-          wx.navigateTo({
-            url: '../../main/success/up_success',
-            })
+        wx.navigateTo({
+        url: '../../main/success/up_success',
+      })
       }
     })
   },
 
-
+  //获取焊工信息
    get_text: function(e){
       this.setData({
-        people_qc:e.detail.value
+        welder:e.detail.value
       })
+       
     },
- getCenterLocation: function () {
-  wx.chooseLocation({
-    success: function (res) {
-      this.setData({
-        latitude: res.latitude,
-        longitude: res.longitude
-      }); 
-     },
-     fail: function () {
-     },
-     complete: function () {
-     }
- })
-
- },
+    
+  //获取location信息
+    getCenterLocation: function (){
+      var that = this
+      wx.chooseLocation({
+        success: function (res) {
+          that.setData({
+            latitude: res.latitude,
+            longitude: res.longitude
+          });
+         },
+         fail: function () {
+         },
+         complete: function () {
+         }
+     })
+    
+    },
 
    radioChange_joint:function(e){
     this.setData({
@@ -92,10 +115,15 @@ Page({
         radio_state_result : 'ture',
         result_submit:e.detail.value
       })
-    },
-
+  },
+  radioChange_location(e){
+    this.setData({
+      radio_state_location : 'ture',
+      location_submit:e.detail.value
+    })
+},
+    
     onLoad: function (options) {
-
       var that = this.data;
       var spool = options.spool;
       //var array = JSON.parse(options.spool);
@@ -105,38 +133,40 @@ Page({
       this.setData({
         currenTime: currenTime,
         spool_num : spool,
-        //获取QC信息
-        welder : app.globalData.class_id,
+        WelderNo : app.globalData.WelderNo,
       });
   
       wx.request({
-        url: app.globalData.url+'query_joint',
+        url: app.globalData.url+'searchallweldbypipe',
         method : 'POST',
         dataType : 'JSON',
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
           var result = JSON.parse(res.data)
           var data = result
-          var drawing = data[0].DrawngNo
+          var drawing = data[0].DrawingNo
           var lists = []
-  
-          for(let i = 0;i<Object.keys(joint).length;i++)
+          //for 循环
+
+          for(let i = 0;i<Object.keys(data).length;i++)
           {
-           var object = new Object()
-           object.value = i
-           object.joint = data[i].WeldNo
-           if(i ==0){
-           object.checked = 'true'
-           }
-           lists.push(object)
+            var object = new Object()
+            object.value = i
+            object.joint = data[i].WeldNo
+            if(i ==0){
+              object.checked = 'true'
+              }
+              lists.push(object)
+
           }
           this.setData({
           joint : lists,
           drawing_num : drawing,
+          spool_num : spool,
           }); 
+        
         }, 
         });
-
     },
     //地图函数，待完善
     onReady: function (e) {

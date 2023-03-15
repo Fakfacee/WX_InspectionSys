@@ -48,7 +48,7 @@ Page({
       data:{value :'0',spool:that.spool},
       success:(res) =>{
         var result = JSON.parse(res.data)
-        
+    
       if (result.Status =='0') {
 
 //未查询到检验结果

@@ -25,7 +25,13 @@ Page({
       {value: '2', name: 'CS-301'},
       {value: '3', name: 'CS-102'}
     ],
- 
+    location: [
+      {value: '1', name: '配套车间',checked: 'true'},
+      {value: '2', name: '三号堆场'},
+      {value: '3', name: '总装场地'}
+    ],
+
+
   },
 
   submit(e) {
@@ -40,6 +46,13 @@ Page({
       wps_submit : this.data.wps[0].name
       })
     }
+
+    if(this.data.radio_state_location ==='false'){
+      this.setData({
+      wps_submit : this.data.location[0].name
+      })
+    }
+    
     wx.request({
       url: app.globalData.url+'addzuduiinfo',
       method : 'POST',
@@ -54,7 +67,7 @@ Page({
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
         Latitude : this.data.latitude,
-        
+        location : this.data.location_submit
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -105,7 +118,14 @@ Page({
         wps_submit:e.detail.value
       })
   },
-    
+    radioChange_location(e){
+      this.setData({
+        radio_state_location : 'ture',
+        location_submit:e.detail.value
+    })
+},
+
+
     onLoad: function (options) {
       var that = this.data;
       var spool = options.spool;
