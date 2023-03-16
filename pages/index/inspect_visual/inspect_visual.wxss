@@ -1,5 +1,4 @@
 /* pages/index/inspect_fit.wxss */
-
 .label-1, .label-2{
   margin: 30rpx 0;
 }

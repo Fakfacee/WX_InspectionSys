@@ -10,9 +10,9 @@ class_id : [''],
 openid : [''],
 WelderNo : [''],
 //上线测试
-//url : ['https://cyhdl1ttleyuming.cn/wx/'],
+url : ['https://cyhdl1ttleyuming.cn/wx/'],
 //本地测试
-url : ['http://127.0.0.1:8080/wx/'],
+//url : ['http://127.0.0.1:5000/wx/'],
 },
   onLaunch: function () {
   }

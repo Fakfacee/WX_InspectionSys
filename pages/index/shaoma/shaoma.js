@@ -7,10 +7,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-  active_type : ['fit_up'],
+  active_type : [''],
   spool : [],
   },
   scanCodeEvent: function(){
+    //增加扫码清除文本框内容功能
+
+
     var that = this
     wx.scanCode({
       success(res){
@@ -18,6 +21,7 @@ Page({
         //10-CR-15001-B0CF3S-HT46-W-02
         var spool_num = res.result
         // 扫码成功后  在此处理接下来的逻辑
+
         that.setData({
           spool: spool_num
         })

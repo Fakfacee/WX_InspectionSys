@@ -2,8 +2,8 @@ var util = require('../../../util/util.js')
 var app = getApp()
 Page({
   data:{
-    latitude: 23.099994,
-    longitude: 113.324520,
+    latitude: '',
+    longitude: '',
     currenTime:[],
     location_submit : [],
     joint_submit :[],
@@ -15,9 +15,6 @@ Page({
     spool_num:'',
     
     joint: [
-      {value: '1', joint: '1'},
-      {value: '2', joint: '2', checked: 'false'},
-      {value: '3', joint: 'FW-3'}
     ],
   
     wps: [

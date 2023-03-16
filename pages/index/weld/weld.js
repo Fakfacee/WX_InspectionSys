@@ -2,26 +2,34 @@ var util = require('../../../util/util.js')
 var app = getApp()
 Page({
   data:{
-    latitude: 23.099994,
-    longitude: 113.324520,
+    latitude:'' ,
+    longitude: '',
     currenTime:[],
-    joint : [],
+    location_submit : [],
     joint_submit :[],
     radio_state_joint: 'false',
     radio_state_wps: 'false',
     wps_submit :[],
-    welder:[],
-    drawing_num:['10-CR-15001-B0CF3S-HT46-W_SHT2'],
-    spool_num:['10-CR-15001-B0CF3S-HT46-W-02'],
-
+    WelderNo:[],
+    drawing_num:'',
+    spool_num:'',
+    
+    joint: [
+    ],
+  
     wps: [
       {value: '1', name: 'CS-101',checked: 'true'},
       {value: '2', name: 'CS-301'},
       {value: '3', name: 'CS-102'}
-    ]
+    ],
+    location: [
+      {value: '1', name: '配套车间',checked: 'true'},
+      {value: '2', name: '三号堆场'},
+      {value: '3', name: '总装场地'}
+    ],
+
 
   },
-
 
   submit(e) {
     //指代到下一级
@@ -35,27 +43,36 @@ Page({
       wps_submit : this.data.wps[0].name
       })
     }
+
+    if(this.data.radio_state_location ==='false'){
+      this.setData({
+      wps_submit : this.data.location[0].name
+      })
+    }
+    
     wx.request({
-      url: app.globalData.url+'insert_welder', //仅为示例，并非真实的接口地址
+      url: app.globalData.url+'addweldinginfo',
       method : 'POST',
       //data:that.spool_num,
       dataType : 'JSON',
       data: {
-        joint: this.data.joint_submit,
-        drawing: this.data.drawing_num,
-        welder : this.data.welder,
-        wps : this.data.wps_submit,
-        weld_date : this.data.currenTime,
-        longitude: this.data.longitude,
-        latitude : this.data.latitude
+        WeldNo: this.data.joint_submit,
+        DrawingNo: this.data.drawing_num,
+        PipeNo:this.data.spool_num,
+        WelderNo : this.data.WelderNo,
+        Wps : this.data.wps_submit,
+        WeldDate : this.data.currenTime,
+        Longitude: this.data.longitude,
+        Latitude : this.data.latitude,
+        location : this.data.location_submit
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success (res) {
         wx.navigateTo({
-          url: '../../main/success/up_success',
-        })
+        url: '../../main/success/up_success',
+      })
       }
     })
   },
@@ -67,19 +84,24 @@ Page({
       })
        
     },
+    
   //获取location信息
-    getCenterLocation: function () {
-        wx.getLocation({
-          type :'wsg84',
-          success:(res)=>{
-          console.log('11')
-          this.setData({
+    getCenterLocation: function (){
+      var that = this
+      wx.chooseLocation({
+        success: function (res) {
+          that.setData({
             latitude: res.latitude,
             longitude: res.longitude
           });
-        }
-        });
-        },
+         },
+         fail: function () {
+         },
+         complete: function () {
+         }
+     })
+    
+    },
 
    radioChange_joint:function(e){
     this.setData({
@@ -92,7 +114,14 @@ Page({
         radio_state_wps : 'ture',
         wps_submit:e.detail.value
       })
-    },
+  },
+    radioChange_location(e){
+      this.setData({
+        radio_state_location : 'ture',
+        location_submit:e.detail.value
+    })
+},
+
 
     onLoad: function (options) {
       var that = this.data;
@@ -104,7 +133,7 @@ Page({
       this.setData({
         currenTime: currenTime,
         spool_num : spool,
-        welder : app.globalData.class_id,
+        WelderNo : app.globalData.WelderNo,
       });
   
       wx.request({
@@ -114,7 +143,7 @@ Page({
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
           var result = JSON.parse(res.data)
-          var data = result.Data
+          var data = result
           var drawing = data[0].DrawingNo
           var lists = []
           //for 循环
@@ -130,15 +159,13 @@ Page({
               lists.push(object)
 
           }
-        
           this.setData({
           joint : lists,
           drawing_num : drawing,
-          spool_num : spool
+          spool_num : spool,
           }); 
         }, 
         });
-
     },
     //地图函数，待完善
     onReady: function (e) {

@@ -1,13 +1,15 @@
 <!--pages/index/fit_shaoma.wxml-->
 <view class = 'window'>
-<view class = 'text'>请扫码选择单管或手动输入</view>
+<view class = 'spool'>请扫码选择单管或手动输入</view>
 <view class="blank1"></view>
 <button bindtap="scanCodeEvent">扫码</button>
 <view class="blank1"></view>
 <!--
 <button bindtap="to_hand_write">手动输入</button>
 -->
-<input class ="type_input_1" bindinput="get_text" placeholder ="{{spool}}"></input>
+<input class ="type_input_1" bindinput="get_text" placeholder="手动输入框"></input>
+<text class = 'spool' >单管号：{{spool}}</text>
+
 <view class="blank2"></view>
 <button type="primary" bindtap="submit">提交</button>
 </view>

@@ -27,6 +27,15 @@
         </view>
       </radio-group>
 </view>
+
+
+<view class = "grayLine"></view>
+<view class="text">焊工号:</view>
+<view class="text">{{WelderNo}}</view>
+<view class = "grayLine"></view>
+<view class="text">焊接日期:</view>
+<input type ="type_input_1" bindinput="get_text" placeholder ="{{currenTime}}"></input>
+
 <view class = "grayLine"></view>
 <view class="page-section page-section-gap">
       <view class="page-section-title">位置选择</view>
@@ -37,15 +46,6 @@
         </view>
       </radio-group>
 </view>
-
-
-<view class = "grayLine"></view>
-<view class="text">焊工号:</view>
-<view class="text">{{WelderNo}}</view>
-<view class = "grayLine"></view>
-<view class="text">焊接日期:</view>
-<input type ="type_input_1" bindinput="get_text" placeholder ="{{currenTime}}"></input>
-
 <view class = "grayLine"></view>
 <view class="text">地点:</view>
 <button bindtap="getCenterLocation" class="page-body-button" type="primary">获取位置</button>
