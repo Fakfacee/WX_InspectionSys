@@ -88,7 +88,20 @@ Page({
           url: '../inspect_visual/inspect_visual?spool='+that.spool,
       
           }); 
+      }else if(that.active_type == 'fitInspect'){
+        wx.navigateTo({
+
+          url: '../fitInspectApply/fitInspectApply?spool='+that.spool,
+
+      })
+      }else if(that.active_type == 'weldInspect'){
+        wx.navigateTo({
+
+          url: '../weldInspectApply/weldInspectApply?spool='+that.spool,
+
+      })
       }
+
     }
       
       },

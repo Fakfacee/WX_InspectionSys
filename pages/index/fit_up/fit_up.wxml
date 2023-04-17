@@ -10,7 +10,7 @@
 <view class="page-section page-section-gap">
       <view class="page-section-title">焊口号：</view>
       <radio-group class="group" bindchange="radioChange_joint">
-        <view class="label-2" wx:for="{{joint}}">
+        <view class="label-2" wx:for="{{joint}}" wx:key = "value">
           <radio value="{{item.joint}}" checked="{{item.checked}}"></radio>
           <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
         </view>
@@ -21,7 +21,7 @@
 <view class="page-section page-section-gap">
       <view class="page-section-title">使用工艺</view>
       <radio-group class="group" bindchange="radioChange_wps">
-        <view class="label-2" wx:for="{{wps}}">
+        <view class="label-2" wx:for="{{wps}}" wx:key = "value">
           <radio id="{{item.name}}" value="{{item.name}}" checked="{{item.checked}}"></radio>
           <label class="label-2-text" for="{{item.name}}"><text>{{item.name}}</text></label>
         </view>
@@ -40,18 +40,19 @@
 <view class="page-section page-section-gap">
       <view class="page-section-title">位置选择</view>
       <radio-group class="group" bindchange="radioChange_location">
-        <view class="label-2" wx:for="{{location}}">
+        <view class="label-2" wx:for="{{location}}" wx:key = "value">
           <radio id="{{item.name}}" value="{{item.name}}" checked="{{item.checked}}"></radio>
           <label class="label-2-text" for="{{item.name}}"><text>{{item.name}}</text></label>
         </view>
       </radio-group>
 </view>
+<!--
 <view class = "grayLine"></view>
 <view class="text">地点:</view>
 <button bindtap="getCenterLocation" class="page-body-button" type="primary">获取位置</button>
 <view class="blanke"></view>
 <view class="text">经度：{{latitude}}</view>
 <view class="text">维度：{{longitude}}</view>
-
+-->
 <button type="primary" bindtap="submit">提交
 </button>

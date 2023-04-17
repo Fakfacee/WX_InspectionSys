@@ -48,7 +48,7 @@ Page({
     }
     if(this.data.radio_state_location ==='false'){
       this.setData({
-      wps_submit : this.data.location[0].name
+      location_submit : this.data.location[0].name
       })
     }
     wx.request({

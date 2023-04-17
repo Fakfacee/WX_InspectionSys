@@ -39,36 +39,57 @@ Page({
     strPwd:this.data.password
     },
     success:(res) =>{
-    var result = JSON.parse(res.data)
-    
-    //Status,UserId,Name,User_Identity,Contractor,Email,PhoneNo,PowerId,WelderNo
-    if(result.Status =='0'){
-    wx.showToast({
+    console.log(res)
+    try {
+      var result = JSON.parse(res.data)
+      console.log(result.Status)
+      //Status,UserId,Name,User_Identity,Contractor,Email,PhoneNo,PowerId,WelderNo
+      if(result.Status == '0'){
+        
+        wx.showToast({
 
-      title: '用户名不存在,请进行注册',   
-      icon: 'none',   
-      duration: 2000   
-      })   
-    }else if(result.Status =='1'){
-    //姓名
+          title: '用户名不存在,请进行注册',   
+          icon: 'none',   
+          duration: 2000   
+          })   
+      }else if(result.Status =='1'){
+      //姓名
+  
+      app.globalData.name = result.Name,
+      //承包商
+      app.globalData.subcontractor =  result.Contractor,
+      app.globalData.class = result.User_Identity,
+      app.globalData.class_id = result.PowerId,
+      app.globalData.class_code = result.PowerId,
+      app.globalData.WelderNo = result.WelderNo
+      
+      //result.UserId
+      wx.switchTab({
+     
+        url: '/pages/main/main_page',
+      })
+      }
+    }catch(Exception){
+      wx.showToast({
 
-    app.globalData.name = result.Name,
-    //承包商
-    app.globalData.subcontractor =  result.Contractor,
-    app.globalData.class = result.User_Identity,
-    app.globalData.class_id = result.PowerId,
-    app.globalData.class_code = result.PowerId,
-    app.globalData.WelderNo = result.WelderNo
-    
-    //result.UserId
-    wx.switchTab({
-   
-      url: '/pages/main/main_page',
-    })
+        title: '与服务器连接失败，请重新尝试',   
+        icon: 'none',   
+        duration: 2000   
+        }) 
 
     }
+    
+    },
+    fail:function(){
+      
+      wx.showToast({
 
-    }
+        title: '无法连接服务器',   
+        icon: 'none',   
+        duration: 2000   
+        }) 
+
+      }
   })
 
      
@@ -82,7 +103,34 @@ Page({
   },
 
 onLoad: function (options){
- 
+  const updateManager = wx.getUpdateManager()
+  updateManager.onCheckForUpdate(function (res) {
+    // 请求完新版本信息的回调
+    console.log(res.hasUpdate)
+  })
+  updateManager.onUpdateReady(function () {
+    wx.showModal({
+      title: '更新提示',
+      content: '新版本已经准备好，是否重启应用？',
+      success: function (res) {
+        if (res.confirm) {
+          // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+          updateManager.applyUpdate()
+        }
+      }
+    })
+  })
+  updateManager.onUpdateFailed(function () {
+
+    
+    // 新版本下载失败
+  })
+
+  this.setData({ 
+    phone: wx.getStorageSync('phone'),
+    password : wx.getStorageSync('password')
+  }) 
+/** 
   wx.request({
     url: app.globalData.url+'login',
     method : 'POST',
@@ -93,8 +141,7 @@ onLoad: function (options){
     },
     success:(res) =>{
     var result = JSON.parse(res.data)
-    console.log('success')
-    console.log(result.Status)
+   
     if(result.Status =='0'){
     wx.showToast({
 
@@ -110,6 +157,7 @@ onLoad: function (options){
     app.globalData.class = result.User_Identity,
     app.globalData.WelderNo = result.WelderNo,
     app.globalData.class_code = result.PowerId,
+    app.globalData.UserId = result.UserId
     //result.UserId
     wx.switchTab({
    
@@ -118,7 +166,8 @@ onLoad: function (options){
 
     }
     },
-    fail:(res) =>{
+    fail:function()
+    { 
     
       wx.showToast({
 
@@ -129,6 +178,7 @@ onLoad: function (options){
 
     }
   })
+  */
 }
 
 })

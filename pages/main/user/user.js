@@ -7,23 +7,25 @@ data:{
   usr_class : [],
   class_id : [],
   WelderNo :[],
+  UserId:[],
 },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    console.log(app.globalData.subcontractor),
+   
     this.setData({
       user_name : app.globalData.name,
       subcontractor : app.globalData.subcontractor,
       usr_class : app.globalData.class,
       WelderNo : app.globalData.WelderNo,
+      UserId : app.globalData.UserId,
       class_id : app.globalData.class_id,
     })
  
   },
   logOut: function() {
-    console.log('登出')
+
     wx.removeStorage({
       key: 'password',
       key: 'phone',

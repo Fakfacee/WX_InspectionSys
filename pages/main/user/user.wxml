@@ -34,8 +34,8 @@
 <view class='function'>
   <view style="width:100%">
     <view class="functioninformation" ><!--左边图片&文字-->
-      <view class="text">焊工号</view><!--文字-->
-      <view class="right-text">{{WelderNo}}</view><!--文字-->
+      <view class="text">工号</view><!--文字-->
+      <view class="right-text">{{UserId}}</view><!--文字-->
     </view>
   </view>
 </view>

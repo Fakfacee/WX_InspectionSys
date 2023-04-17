@@ -9,6 +9,7 @@ Page({
     joint_submit :[],
     radio_state_joint: 'false',
     radio_state_wps: 'false',
+    radio_state_location: 'false',
     wps_submit :[],
     WelderNo:[],
     drawing_num:'',
@@ -46,7 +47,7 @@ Page({
 
     if(this.data.radio_state_location ==='false'){
       this.setData({
-      wps_submit : this.data.location[0].name
+      location_submit : this.data.location[0].name
       })
     }
     
@@ -64,8 +65,9 @@ Page({
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
         Latitude : this.data.latitude,
-        location : this.data.location_submit
+        Location : this.data.location_submit
       },
+      
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -75,6 +77,7 @@ Page({
       })
       }
     })
+    
   },
 
   //获取焊工信息

@@ -27,7 +27,6 @@
     </view>
   </view>
 </view>
-
 <!--间隔灰横条-->
 <view class="graydivide"></view>
 <view class='function'>
@@ -40,7 +39,35 @@
     </view>
   </view>
 </view>
+
+<!--间隔灰横条-->
+<view class="graydivide"></view>
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" bindtap="jump2fitInspect"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="../image/logo/visual.webp"></image>
+      </view>
+      <view class="text">组对检验单</view><!--文字-->
+    </view>
+  </view>
 </view>
+
+<!--间隔灰横条-->
+<view class="graydivide"></view>
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" bindtap="jump2weldInspect"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="../image/logo/visual.webp"></image>
+      </view>
+      <view class="text">外观检验单</view><!--文字-->
+    </view>
+  </view>
+</view>
+
+</view>
+
 <view wx:if="{{class_code === 3 || class_code === 0}}">
 <view class='function'>
   <view style="width:100%">
@@ -67,6 +94,6 @@
   </view>
 </view>
 
-
-
 </view>
+
+

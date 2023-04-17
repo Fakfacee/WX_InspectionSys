@@ -9,6 +9,7 @@ class_code : 2,
 class_id : [''],
 openid : [''],
 WelderNo : [''],
+UserId : [''],
 //上线测试
 url : ['https://cyhdl1ttleyuming.cn/wx/'],
 //本地测试

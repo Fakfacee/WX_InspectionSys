@@ -1,1 +1,15 @@
 /* pages/index/up_success.wxss */
+.text-imf{
+padding: 50px 25px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-size: larger;
+
+}
+.blanke{
+height: 140x;
+width: 100%;
+
+}

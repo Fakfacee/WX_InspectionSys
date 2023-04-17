@@ -7,8 +7,8 @@
 <!--
 <button bindtap="to_hand_write">手动输入</button>
 -->
-<input class ="type_input_1" bindinput="get_text" placeholder="手动输入框"></input>
-<text class = 'spool' >单管号：{{spool}}</text>
+<input class ="type_input_1" bindinput="get_text" placeholder="单管号" value = "{{spool}}"></input>
+
 
 <view class="blank2"></view>
 <button type="primary" bindtap="submit">提交</button>

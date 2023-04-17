@@ -12,6 +12,7 @@ Page({
     radio_state_location: 'false',
     result_submit :[],
     WelderNo:[],
+    UserId : [],
     drawing_num:'',
     spool_num:'',
     
@@ -23,7 +24,7 @@ Page({
   
     result: [
       {value: '1', name: 'ACC',checked: 'true'},
-      {value: '2', name: 'REJ'},
+      {value: '0', name: 'REJ'},
     ],
 
     location: [
@@ -43,12 +44,12 @@ Page({
   }
     if(this.data.radio_state_result ==='false'){
       this.setData({
-      wps_submit : this.data.result[0].name
+      wps_submit : this.data.result[0].value
       })
     }
     if(this.data.radio_state_location ==='false'){
       this.setData({
-      wps_submit : this.data.location[0].name
+      location_submit : this.data.location[0].name
       })
     }
     wx.request({
@@ -60,7 +61,8 @@ Page({
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
-        WelderNo : this.data.WelderNo,
+        UserId : this.data.UserId,
+      
         Result : this.data.result_submit,
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
@@ -105,12 +107,15 @@ Page({
     },
 
    radioChange_joint:function(e){
+    
     this.setData({
     radio_state_joint : 'ture',
     joint_submit : e.detail.value
+    
     })
   },
     radioChange_result(e){
+      console.log(e.detail.value)
       this.setData({
         radio_state_result : 'ture',
         result_submit:e.detail.value
@@ -134,6 +139,7 @@ Page({
         currenTime: currenTime,
         spool_num : spool,
         WelderNo : app.globalData.WelderNo,
+        UserId : app.globalData.UserId,
       });
   
       wx.request({

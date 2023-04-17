@@ -12,8 +12,8 @@
     <view class="inputView"> 
       <image class="nameImage" src="/pages/image/name.png"></image> 
       <label class="loginLab">账号</label> 
-      <input class="inputText" placeholder="请输入账号" 
-bindinput="phoneInput" /> 
+      <input class="inputText" placeholder="请输入手机号" value="{{phone}}"
+bindinput="phoneInput" />
     </view> 
     <view class="line"></view> 
  
@@ -21,7 +21,7 @@ bindinput="phoneInput" />
     <view class="inputView"> 
       <image class="keyImage" src="/pages/image/key.png"></image> 
       <label class="loginLab">密码</label> 
-      <input class="inputText" password="true" placeholder="请输入密码" bindinput="passwordInput" /> 
+      <input class="inputText" password="true" placeholder="请输入密码" value="{{password}}"bindinput="passwordInput" /> 
     </view> 
  
     <!--按钮--> 

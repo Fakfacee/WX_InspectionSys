@@ -6,7 +6,7 @@ Page({
    */
   data: {
   //QC-1,WELDER-2,AUTHOR-0
-  class_code : 2,
+  class_code : null,
 },
 
   jump2fitup(e){
@@ -21,10 +21,17 @@ Page({
       url: '../index/shaoma/shaoma?active_type='+active_type,
     }) 
    },
-   jump2inspect_fit(e){
-    var active_type = 'inspect_fit'
+   jump2fitInspect(e){
+  
     wx.navigateTo({
-      url: '../index/shaoma/shaoma?active_type='+active_type,
+      url : '../index/inspectFitList/inspectFitList'
+    }) 
+   },
+
+   jump2weldInspect(e){
+    
+    wx.navigateTo({
+      url : '../index/inspectWeldList/inspectWeldList'
     }) 
    },
    jump2inspect_visual(e){

@@ -1,4 +1,5 @@
 <!--pages/index/up_success.wxml-->
-<text>提交成功</text>
+<text class = 'text-imf'>提交成功</text>
+<view class="blanke"></view>
 <button type="primary" bindtap="submit">继续提交
 </button>
