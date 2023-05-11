@@ -15,7 +15,7 @@ Page({
     id: [
       {value: '3', id: '焊工',checked: 'true'},
       {value: '2', id: 'QC'},
-      {value: '1', id: '车间管理人员'}
+      {value: '1', id: '管理员'}
     ]
 
   },

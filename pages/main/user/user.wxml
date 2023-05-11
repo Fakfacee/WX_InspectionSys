@@ -1,5 +1,7 @@
 <!--pages/main/user/user.wxml-->
 <view class="top_box">
+   <image src="/pages/image/titleUser.jpg" class = "titleUser"/>
+
 </view>
 
 <view class="graydivide"></view>

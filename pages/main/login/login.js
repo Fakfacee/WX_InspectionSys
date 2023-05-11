@@ -2,7 +2,12 @@ var app = getApp()
 Page({ 
   data: { 
     phone: '', 
-    password:'' 
+    password:'' ,
+    movies:[
+      {url:'/pages/image/Login1.jpg'},
+      {url:'/pages/image/Login2.jpg'},
+      {url:'/pages/image/Login3.jpeg'},
+      ]
   }, 
  
 // 获取输入账号 

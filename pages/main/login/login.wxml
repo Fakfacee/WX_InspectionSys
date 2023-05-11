@@ -1,18 +1,22 @@
+
 <view class="container"> 
   <view class="blanke"></view>
-
-  <view class = 'title'>
-   <text class = 'text_title'>欢迎使用</text>
-   <text class = 'text_title'>报检信息系统</text>
-  </view>
-
+  <swiper class = "swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+    <block wx:for="{{movies}}" wx:for-index= "index">
+      <swiper-item>
+         
+         <image src = "{{item.url}}" class = "slide-image" mode="aspectFill"/>
+    
+      </swiper-item>
+    </block>
+  </swiper>   
   <view class="login-from"> 
  
     <!--账号--> 
     <view class="inputView"> 
       <image class="nameImage" src="/pages/image/name.png"></image> 
       <label class="loginLab">账号</label> 
-      <input class="inputText" placeholder="请输入手机号" value="{{phone}}"
+      <input class="inputText" placeholder="" value="{{phone}}"
 bindinput="phoneInput" />
     </view> 
     <view class="line"></view> 
@@ -26,12 +30,11 @@ bindinput="phoneInput" />
  
     <!--按钮--> 
     <view class="loginBtnView"> 
-      <button class="loginBtn" type="primary" size="{{primarySize}}" 
-loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" 
+      <button class="loginBtn"  size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" 
 bindtap="login">登录</button> 
     </view> 
     <view class="loginBtnView"> 
-      <button class="loginBtn" type="primary" size="{{primarySize}}" 
+      <button class="loginBtn" size="{{primarySize}}" 
 loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" 
 bindtap="registe">注册</button> 
     </view> 

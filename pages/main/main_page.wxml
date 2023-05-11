@@ -14,6 +14,8 @@
        <view class = "main_text-imf">请选择所需功能</view>
     </view>
 </view>
+
+<view class="funcBox">
 <!--间隔灰横条-->
 <view class="graydivide"></view>
 <view wx:if="{{ class_code === 2 || class_code === 0}}">
@@ -24,6 +26,9 @@
         <image class="icon-picture" src="../image/logo/fit_up.JPG"></image>
       </view>
       <view class="text">组对检验</view><!--文字-->
+      <view class="right-icon">
+        <image class="icon-picture" src="/pages/image/箭头.png"></image>
+      </view>
     </view>
   </view>
 </view>
@@ -33,38 +38,16 @@
   <view style="width:100%">
     <view class="functioninformation" bindtap="jump2inspect_visual"><!--左边图片&文字-->
       <view class="left-icon"><!--图片-->
-        <image class="icon-picture" src="../image/logo/visual.webp"></image>
+        <image class="icon-picture" src="../image/logo/weld.PNG"></image>
       </view>
       <view class="text">外观检验</view><!--文字-->
+      <view class="right-icon">
+        <image class="icon-picture" src="/pages/image/箭头.png"></image>
+      </view>
     </view>
   </view>
 </view>
 
-<!--间隔灰横条-->
-<view class="graydivide"></view>
-<view class='function'>
-  <view style="width:100%">
-    <view class="functioninformation" bindtap="jump2fitInspect"><!--左边图片&文字-->
-      <view class="left-icon"><!--图片-->
-        <image class="icon-picture" src="../image/logo/visual.webp"></image>
-      </view>
-      <view class="text">组对检验单</view><!--文字-->
-    </view>
-  </view>
-</view>
-
-<!--间隔灰横条-->
-<view class="graydivide"></view>
-<view class='function'>
-  <view style="width:100%">
-    <view class="functioninformation" bindtap="jump2weldInspect"><!--左边图片&文字-->
-      <view class="left-icon"><!--图片-->
-        <image class="icon-picture" src="../image/logo/visual.webp"></image>
-      </view>
-      <view class="text">外观检验单</view><!--文字-->
-    </view>
-  </view>
-</view>
 
 </view>
 
@@ -76,6 +59,9 @@
         <image class="icon-picture" src="../image/logo/fit_up.JPG"></image>
       </view>
       <view class="text">组对信息提交</view><!--文字-->
+      <view class="right-icon">
+        <image class="icon-picture" src="/pages/image/箭头.png"></image>
+      </view>
     </view>
   </view>
 </view>
@@ -87,13 +73,16 @@
   <view style="width:100%">
     <view class="functioninformation" bindtap="jump2weld"><!--左边图片&文字-->
       <view class="left-icon"><!--图片-->
-        <image class="icon-picture" src="../image/logo/visual.webp"></image>
+        <image class="icon-picture" src="../image/logo/weld.PNG"></image>
       </view>
       <view class="text">焊接信息提交</view><!--文字-->
+      <view class="right-icon">
+        <image class="icon-picture" src="/pages/image/箭头.png"></image>
+      </view>
     </view>
   </view>
 </view>
 
 </view>
-
+</view>
 

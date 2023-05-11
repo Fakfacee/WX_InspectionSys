@@ -19,7 +19,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "black"
   },
   "permission": {
@@ -31,18 +31,20 @@
     "chooseLocation"
   ],
   "tabBar": {
+    "selectedColor": "#4FA4AD",
+    "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/main/main_page",
         "text": "功能页面",
-        "selectedIconPath": "/pages/image/logo/home_1.png",
-        "iconPath": "/pages/image/logo/home_1.png"
+        "selectedIconPath": "/pages/image/homFucUnSelect.png",
+        "iconPath": "/pages/image/homFucSelect.png"
       },
       {
         "pagePath": "pages/main/user/user",
         "text": "用户中心",
-        "selectedIconPath": "/pages/image/logo/user_1.png",
-        "iconPath": "/pages/image/logo/user_1.png"
+        "selectedIconPath": "/pages/image/userSelect.png",
+        "iconPath": "/pages/image/userUnSelect.png"
       }
     ]
   },

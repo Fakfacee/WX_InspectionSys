@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText": "检验小程序",
+  "navigationBarTitleText": "报检及管段追踪系统",
+  "navigationBarBackgroundColor":"#4FA4AD",
+  "backgroundTextStyle": "light",
   "usingComponents": {}
+
 }

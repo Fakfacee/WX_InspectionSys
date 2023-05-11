@@ -8,6 +8,10 @@ page{/*页面背景—————统一浅灰*/
   width: 100%;
   height: 120px;
 }
+.titleUser{
+width: 100%;
+height: 100%;
+}
 
 .text {/*文字*/
   font-size: 20px;
@@ -16,7 +20,7 @@ page{/*页面背景—————统一浅灰*/
   width: 80px;
   height: 40px;
   position: relative;
-  left: 0px;
+  left: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,7 +48,8 @@ justify-content: center;
 .log-out{
   background-color: #ffffff;
   width:60% ;
-  height: 25px;
+  height: 35px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }

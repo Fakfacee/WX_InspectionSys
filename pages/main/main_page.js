@@ -40,6 +40,13 @@ Page({
       url: '../index/shaoma/shaoma?active_type='+active_type,
     }) 
    },
+   jump2inspect_fit(e){
+    var active_type = 'inspect_fit'
+    wx.navigateTo({
+      url: '../index/shaoma/shaoma?active_type='+active_type,
+    }) 
+   },
+
   /**
    * 生命周期函数--监听页面加载
    */

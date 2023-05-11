@@ -26,9 +26,8 @@ data:{
   },
   logOut: function() {
 
-    wx.removeStorage({
-      key: 'password',
-      key: 'phone',
+     wx.clearStorage({
+    
       success (res) {
         wx.redirectTo({
           url : '/pages/main/login/login',

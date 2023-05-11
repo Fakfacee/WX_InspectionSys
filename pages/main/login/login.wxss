@@ -20,7 +20,7 @@ page{
   display: flex; 
   flex-direction: column;   padding: 0; 
   box-sizing: border-box; 
-  background-color: #f2f2f2 
+  background-color: #4FA4AD 
 }  
  
 /*登录图片*/ 
@@ -73,7 +73,7 @@ page{
 .loginBtnView { 
   width: 100%; 
   height: auto; 
-  background-color: #f2f2f2; 
+  background-color: #4FA4AD; 
   margin-top: 0px; 
   margin-bottom: 0px; 
   padding-bottom: 0px; 
@@ -81,5 +81,16 @@ page{
  
 .loginBtn { 
   width: 80%; 
-  margin-top: 35px; 
+  margin-top: 35px;
+  background-color: #F5AA60; 
 } 
+.swiper{
+height: 600rpx;
+width: 100%;
+
+}
+.swiper image{
+height: 100%;
+width: 100%;
+
+}
