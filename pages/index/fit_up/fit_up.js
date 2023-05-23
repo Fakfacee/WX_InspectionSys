@@ -72,35 +72,37 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success (res) {
+        
+        var result = JSON.parse(res.data)
+
         //{"Status":0,"Note":"此焊口有未申请"}
+        console.log('-------组对信息提交返回code------------')
+        console.log(res.statusCode)
         if(res.statusCode==200){
-          if(res.data.Status == 0){
+          console.log('-------组对信息提交返回Status------------')
+          console.log(result.Status)
+          if(result.Status == 0){
+            console.log('提交失败，提示后端返回错误信息')
             wx.showToast({
-  
-              title: res.data.Note,   
+              title: result.Note,   
               icon: 'none',   
               duration: 2000   
               })
-          }else if(res.data.Status == 1){
-
+          }else if(result.Status == 1){
             wx.navigateTo({
               url: '../../main/success/up_success',
             })
           }else{
             wx.showToast({
-  
               title: "数据提交失败，请与管理员取得联系",   
               icon: 'none',   
               duration: 2000   
               })
             
           }
-         
-
         }else{
           wx.showToast({
-  
-            title: res.code+"  访问失败请与管理取得联系",   
+            title: res.code+"访问失败请与管理取得联系",   
             icon: 'none',   
             duration: 2000   
             }) 
@@ -109,9 +111,7 @@ Page({
         
       },
       fail:function(res){
-      
         wx.showToast({
-  
           title: "访问失败，当前网络连接不可用",   
           icon: 'none',   
           duration: 2000   
@@ -119,7 +119,7 @@ Page({
   
         }
     })
-    
+        
   },
 
   //获取焊工信息
@@ -211,16 +211,14 @@ Page({
           }); 
         }, 
         });
-
+        
         //第二次请求
-
         wx.request({
           url: app.globalData.url+'searchWpsAndLocation',
           method : 'POST',
           dataType : 'JSON',
           success:(res) =>{
             var result = JSON.parse(res.data)
-          
             var data = result
             var wps = data[0].wps
             var location = data[1].location
@@ -230,7 +228,6 @@ Page({
               location : location,
               
               }); 
-        
           }
 
         })

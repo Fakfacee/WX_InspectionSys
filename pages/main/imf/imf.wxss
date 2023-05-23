@@ -1,0 +1,45 @@
+/* pages/main/imf/imf.wxss */
+.page{/*页面背景—————统一浅灰*/
+  background-color: #ededed;
+}
+.funcBox{
+  width: 100%;
+  height: 450px;
+  background-color: #ededed;
+}
+.left-icon {
+  display: flex;
+  margin: 14px;
+}
+.icon-picture-logo {/*LOGO图标*/
+  display: flex;
+  width: 55px;
+  height: 55px;
+}
+.icon-picture {/*图标*/
+  display: flex;
+  width: 28px;
+  height: 28px;
+}
+.main_text {
+  display: flex;
+  background-color: #ffffff;
+}
+.text {/*文字*/
+  font-size: 17px;
+  font-style: normal;
+  font-weight: normal;
+
+  position: relative;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #000000;
+}
+.right-icon {/*右边图片*/
+  display: flex;
+  margin: 14px;
+  position: absolute;
+  right: 14px;
+}

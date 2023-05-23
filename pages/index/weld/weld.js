@@ -15,7 +15,10 @@ Page({
     drawing_num:'',
     spool_num:'',
     
-    joint: [
+    jointOk: [
+    ],
+    jointNotOk : [
+      
     ],
   
     wps: [
@@ -167,6 +170,7 @@ Page({
 
 
     onLoad: function (options) {
+      
       var that = this.data;
       var spool = options.spool;
       //var array = JSON.parse(options.spool);
@@ -178,17 +182,21 @@ Page({
         spool_num : spool,
         WelderNo : app.globalData.WelderNo,
       });
-  
+      console.log('------请求满足焊接检验条件焊口-----')
       wx.request({
-        url: app.globalData.url+'searchallweldbypipe',
+        url: app.globalData.url+'searchallweldbypipeforwelding',
         method : 'POST',
         dataType : 'JSON',
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
           var result = JSON.parse(res.data)
           var data = result
+
+          console.log('----查询结果为-----')
+          console.log(data)
           var drawing = data[0].DrawingNo
-          var lists = []
+          var listsCanNotWeld = []
+          var listsCanWeld = []
           //for 循环
 
           for(let i = 0;i<Object.keys(data).length;i++)
@@ -196,14 +204,17 @@ Page({
             var object = new Object()
             object.value = i
             object.joint = data[i].WeldNo
-            if(i ==0){
-              object.checked = 'true'
-              }
-              lists.push(object)
+            if(data[0].IfWelding == 0){
+              listsCanNotWeld.push(object)
 
+            }else{
+              listsCanWeld.push(object)
+            }
+            
           }
           this.setData({
-          joint : lists,
+          jointOk : listsCanWeld,
+          jointNotOk : listsCanNotWeld,
           drawing_num : drawing,
           spool_num : spool,
           }); 

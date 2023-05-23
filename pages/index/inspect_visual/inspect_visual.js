@@ -16,18 +16,18 @@ Page({
     spool_num:'',
     
     joint: [
-      {value: '1', joint: '1',checked: 'true'},
+      {value: '1', joint: '1'},
       {value: '2', joint: '2'},
       {value: '3', joint: 'FW-3'}
     ],
   
     result: [
-      {value: '1', name: 'ACC',checked: 'true'},
+      {value: '1', name: 'ACC'},
       {value: '2', name: 'REJ'},
     ],
 
     location: [
-      {value: '1', name: '配套车间',checked: 'true'},
+      {value: '1', name: '配套车间'},
       {value: '2', name: '三号堆场'},
       {value: '3', name: '总装场地'}
     ],
@@ -71,40 +71,42 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success (res) {
+        var result = JSON.parse(res.data)
+
         //{"Status":0,"Note":"此焊口有未申请"}
+        console.log('-------外观信息提交返回code------------')
+        console.log(res.statusCode)
         if(res.statusCode==200){
-          if(res.data.Status == 0){
+          console.log('-------外观信息提交返回Status------------')
+          console.log(result.Status)
+          if(result.Status == 0){
+            console.log('提交失败，提示后端返回错误信息')
             wx.showToast({
-  
-              title: res.data.Note,   
+              title: result.Note,   
               icon: 'none',   
               duration: 2000   
               })
-          }else if(res.data.Status == 1){
-
+          }else if(result.Status == 1){
             wx.navigateTo({
               url: '../../main/success/up_success',
             })
           }else{
             wx.showToast({
-  
               title: "数据提交失败，请与管理员取得联系",   
               icon: 'none',   
               duration: 2000   
               })
             
           }
-         
-
         }else{
           wx.showToast({
-  
             title: res.code+"访问失败请与管理取得联系",   
             icon: 'none',   
             duration: 2000   
             }) 
           
         }
+        
         
       },
       fail:function(res){
@@ -177,7 +179,7 @@ Page({
         spool_num : spool,
         WelderNo : app.globalData.WelderNo,
       });
-  
+      //接口待更改
       wx.request({
         url: app.globalData.url+'searchallweldbypipe',
         method : 'POST',

@@ -14,7 +14,10 @@
     "pages/main/erro/erro_register",
     "pages/main/success/up_success",
     "pages/index/hand_write/hand_write",
-    "pages/index/inspectFitList/inspectFitList"
+    "pages/index/inspectFitList/inspectFitList",
+    "pages/main/imf/imf",
+    "pages/main/imf/imfFit/imfFit",
+    "pages/main/imf/imfVis/imfVis"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -39,6 +42,12 @@
         "text": "功能页面",
         "selectedIconPath": "/pages/image/homFucUnSelect.png",
         "iconPath": "/pages/image/homFucSelect.png"
+      },
+      {
+        "pagePath": "pages/main/imf/imf",
+        "text": "信息查询",
+        "selectedIconPath": "/pages/image/pageListSelect.png",
+        "iconPath": "/pages/image/pageListUnSelect.png"
       },
       {
         "pagePath": "pages/main/user/user",

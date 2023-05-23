@@ -8,13 +8,21 @@
 </view>
 
 <view class="page-section page-section-gap">
-      <view class="page-section-title">焊口号：</view>
+      <view class="page-section-title">满足焊接条件焊口号：</view>
       <radio-group class="group" bindchange="radioChange_joint">
-        <view class="label-2" wx:for="{{joint}}">
+        <view class="label-2" wx:for="{{jointOk}}">
           <radio value="{{item.joint}}" checked="{{item.checked}}"></radio>
           <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
         </view>
       </radio-group>
+</view>
+
+<view class="page-section page-section-gap">
+      <view class="page-section-title">不满足焊接条件焊口号：</view>
+        <view class="label-2" wx:for="{{jointNotOk}}">
+          <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
+        </view>
+      
 </view>
 
 <view class = "grayLine"></view>

@@ -1,0 +1,20 @@
+<!--pages/main/imf/imfFit/imfFit.wxml-->
+
+<view class ='mainBox'>
+    <view class = 'leftBox'></view>
+    <view class = 'rightBox'>
+      <view  wx:for = "{{locationList}}" >
+       <view class = 'title' >地区 ： {{item.location}} | 总焊口数 ：{{item.inf.length}}
+       
+       </view>
+       <view class = 'list' wx:for = "{{item.inf}}">
+             <view class = 'text'>图纸号 : {{item.DrawingNo}}</view>
+             <view class = 'graydivide'></view>
+             <view class = 'text'>焊口号 : {{item.WeldNo}}</view>
+             <view class = 'graydivide'></view>
+       </view>
+  </view>
+    
+    </view>
+
+</view>

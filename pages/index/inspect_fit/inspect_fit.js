@@ -12,23 +12,21 @@ Page({
     radio_state_location: 'false',
     result_submit :[],
     WelderNo:[],
-    UserId : [],
+    //UserId : [],统一并为WelderNo
     drawing_num:'',
     spool_num:'',
     
     joint: [
-      {value: '1', joint: '1',checked: 'true'},
-      {value: '2', joint: '2'},
-      {value: '3', joint: 'FW-3'}
+    
     ],
   
     result: [
-      {value: '1', name: 'ACC',checked: 'true'},
+      {value: '1', name: 'ACC'},
       {value: '0', name: 'REJ'},
     ],
 
     location: [
-      {value: '1', name: '配套车间',checked: 'true'},
+      {value: '1', name: '配套车间'},
       {value: '2', name: '三号堆场'},
       {value: '3', name: '总装场地'}
     ],
@@ -61,8 +59,7 @@ Page({
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
-        UserId : this.data.UserId,
-      
+        UserId : this.data.WelderNo,
         Result : this.data.result_submit,
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
@@ -73,34 +70,35 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success (res) {
+        var result = JSON.parse(res.data)
+
         //{"Status":0,"Note":"此焊口有未申请"}
+        console.log('-------组对信息提交返回code------------')
+        console.log(res.statusCode)
         if(res.statusCode==200){
-          if(res.data.Status == 0){
+          console.log('-------组对信息提交返回Status------------')
+          console.log(result.Status)
+          if(result.Status == 0){
+            console.log('提交失败，提示后端返回错误信息')
             wx.showToast({
-  
-              title: res.data.Note,   
+              title: result.Note,   
               icon: 'none',   
               duration: 2000   
               })
-          }else if(res.data.Status == 1){
-
+          }else if(result.Status == 1){
             wx.navigateTo({
               url: '../../main/success/up_success',
             })
           }else{
             wx.showToast({
-  
               title: "数据提交失败，请与管理员取得联系",   
               icon: 'none',   
               duration: 2000   
               })
             
           }
-         
-
         }else{
           wx.showToast({
-  
             title: res.code+"访问失败请与管理取得联系",   
             icon: 'none',   
             duration: 2000   
@@ -110,9 +108,7 @@ Page({
         
       },
       fail:function(res){
-      
         wx.showToast({
-  
           title: "访问失败，当前网络连接不可用",   
           icon: 'none',   
           duration: 2000   
@@ -181,40 +177,58 @@ Page({
         currenTime: currenTime,
         spool_num : spool,
         WelderNo : app.globalData.WelderNo,
-        UserId : app.globalData.UserId,
+      
+        //UserId : app.globalData.UserId,与焊工界面信息统一使用变量WelderNo
       });
   
       wx.request({
-        url: app.globalData.url+'searchallweldbypipe',
+        url: app.globalData.url+'searchzuduiinsbypipeforinspect',
         method : 'POST',
         dataType : 'JSON',
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
+          console.log('------searchzuduiinsbypipeforinspec查询结果------')
           var result = JSON.parse(res.data)
-          var data = result
-          var drawing = data[0].DrawingNo
-          var lists = []
-          //for 循环
+          console.log(result)
+          //增加无返回结果判断
+          if(result[0] == null){
+            this.setData({
+              joint : [],
+              drawing_num : '此单管下未查询到满足检验条件焊口',
+              spool_num : spool,
+              });
 
-          for(let i = 0;i<Object.keys(data).length;i++)
-          {
-            var object = new Object()
-            object.value = i
-            object.joint = data[i].WeldNo
-            if(i ==0){
-              object.checked = 'true'
-              }
-              lists.push(object)
-
-          }
-          this.setData({
-          joint : lists,
-          drawing_num : drawing,
-          spool_num : spool,
-          }); 
+          }else{
+            
+            //var jointLists = []
+            //var drawingList = []
+            var drawing = result[0].DrawingNo
+            var lists = []
+            //for 循环
+  
+            for(let i = 0;i<Object.keys(result).length;i++)
+            {
+              var object = new Object()
+              object.value = i
+              object.joint = result[i].WeldNo
+              //取消默认首项勾选
+              //if(i ==0){
+                //object.checked = 'true'
+                //}
+  
+                lists.push(object)
+  
+            }
+            this.setData({
+            joint : lists,
+            drawing_num : drawing,
+            spool_num : spool,
+            }); 
+          
+          }//if
+        }//success
         
-        }, 
-        });
+      })//request
     },
     //地图函数，待完善
     onReady: function (e) {

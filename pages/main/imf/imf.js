@@ -1,44 +1,30 @@
-// pages/main/user/user.js
-var app = getApp()
+// pages/main/imf/imf.js
 Page({
-data:{
-  user_name : [],
-  subcontractor : [],
-  usr_class : [],
-  class_id : [],
-  WelderNo :[],
-  //UserId:[],
-},
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+
+  },
+  jump2imfFit(e){
+    
+    wx.navigateTo({
+      url: '../imf/imfFit/imfFit',
+    }) 
+   },
+   jump2imfVis(e){
+    
+    wx.navigateTo({
+      url: '../imf/imfVis/imfVis',
+    }) 
+   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-   
-    this.setData({
-      user_name : app.globalData.name,
-      subcontractor : app.globalData.subcontractor,
-      usr_class : app.globalData.class,
-      WelderNo : app.globalData.WelderNo,
-      //UserId : app.globalData.UserId,
-      //class_id : app.globalData.class_id,
-    })
- 
-  },
-  logOut: function() {
 
-     wx.clearStorage({
-    
-      success (res) {
-        wx.redirectTo({
-          url : '/pages/main/login/login',
-      
-          })
-      }
-    })
-   
-  
   },
-
 
   /**
    * 生命周期函数--监听页面初次渲染完成
