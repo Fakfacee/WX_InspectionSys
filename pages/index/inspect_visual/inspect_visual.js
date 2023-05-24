@@ -12,7 +12,8 @@ Page({
     radio_state_location: 'false',
     result_submit :[],
     WelderNo:[],
-    //UserId : [],统一并为WelderNo
+    UserId:null,
+    //WelderNo仅用于显示，提交值为UseriD
     drawing_num:'',
     spool_num:'',
     
@@ -47,7 +48,7 @@ Page({
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
-        UserId : this.data.WelderNo,
+        UserId : this.data.UserId,
         Result : this.data.result_submit,
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
@@ -165,6 +166,7 @@ Page({
         currenTime: currenTime,
         spool_num : spool,
         WelderNo : app.globalData.WelderNo,
+        UserId : app.globalData.class_id,
       });
       //接口待更改
       wx.request({

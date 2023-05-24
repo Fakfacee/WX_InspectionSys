@@ -63,12 +63,17 @@ Page({
       app.globalData.name = result.Name,
       //承包商
       app.globalData.subcontractor =  result.Contractor,
+      //User_Identity 身份信息 QC Welder
       app.globalData.class = result.User_Identity,
-      app.globalData.class_id = result.PowerId,
+      //用于提交QC信息
+      app.globalData.class_id = result.UserId,
+      //class_code 区分界面显示
       app.globalData.class_code = result.PowerId,
       app.globalData.WelderNo = result.WelderNo
-      
+      console.log('登录成功--WelderNo')
+      console.log(result.WelderNo)
       //result.UserId
+      
       wx.switchTab({
      
         url: '/pages/main/main_page',
