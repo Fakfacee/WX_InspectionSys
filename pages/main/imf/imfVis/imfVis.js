@@ -1,31 +1,97 @@
 // pages/main/imf/imfVis/imfVis.js
+
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
-  },
+    locationList:[],
+    result: [],
+    
+    },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  onLoad() {
+    wx.request({
+      
+      url: app.globalData.url+'searchappearinsforinspect',
+          method : 'POST',
+          dataType : 'JSON',
+         
+          success:(res) =>{
+          //[{"ZuDuiId": 12, "WeldId": 1778, "WelderId": 10, "…-A0CA3Z_SHT1", "PipeNo": "2-DO-35622-A0CA3Z-01"}]
+          //var result = JSON.parse(res.data)
+          console.log('------******-------')
+          var result = JSON.parse(res.data)
+          console.log(result)
+          var i ;
+          var j ;
+          var status = 0;
+          var locationList = this.data.locationList;
+          
+          for(i=0;i<result.length;i++){
+            
+            for(j= 0;j<locationList.length;j++){
+      
+             if(result[i].LocationName == locationList[j].location){
+              
+               locationList[j].inf.push(result[i])
+               status = 1
+               break
+               //locationList[j].inf.push(result[i])
+               //break
+             }
+           }
+           if(status ==1){
+           status = 0
+           continue
+           }else{
+            locationList.push({location:result[i].LocationName,inf:[result[i]]})
+            status = 0
+           }
+           
+         }
+         
+         console.log(locationList)
+        this.setData({
+          result : result,
+          locationList : locationList
+      
+        })
+      
+          },
+          fail:function(res){
+      
+            wx.showToast({
+      
+              title: "访问失败，当前网络连接不可用",   
+              icon: 'none',   
+              duration: 2000   
+              }) 
+      
+            }
 
+    })
+
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+ 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
+
 
   },
 

@@ -20,7 +20,7 @@
 <view class = "grayLine"></view>
 <view class="page-section page-section-gap">
       <view class="page-section-title">检验结果</view>
-      <radio-group class="group" bindchange="radioChange_wps">
+      <radio-group class="group" bindchange="radioChange_result">
         <view class="label-2" wx:for="{{result}}"wx:key='value'>
           <radio id="{{item.name}}" value="{{item.name}}" checked="{{item.checked}}"></radio>
           <label class="label-2-text" for="{{item.name}}"><text>{{item.name}}</text></label>

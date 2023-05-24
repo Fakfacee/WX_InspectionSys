@@ -19,14 +19,14 @@ Page({
     ],
   
     wps: [
-      {value: '1', name: 'CS-101'},
-      {value: '2', name: 'CS-301'},
-      {value: '3', name: 'CS-102'}
+      {WPSId: '1', WPS: 'CS-101'},
+      {WPSId: '2', WPS: 'CS-301'},
+      {WPSId: '3', WPS: 'CS-102'}
     ],
     location: [
-      {value: '1', name: '配套车间'},
-      {value: '2', name: '三号堆场'},
-      {value: '3', name: '总装场地'}
+      {LocationListId: '1', LocationName: '配套车间'},
+      {LocationListId: '2', LocationName: '三号堆场'},
+      {LocationListId: '3', LocationName: '总装场地'}
     ],
  
 
@@ -220,12 +220,14 @@ Page({
           success:(res) =>{
             var result = JSON.parse(res.data)
             var data = result
-            var wps = data[0].wps
-            var location = data[1].location
+            console.log('-------工艺地点请求结果--------')
+            console.log(data)
+            var wpsList = data[0].wps
+            var locationList = data[1].location
 
             this.setData({
-              wps : wps,
-              location : location,
+              wps : wpsList,
+              location : locationList,
               
               }); 
           }

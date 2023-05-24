@@ -1,1 +1,38 @@
 /* pages/main/imf/imfVis/imfVis.wxss */
+.intro {
+  margin: 30px;
+  text-align: center;
+}
+.mainBox{
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: row;
+}
+.leftBox{
+width: 6%;
+height: 100%;
+}
+.rightBox{
+  width: 94%;
+  height: 100%;
+  border-style:double;
+  border-width: 2px;
+  border-color: #D4D4D4;
+
+}
+.graydivide {/*灰色分割条*/
+  height: 2px;
+  position:relative;
+  top: 0px;
+  background-color: #D4D4D4;
+}
+.title{
+padding: 5px 8px;
+background-color: #ededed;
+
+}
+.text{
+ padding: 5px 8px;
+
+}

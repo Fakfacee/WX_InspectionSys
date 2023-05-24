@@ -12,6 +12,7 @@ Page({
     radio_state_location: 'false',
     result_submit :[],
     WelderNo:[],
+    //UserId : [],统一并为WelderNo
     drawing_num:'',
     spool_num:'',
     
@@ -35,22 +36,8 @@ Page({
   },
 
   submit(e) {
-    //radiochange函数默认未选取时，状态取第一位
-    if(this.data.radio_state_joint ==='false'){
-    this.setData({
-    joint_submit : this.data.joint[0].joint
-    })
-  }
-    if(this.data.radio_state_result ==='false'){
-      this.setData({
-      wps_submit : this.data.result[0].name
-      })
-    }
-    if(this.data.radio_state_location ==='false'){
-      this.setData({
-      location_submit : this.data.location[0].name
-      })
-    }
+   
+
     wx.request({
       url: app.globalData.url+'waiguaninspectionrequest',
       method : 'POST',
@@ -60,7 +47,7 @@ Page({
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
-        WelderNo : this.data.WelderNo,
+        UserId : this.data.WelderNo,
         Result : this.data.result_submit,
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
@@ -181,60 +168,56 @@ Page({
       });
       //接口待更改
       wx.request({
-        url: app.globalData.url+'searchallweldbypipe',
+        url: app.globalData.url+'searchappearinsbypipeforinspect',
         method : 'POST',
         dataType : 'JSON',
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
+          console.log('------searchappearinsbypipeforinspect查询结果------')
           var result = JSON.parse(res.data)
-          var data = result
-          var drawing = data[0].DrawingNo
-          var lists = []
-          //for 循环
-
-          for(let i = 0;i<Object.keys(data).length;i++)
-          {
-            var object = new Object()
-            object.value = i
-            object.joint = data[i].WeldNo
-            if(i ==0){
-              object.checked = 'true'
-              }
-              lists.push(object)
-
-          }
-          this.setData({
-          joint : lists,
-          drawing_num : drawing,
-          spool_num : spool,
-          }); 
-        
-        }, 
-        });
-
-        wx.request({
-          url: app.globalData.url+'searchWpsAndLocation',
-          method : 'POST',
-          dataType : 'JSON',
-          success:(res) =>{
-            var result = JSON.parse(res.data)
-          
-            var data = result
-            var wps = data[0].wps
-            var location = data[1].location
-
+          console.log(result)
+          //增加无返回结果判断
+          if(result[0] == null){
             this.setData({
-              wps : wps,
-              location : location,
-              
-              }); 
-        
-          }
+              joint : [],
+              drawing_num : '此单管下未查询到满足检验条件焊口',
+              spool_num : spool,
+              });
 
-        })
+          }else{
+            
+            //var jointLists = []
+            //var drawingList = []
+            var drawing = result[0].DrawingNo
+            var lists = []
+            //for 循环
+  
+            for(let i = 0;i<Object.keys(result).length;i++)
+            {
+              var object = new Object()
+              object.value = i
+              object.joint = result[i].WeldNo
+              //取消默认首项勾选
+              //if(i ==0){
+                //object.checked = 'true'
+                //}
+  
+                lists.push(object)
+  
+            }
+            this.setData({
+            joint : lists,
+            drawing_num : drawing,
+            spool_num : spool,
+            }); 
+                      }//if
+        }//success
+        
+      })//request
+         
     },
     //地图函数，待完善
     onReady: function (e) {
       this.mapCtx = wx.createMapContext('myMap')
     }
-  })
+})

@@ -22,8 +22,8 @@
       <view class="page-section-title">使用工艺</view>
       <radio-group class="group" bindchange="radioChange_wps">
         <view class="label-2" wx:for="{{wps}}" wx:key = "value">
-          <radio id="{{item.name}}" value="{{item.name}}" checked="{{item.checked}}"></radio>
-          <label class="label-2-text" for="{{item.name}}"><text>{{item.name}}</text></label>
+          <radio id="{{item.WPS}}" value="{{item.WPS}}" checked="{{item.checked}}"></radio>
+          <label class="label-2-text" for="{{item.WPS}}"><text>{{item.WPS}}</text></label>
         </view>
       </radio-group>
 </view>
@@ -41,8 +41,8 @@
       <view class="page-section-title">位置选择</view>
       <radio-group class="group" bindchange="radioChange_location">
         <view class="label-2" wx:for="{{location}}" wx:key = "value">
-          <radio id="{{item.name}}" value="{{item.name}}" checked="{{item.checked}}"></radio>
-          <label class="label-2-text" for="{{item.name}}"><text>{{item.name}}</text></label>
+          <radio id="{{item.LocationName}}" value="{{item.LocationName}}" checked="{{item.checked}}"></radio>
+          <label class="label-2-text" for="{{item.LocationName}}"><text>{{item.LocationName}}</text></label>
         </view>
       </radio-group>
 </view>

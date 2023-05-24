@@ -20,18 +20,17 @@ Page({
     jointNotOk : [
       
     ],
-  
+
     wps: [
-      {value: '1', name: 'CS-101'},
-      {value: '2', name: 'CS-301'},
-      {value: '3', name: 'CS-102'}
+      {WPSId: '1', WPS: 'CS-101'},
+      {WPSId: '2', WPS: 'CS-301'},
+      {WPSId: '3', WPS: 'CS-102'}
     ],
     location: [
-      {value: '1', name: '配套车间'},
-      {value: '2', name: '三号堆场'},
-      {value: '3', name: '总装场地'}
+      {LocationListId: '1', LocationName: '配套车间'},
+      {LocationListId: '2', LocationName: '三号堆场'},
+      {LocationListId: '3', LocationName: '总装场地'}
     ],
-
 
   },
 
@@ -74,34 +73,35 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success (res) {
+        var result = JSON.parse(res.data)
+
         //{"Status":0,"Note":"此焊口有未申请"}
+        console.log('-------焊接信息提交返回code------------')
+        console.log(res.statusCode)
         if(res.statusCode==200){
-          if(res.data.Status == 0){
+          console.log('-------组对信息提交返回Status------------')
+          console.log(result.Status)
+          if(result.Status == 0){
+            console.log('提交失败，提示后端返回错误信息')
             wx.showToast({
-  
-              title: res.data.Note,   
+              title: result.Note,   
               icon: 'none',   
               duration: 2000   
               })
-          }else if(res.data.Status == 1){
-
+          }else if(result.Status == 1){
             wx.navigateTo({
               url: '../../main/success/up_success',
             })
           }else{
             wx.showToast({
-  
               title: "数据提交失败，请与管理员取得联系",   
               icon: 'none',   
               duration: 2000   
               })
             
           }
-         
-
         }else{
           wx.showToast({
-  
             title: res.code+"访问失败请与管理取得联系",   
             icon: 'none',   
             duration: 2000   
@@ -111,9 +111,7 @@ Page({
         
       },
       fail:function(res){
-      
         wx.showToast({
-  
           title: "访问失败，当前网络连接不可用",   
           icon: 'none',   
           duration: 2000   
@@ -121,6 +119,8 @@ Page({
   
         }
     })
+        
+      
   },
 
   //获取焊工信息
@@ -204,7 +204,7 @@ Page({
             var object = new Object()
             object.value = i
             object.joint = data[i].WeldNo
-            if(data[0].IfWelding == 0){
+            if(data[i].IfWelding == 0){
               listsCanNotWeld.push(object)
 
             }else{
@@ -228,17 +228,17 @@ Page({
           dataType : 'JSON',
           success:(res) =>{
             var result = JSON.parse(res.data)
-          
             var data = result
-            var wps = data[0].wps
-            var location = data[1].location
+            console.log('-------工艺地点请求结果--------')
+            console.log(data)
+            var wpsList = data[0].wps
+            var locationList = data[1].location
 
             this.setData({
-              wps : wps,
-              location : location,
+              wps : wpsList,
+              location : locationList,
               
               }); 
-        
           }
 
         })
