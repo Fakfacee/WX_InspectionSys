@@ -17,7 +17,8 @@
     "pages/index/inspectFitList/inspectFitList",
     "pages/main/imf/imf",
     "pages/main/imf/imfFit/imfFit",
-    "pages/main/imf/imfVis/imfVis"
+    "pages/main/imf/imfVis/imfVis",
+    "pages/main/imf/imfWeld/imfWeld"
   ],
   "window": {
     "backgroundTextStyle": "light",

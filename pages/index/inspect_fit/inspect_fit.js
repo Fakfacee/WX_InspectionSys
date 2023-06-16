@@ -16,40 +16,19 @@ Page({
     drawing_num:'',
     spool_num:'',
     
-    joint: [
-    
-    ],
+    joint: [],
   
     result: [
       {value: '1', name: 'ACC'},
       {value: '0', name: 'REJ'},
     ],
 
-    location: [
-      {value: '1', name: '配套车间'},
-      {value: '2', name: '三号堆场'},
-      {value: '3', name: '总装场地'}
-    ],
+    location: [],
 
   },
 
   submit(e) {
-    //radiochange函数默认未选取时，状态取第一位
-    if(this.data.radio_state_joint ==='false'){
-    this.setData({
-    joint_submit : this.data.joint[0].joint
-    })
-  }
-    if(this.data.radio_state_result ==='false'){
-      this.setData({
-      wps_submit : this.data.result[0].value
-      })
-    }
-    if(this.data.radio_state_location ==='false'){
-      this.setData({
-      location_submit : this.data.location[0].name
-      })
-    }
+   
     wx.request({
       url: app.globalData.url+'zuduiinspectionrequest',
       method : 'POST',
@@ -71,7 +50,6 @@ Page({
       },
       success (res) {
         var result = JSON.parse(res.data)
-
         //{"Status":0,"Note":"此焊口有未申请"}
         console.log('-------组对信息提交返回code------------')
         console.log(res.statusCode)

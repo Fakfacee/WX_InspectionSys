@@ -23,7 +23,7 @@ Page({
     ],
   
     result: [
-      {value: '1', name: 'ACC',checked: 'true'},
+      {value: '1', name: 'ACC'},
       {value: '0', name: 'REJ'},
     ],
 
@@ -37,22 +37,6 @@ Page({
   },
 
   submit(e) {
-    //radiochange函数默认未选取时，状态取第一位
-    if(this.data.radio_state_joint ==='false'){
-    this.setData({
-    joint_submit : this.data.joint[0].joint
-    })
-  }
-    if(this.data.radio_state_result ==='false'){
-      this.setData({
-      wps_submit : this.data.result[0].value
-      })
-    }
-    if(this.data.radio_state_location ==='false'){
-      this.setData({
-      location_submit : this.data.location[0].name
-      })
-    }
     wx.request({
       url: app.globalData.url+'zuduiinspectionrequest',
       method : 'POST',

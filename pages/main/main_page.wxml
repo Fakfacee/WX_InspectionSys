@@ -1,5 +1,5 @@
 <!--pages/main/main_page.wxml-->
-<!--0：管理员，1：车间管理人员，2：QC,3:焊工-->
+<!--1：管理员，4：车间管理人员，2：QC,3:焊工,5管工,6配套，7，8-->
 <view class="main_text">
     <view class = "main_text-logo">
     <image class ="icon-picture-logo" src="../image/CFHI_logo.png"></image>
@@ -7,10 +7,10 @@
     <view wx:if="{{class_code === 2}}">
        <view class = "main_text-imf">请选择您当前检验内容</view>
     </view>
-    <view wx:if="{{class_code === 3}}">
+    <view wx:if="{{class_code === 3|| class_code === 5}}">
        <view class = "main_text-imf">请选择您当前报检内容</view>
     </view>
-    <view wx:if="{{class_code === 0}}">
+    <view wx:if="{{class_code === 1 || class_code === 4}}">
        <view class = "main_text-imf">请选择所需功能</view>
     </view>
 </view>
@@ -18,7 +18,7 @@
 <view class="funcBox">
 <!--间隔灰横条-->
 <view class="graydivide"></view>
-<view wx:if="{{ class_code === 2 || class_code === 0}}">
+<view wx:if="{{ class_code === 2 || class_code === 1 || class_code === 4 || class_code === 5}}">
 <view class='function'>
   <view style="width:100%">
     <view class="functioninformation" bindtap="jump2inspect_fit"><!--左边图片&文字-->
@@ -50,8 +50,8 @@
 
 
 </view>
-
-<view wx:if="{{class_code === 3 || class_code === 0}}">
+<view class="graydivide"></view>
+<view wx:if="{{class_code === 3 || class_code === 1 || class_code === 4}}">
 <view class='function'>
   <view style="width:100%">
     <view class="functioninformation" bindtap="jump2fitup"><!--左边图片&文字-->

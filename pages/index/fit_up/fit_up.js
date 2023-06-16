@@ -11,46 +11,16 @@ Page({
     radio_state_wps: 'false',
     radio_state_location: 'false',
     wps_submit :[],
-    WelderNo:[],
+    UserId:[],
+    Contractor:[],
     drawing_num:'',
     spool_num:'',
-    
     joint: [
     ],
-  
-    wps: [
-      {WPSId: '1', WPS: 'CS-101'},
-      {WPSId: '2', WPS: 'CS-301'},
-      {WPSId: '3', WPS: 'CS-102'}
-    ],
-    location: [
-      {LocationListId: '1', LocationName: '配套车间'},
-      {LocationListId: '2', LocationName: '三号堆场'},
-      {LocationListId: '3', LocationName: '总装场地'}
-    ],
- 
-
+    wps: [],
+    location: [],
   },
-
   submit(e) {
-    //指代到下一级
-    if(this.data.radio_state_joint ==='false'){
-    this.setData({
-    joint_submit : this.data.joint[0].joint
-    })
-  }
-    if(this.data.radio_state_wps ==='false'){
-      this.setData({
-      wps_submit : this.data.wps[0].name
-      })
-    }
-
-    if(this.data.radio_state_location ==='false'){
-      this.setData({
-      location_submit : this.data.location[0].name
-      })
-    }
-    
     wx.request({
       url: app.globalData.url+'addzuduiinfo',
       method : 'POST',
@@ -60,55 +30,51 @@ Page({
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
-        WelderNo : this.data.WelderNo,
-        Wps : this.data.wps_submit,
+        //WelderNo : this.data.WelderNo,
+        //在onload中更改为返回userid
+        WelderNo : (this.data.UserId).toString(),
+        Contractor: this.data.Contractor,
+        //Wps : this.data.wps_submit,
+        Wps : '默认',
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
         Latitude : this.data.latitude,
         Location : this.data.location_submit
       },
-      
       header: {
         'content-type': 'application/json' // 默认值
       },
       success (res) {
-        
-        var result = JSON.parse(res.data)
-
-        //{"Status":0,"Note":"此焊口有未申请"}
-        console.log('-------组对信息提交返回code------------')
-        console.log(res.statusCode)
-        if(res.statusCode==200){
-          console.log('-------组对信息提交返回Status------------')
-          console.log(result.Status)
-          if(result.Status == 0){
-            console.log('提交失败，提示后端返回错误信息')
-            wx.showToast({
-              title: result.Note,   
-              icon: 'none',   
-              duration: 2000   
-              })
-          }else if(result.Status == 1){
-            wx.navigateTo({
-              url: '../../main/success/up_success',
-            })
-          }else{
-            wx.showToast({
-              title: "数据提交失败，请与管理员取得联系",   
-              icon: 'none',   
-              duration: 2000   
-              })
-            
-          }
-        }else{
+        if(res.statusCode !=200 ){
           wx.showToast({
-            title: res.code+"访问失败请与管理取得联系",   
+            title: res.statusCode+"提交失败，请检查数据的完整性",   
             icon: 'none',   
             duration: 2000   
             }) 
-          
+        }else{
+          var result = JSON.parse(res.data)
+          //{"Status":0,"Note":"此焊口有未申请"}
+          console.log('-------组对信息提交返回Status------------')
+          console.log(result.Status)
+          if(result.Status == 0){
+              console.log('提交失败，提示后端返回错误信息')
+              wx.showToast({
+                title: result.Note,   
+                icon: 'none',   
+                duration: 2000   
+                })
+          }else if(result.Status == 1){
+              wx.navigateTo({
+                url: '../../main/success/up_success',
+              })
+          }else{
+              wx.showToast({
+                title: "数据提交失败，请与管理员取得联系",   
+                icon: 'none',   
+                duration: 2000   
+                })    
+          }
         }
-        
       },
       fail:function(res){
         wx.showToast({
@@ -116,10 +82,8 @@ Page({
           icon: 'none',   
           duration: 2000   
           }) 
-  
         }
-    })
-        
+    })   
   },
 
   //获取焊工信息
@@ -167,7 +131,6 @@ Page({
     })
 },
 
-
     onLoad: function (options) {
       var that = this.data;
       var spool = options.spool;
@@ -178,9 +141,9 @@ Page({
       this.setData({
         currenTime: currenTime,
         spool_num : spool,
-        WelderNo : app.globalData.WelderNo,
+        UserId : app.globalData.class_id,
+        Contractor : app.globalData.subcontractor,
       });
-  
       wx.request({
         url: app.globalData.url+'searchallweldbypipe',
         method : 'POST',
@@ -191,16 +154,18 @@ Page({
           var data = result
           var drawing = data[0].DrawingNo
           var lists = []
+          console.log('单管请求结果为')
+          console.log(result)
           //for 循环
-
+          
           for(let i = 0;i<Object.keys(data).length;i++)
           {
             var object = new Object()
             object.value = i
             object.joint = data[i].WeldNo
-            if(i ==0){
-              object.checked = 'true'
-              }
+            //增加管径壁厚
+            object.Size = data[i].Size
+            object.Thickness = data[i].Thickness
               lists.push(object)
 
           }

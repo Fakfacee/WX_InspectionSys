@@ -27,7 +27,7 @@ bindinput="phoneInput" />
       <label class="loginLab">密码</label> 
       <input class="inputText" password="true" placeholder="请输入密码" value="{{password}}"bindinput="passwordInput" /> 
     </view> 
- 
+    <view class = 'visitor'bindtap = 'visitor' >访客模式</view>
     <!--按钮--> 
     <view class="loginBtnView"> 
       <button class="loginBtn"  size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" 
@@ -39,4 +39,6 @@ loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}"
 bindtap="registe">注册</button> 
     </view> 
   </view> 
+  
+
 </view> 

@@ -39,8 +39,10 @@ page{
 } 
  
 .inputView { 
-  background-color: #fff; 
-  line-height: 44px; 
+  display: flex;
+  background-color: #fff;
+  align-items: center; 
+ 
 } 
 /*输入框*/ 
 .nameImage, .keyImage { 
@@ -93,4 +95,8 @@ width: 100%;
 height: 100%;
 width: 100%;
 
+}
+.visitor{
+  text-align: right;
+  margin-top: 10px;
 }

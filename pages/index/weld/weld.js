@@ -10,49 +10,48 @@ Page({
     radio_state_joint: 'false',
     radio_state_wps: 'false',
     radio_state_location: 'false',
+    radio_state_result:false,
     wps_submit :[],
     WelderNo:[],
     drawing_num:'',
     spool_num:'',
-    
+    Contractor:[],
     jointOk: [
     ],
     jointNotOk : [
-      
     ],
-
-    wps: [
-      {WPSId: '1', WPS: 'CS-101'},
-      {WPSId: '2', WPS: 'CS-301'},
-      {WPSId: '3', WPS: 'CS-102'}
+    inputList: [''],
+    wps: [],
+    location: [],
+    status:[
+      {value: true, name: '是'}
     ],
-    location: [
-      {LocationListId: '1', LocationName: '配套车间'},
-      {LocationListId: '2', LocationName: '三号堆场'},
-      {LocationListId: '3', LocationName: '总装场地'}
-    ],
-
   },
-
-  submit(e) {
-    //指代到下一级
-    if(this.data.radio_state_joint ==='false'){
+  addwelder: function() {
+    var inputList = this.data.inputList;
+    inputList.push('');
     this.setData({
-    joint_submit : this.data.joint[0].joint
-    })
-  }
-    if(this.data.radio_state_wps ==='false'){
-      this.setData({
-      wps_submit : this.data.wps[0].name
-      })
+      inputList: inputList
+    });
+  },
+  inputChange: function(event) {
+    var inputList = this.data.inputList;
+    var index = event.currentTarget.dataset.index;
+    inputList[index] = event.detail.value;
+    this.setData({
+      inputList: inputList
+    });
+  },
+  submit(e) {
+    //合并当前焊工信息
+    //inputlist = [0:welde1,1:welder:2]
+    var welderlist = []
+    var inputlist = this.data.inputList
+    welderlist.push(this.data.WelderNo)
+    for(var i in inputlist){
+    welderlist.push(inputlist[i])
     }
 
-    if(this.data.radio_state_location ==='false'){
-      this.setData({
-      location_submit : this.data.location[0].name
-      })
-    }
-    
     wx.request({
       url: app.globalData.url+'addweldinginfo',
       method : 'POST',
@@ -62,7 +61,8 @@ Page({
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
-        WelderNo : this.data.WelderNo,
+        WelderNo : welderlist,
+        Contractor: this.data.Contractor,
         Wps : this.data.wps_submit,
         WeldDate : this.data.currenTime,
         Longitude: this.data.longitude,
@@ -73,12 +73,18 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success (res) {
+        if(res.statusCode !=200 ){
+          wx.showToast({
+            title: res.statusCode+"提交失败，请检查数据的完整性",   
+            icon: 'none',   
+            duration: 2000   
+            }) 
+        }else{
         var result = JSON.parse(res.data)
-
         //{"Status":0,"Note":"此焊口有未申请"}
         console.log('-------焊接信息提交返回code------------')
         console.log(res.statusCode)
-        if(res.statusCode==200){
+      
           console.log('-------组对信息提交返回Status------------')
           console.log(result.Status)
           if(result.Status == 0){
@@ -98,31 +104,18 @@ Page({
               icon: 'none',   
               duration: 2000   
               })
-            
           }
-        }else{
-          wx.showToast({
-            title: res.code+"访问失败请与管理取得联系",   
-            icon: 'none',   
-            duration: 2000   
-            }) 
-          
         }
-        
       },
-      fail:function(res){
+      fail: function(res) {
         wx.showToast({
           title: "访问失败，当前网络连接不可用",   
           icon: 'none',   
           duration: 2000   
           }) 
-  
-        }
+      }
     })
-        
-      
   },
-
   //获取焊工信息
    get_text: function(e){
       this.setData({
@@ -167,7 +160,12 @@ Page({
         location_submit:e.detail.value
     })
 },
-
+radio_state_result(e){
+  console.log(e.detail.value)
+  this.setData({
+    radio_state_result : e.detail.value,
+  })
+},
 
     onLoad: function (options) {
       
@@ -181,6 +179,7 @@ Page({
         currenTime: currenTime,
         spool_num : spool,
         WelderNo : app.globalData.WelderNo,
+        Contractor : app.globalData.subcontractor,
       });
       console.log('------请求满足焊接检验条件焊口-----')
       wx.request({
@@ -204,6 +203,9 @@ Page({
             var object = new Object()
             object.value = i
             object.joint = data[i].WeldNo
+            //增加管径壁厚
+            object.Size = data[i].Size
+            object.Thickness = data[i].Thickness
             if(data[i].IfWelding == 0){
               listsCanNotWeld.push(object)
 

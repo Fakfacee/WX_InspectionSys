@@ -16,23 +16,13 @@ Page({
     //WelderNo仅用于显示，提交值为UseriD
     drawing_num:'',
     spool_num:'',
-    
-    joint: [
-      {value: '1', joint: '1'},
-      {value: '2', joint: '2'},
-      {value: '3', joint: 'FW-3'}
-    ],
-  
+    joint: [],
     result: [
       {value: '1', name: 'ACC'},
-      {value: '2', name: 'REJ'},
+      {value: '0', name: 'REJ'},
     ],
 
-    location: [
-      {value: '1', name: '配套车间'},
-      {value: '2', name: '三号堆场'},
-      {value: '3', name: '总装场地'}
-    ],
+    location: [],
     wps:[]
   },
 

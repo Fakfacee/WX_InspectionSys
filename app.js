@@ -5,7 +5,7 @@ globalData:{
 name:['登陆后显示个人信息'],
 subcontractor:[''],
 class :[''],
-class_code : 2,
+class_code : null,
 class_id : [''],
 openid : [''],
 WelderNo : [''],

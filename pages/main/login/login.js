@@ -10,6 +10,26 @@ Page({
       ]
   }, 
  
+//访客模式登录
+  visitor :function(e){
+  //姓名
+  app.globalData.name = '浏览访客',
+  //承包商
+  app.globalData.subcontractor =  null,
+  //User_Identity 身份信息 QC Welder
+  app.globalData.class = null,
+  //用于提交QC信息
+  app.globalData.class_id = null,
+  //class_code 区分界面显示
+  app.globalData.class_code = 1,
+  app.globalData.WelderNo = null
+  wx.switchTab({
+     
+    url: '/pages/main/main_page',
+  })
+
+  },
+
 // 获取输入账号 
   phoneInput :function (e) { 
     this.setData({ 
@@ -44,10 +64,10 @@ Page({
     strPwd:this.data.password
     },
     success:(res) =>{
-    console.log(res)
+    
     try {
       var result = JSON.parse(res.data)
-      console.log(result.Status)
+      
       //Status,UserId,Name,User_Identity,Contractor,Email,PhoneNo,PowerId,WelderNo
       if(result.Status == '0'){
         
@@ -59,7 +79,6 @@ Page({
           })   
       }else if(result.Status =='1'){
       //姓名
-  
       app.globalData.name = result.Name,
       //承包商
       app.globalData.subcontractor =  result.Contractor,
@@ -70,8 +89,7 @@ Page({
       //class_code 区分界面显示
       app.globalData.class_code = result.PowerId,
       app.globalData.WelderNo = result.WelderNo
-      console.log('登录成功--WelderNo')
-      console.log(result.WelderNo)
+     
       //result.UserId
       
       wx.switchTab({
@@ -138,55 +156,7 @@ onLoad: function (options){
     phone: wx.getStorageSync('phone'),
     password : wx.getStorageSync('password')
   }) 
-/** 
-  wx.request({
-    url: app.globalData.url+'login',
-    method : 'POST',
-    dataType : 'JSON',
-    data: {
-    strUser: wx.getStorageSync('phone'),
-    strPwd: wx.getStorageSync('password')
-    },
-    success:(res) =>{
-    var result = JSON.parse(res.data)
-   
-    if(result.Status =='0'){
-    wx.showToast({
 
-      title: '用户名不存在,请进行注册',   
-      icon: 'none',   
-      duration: 2000   
-      })   
-    }else if(result.Status =='1'){
-    //姓名
-    app.globalData.name = result.Name,
-    //承包商
-    app.globalData.subcontractor =  result.Contractor,
-    app.globalData.class = result.User_Identity,
-    app.globalData.WelderNo = result.WelderNo,
-    app.globalData.class_code = result.PowerId,
-    app.globalData.UserId = result.UserId
-    //result.UserId
-    wx.switchTab({
-   
-      url: '/pages/main/main_page',
-    })
-
-    }
-    },
-    fail:function()
-    { 
-    
-      wx.showToast({
-
-        title: '登录失败，请重试',   
-        icon: 'none',   
-        duration: 2000   
-        })   
-
-    }
-  })
-  */
 }
 
 })

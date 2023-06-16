@@ -64,6 +64,13 @@
           "query": "spool=2-DO-35618-A0CA3Z-01",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "weld",
+          "pathName": "pages/index/weld/weld",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

@@ -30,3 +30,12 @@ width: 100%;
 height: 1px;
 background-color: gray;
 }
+.label-jointImf{
+display: flex;
+flex-direction: row;
+background-color: #eee;
+}
+.jointText{
+padding-left: 20px;
+padding-top: 2px;
+}

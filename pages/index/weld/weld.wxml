@@ -13,6 +13,10 @@
         <view class="label-2" wx:for="{{jointOk}}">
           <radio value="{{item.joint}}" checked="{{item.checked}}"></radio>
           <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
+          <view class = 'label-jointImf'>
+              <view class="jointText">壁厚: {{item.Thickness}}</view>
+              <view class="jointText">管径: {{item.Size}}</view>
+          </view> 
         </view>
       </radio-group>
 </view>
@@ -20,7 +24,11 @@
 <view class="page-section page-section-gap">
       <view class="page-section-title">不满足焊接条件焊口号：</view>
         <view class="label-2" wx:for="{{jointNotOk}}">
-          <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
+          <label class="label-2-text" for="{{item.joint}}"><text class = 'jointText'>{{item.joint}}</text></label>
+          <view class = 'label-jointImf'>
+              <view class="jointText">壁厚: {{item.Thickness}}</view>
+              <view class="jointText">管径: {{item.Size}}</view>
+          </view> 
         </view>
       
 </view>
@@ -35,11 +43,32 @@
         </view>
       </radio-group>
 </view>
-
-
 <view class = "grayLine"></view>
 <view class="text">焊工号:</view>
 <view class="text">{{WelderNo}}</view>
+
+<view class="page-section page-section-gap">
+      <view class="page-section-title">是否多人焊接</view>
+      <radio-group class="group" bindchange="radio_state_result">
+        <view class="label-2" wx:for="{{status}}"wx:key='value'>
+          <radio id="{{item.value}}" value="{{item.value}}" checked="{{item.checked}}"></radio>
+          <label class="label-2-text" for="{{item.name}}"><text>{{item.name}}</text></label>
+        </view>
+      </radio-group>
+</view>
+
+<view wx:if="{{radio_state_result}}">
+  <view class='inputlist'>
+  <view wx:for="{{inputList}}" wx:key="{{index}}">
+    <input type="text" placeholder="请输入焊工号" value="{{item}}" bindinput="inputChange" data-index="{{index}}" />
+  </view>
+  <button bindtap="addwelder">增加焊工</button>
+  </view>
+  <!--
+  <button >校验焊工号</button>
+  -->
+</view>
+
 <view class = "grayLine"></view>
 <view class="text">焊接日期:</view>
 <input type ="type_input_1" bindinput="get_text" placeholder ="{{currenTime}}"></input>

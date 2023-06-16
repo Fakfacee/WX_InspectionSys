@@ -12,14 +12,22 @@
         </view>
       </radio-group>
 </view>
-
+<!--
 <view>
 <text class="main_text">承包商</text>
 <view class="blanke"></view>
 <input type ="type_input_1"  bindinput="get_text_sub"></input>
 </view>
-
-
+-->
+<view class="page-section page-section-gap">
+      <view class="page-section-title">承包商</view>
+      <radio-group class="group" bindchange="radioChange_subcontractor">
+        <view class="label-2" wx:for="{{subcontractorList}}" wx:key = "value">
+          <radio id="{{item.subcontractor}}" value="{{item.subcontractor}}" checked="{{item.checked}}"></radio>
+          <label class="label-2-text" for="{{item.subcontractor}}"><text>{{item.subcontractor}}</text></label>
+        </view>
+      </radio-group>
+</view>
 
 <view>
 <text class="main_text">焊工号或其它标识ID</text>

@@ -12,10 +12,9 @@ Page({
     welder:[],
     phoneno:[],
     password:[],
+    subcontractorList:[],
     id: [
-      {value: '3', id: '焊工',checked: 'true'},
-      {value: '2', id: 'QC'},
-      {value: '1', id: '管理员'}
+      {value: '3', id: '焊工'}
     ]
 
   },
@@ -24,6 +23,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
+    //获取承包商清单
+    wx.request({
+      url: app.globalData.url + 'searchcontractor',
+      success(res){
+      var result = JSON.parse(res.data)
+      console.log('sub返回值为'+result)
+      var subcontractorList = result.subcontractor
+      this.setData({
+      subcontractorList :  subcontractorList
+
+      })
+
+      }
+    })
  
   },
   get_text_welder: function(e){
@@ -43,14 +56,17 @@ Page({
       phoneno:e.detail.value
     })  
   },
-
+  radioChange_subcontractor(e){
+    this.setData({
+      radio_state_subcontractor : 'ture',
+      subcontractor_submit:e.detail.value
+    })
+},
   get_text_password: function(e){
     this.setData({
       password:e.detail.value
     })  
   },
-
-
 
   radioChange_id:function(e){
     this.setData({
@@ -74,39 +90,42 @@ Page({
       data: {
       //code:2检验员，3焊工，1车间管理人员
       code:this.data.code,
-      contractor:this.data.sub,
+      contractor:this.data.subcontractor_submit,
       phoneno:this.data.phoneno,
       welder:this.data.welder,
-      password:this.data.password
+      password:this.data.password,
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success (res) {
-      
-        var result = JSON.parse(res.data)
-        console.log(result)
-        console.log(result.Status)
-        console.log(result.WelderNo)
-        if(result.Status =='1'){
-        wx.navigateTo({
-          //重新返回登录界面
-          url: '/pages/main/login/login',
-          success: function () {
-            var page = getCurrentPages().pop();
-            if (page == undefined || page == null) return;
-            page.onLoad(); //重新刷新device-info页面
-          }
-        })
-      }else if(result.Status =='0'){
-        console.log('erro')
-        wx.showToast({   
-            title: '该手机号码已注册,请确认后重试', 
-            icon: 'none',  
+        if(res.statusCode !=200){
+          wx.showToast({
+            title: res.statusCode+"提交失败，请检查数据的完整性",   
+            icon: 'none',   
             duration: 2000   
-          })   
-      }
-      },
+            }) 
+        }else{
+          var result = JSON.parse(res.data)
+          if(result.Status =='1'){
+          wx.navigateTo({
+            //重新返回登录界面
+            url: '/pages/main/login/login',
+            success: function () {
+              var page = getCurrentPages().pop();
+              if (page == undefined || page == null) return;
+              page.onLoad(); //重新刷新device-info页面
+            }
+          })
+        }else if(result.Status =='0'){
+          wx.showToast({   
+              title: '该手机号码已注册,请确认后重试', 
+              icon: 'none',  
+              duration: 2000   
+            })   
+        }
+        }
+        },
       fail(res){
         wx.showToast({   
           title: '请求失败，请重试或与管理员取得联系',   

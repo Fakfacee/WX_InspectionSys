@@ -7,6 +7,7 @@ Page({
   data: {
 
   },
+  //页面跳转
   jump2imfFit(e){
     
     wx.navigateTo({
@@ -17,6 +18,12 @@ Page({
     
     wx.navigateTo({
       url: '../imf/imfVis/imfVis',
+    }) 
+   },
+   jump2imfWeld(e){
+    
+    wx.navigateTo({
+      url: '../imf/imfWeld/imfWeld',
     }) 
    },
   /**

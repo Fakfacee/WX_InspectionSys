@@ -31,7 +31,7 @@
 <view class="text">检验人:</view>
 <view class="text">{{WelderNo}}</view>
 <view class = "grayLine"></view>
-<view class="text">焊接日期:</view>
+<view class="text">检验日期:</view>
 <input type ="type_input_1" bindinput="get_text" placeholder ="{{currenTime}}"></input>
 <!--
 <view class = "grayLine"></view>
