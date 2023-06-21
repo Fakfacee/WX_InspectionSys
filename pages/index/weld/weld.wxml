@@ -1,18 +1,27 @@
 <view class="Drawing_info">
-  <view class="text">图纸号:</view>
-  <view class = "text">{{drawing_num}}</view>
-  <view class = "grayLine"></view>
   <view class="text">单管号:</view>
   <view class = "text">{{spool_num}}</view>
   <view class = "grayLine"></view>
+<!--
+<view class="drawingList" wx:for ="{{drawingList}}">
+      <view>{{item.drawingNum}}</view>
+      <view wx:for = "{{item.jointList}}">
+        <radio value="{{item.joint}}" checked="{{item.checked}}"></radio>
+        <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
+      </view>
+</view>
+-->
 </view>
 
 <view class="page-section page-section-gap">
       <view class="page-section-title">满足焊接条件焊口号：</view>
       <radio-group class="group" bindchange="radioChange_joint">
-        <view class="label-2" wx:for="{{jointOk}}">
-          <radio value="{{item.joint}}" checked="{{item.checked}}"></radio>
+        <view class="label-2" wx:for="{{jointOk}}" wx:for-index="index" wx:key="index">
+          <radio value="{{index}}" checked="{{item.checked}}"></radio>
           <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
+          <view class = 'label-jointImf'>
+              <view class="jointText">图纸号: {{item.drawingnum}}</view>
+          </view>
           <view class = 'label-jointImf'>
               <view class="jointText">壁厚: {{item.Thickness}}</view>
               <view class="jointText">管径: {{item.Size}}</view>
@@ -57,7 +66,8 @@
       </radio-group>
 </view>
 
-<view wx:if="{{radio_state_result}}">
+<view>
+  <view wx:if = "{{radio_state_result}}">
   <view class='inputlist'>
   <view wx:for="{{inputList}}" wx:key="{{index}}">
     <input type="text" placeholder="请输入焊工号" value="{{item}}" bindinput="inputChange" data-index="{{index}}" />
@@ -67,6 +77,7 @@
   <!--
   <button >校验焊工号</button>
   -->
+  </view>
 </view>
 
 <view class = "grayLine"></view>

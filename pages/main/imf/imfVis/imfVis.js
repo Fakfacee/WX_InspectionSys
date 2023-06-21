@@ -32,13 +32,9 @@ Page({
           var j ;
           var status = 0;
           var locationList = this.data.locationList;
-          
           for(i=0;i<result.length;i++){
-            
             for(j= 0;j<locationList.length;j++){
-      
              if(result[i].LocationName == locationList[j].location){
-              
                locationList[j].inf.push(result[i])
                status = 1
                break
@@ -53,10 +49,8 @@ Page({
             locationList.push({location:result[i].LocationName,inf:[result[i]]})
             status = 0
            }
-           
-         }
-         
-         console.log(locationList)
+         }  
+        //console.log(locationList)
         this.setData({
           result : result,
           locationList : locationList

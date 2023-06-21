@@ -1,7 +1,4 @@
 <view class="Drawing_info">
-  <view class="text">图纸号:</view>
-  <view class = "text">{{drawing_num}}</view>
-  <view class = "grayLine"></view>
   <view class="text">单管号:</view>
   <view class = "text">{{spool_num}}</view>
   <view class = "grayLine"></view>
@@ -10,9 +7,12 @@
 <view class="page-section page-section-gap">
       <view class="page-section-title">焊口号：</view>
       <radio-group class="group" bindchange="radioChange_joint">
-        <view class="label-2" wx:for="{{joint}}" wx:key = "value">
-          <radio value="{{item.joint}}" checked="{{item.checked}}"></radio>
+        <view class="label-2" wx:for="{{joint}}" wx:for-index="index" wx:key="index">
+          <radio value="{{index}}" checked="{{item.checked}}"></radio>
           <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
+          <view class = 'label-jointImf'>
+              <view class="jointText">图纸号: {{item.drawingnum}}</view>
+          </view>
           <view class = 'label-jointImf'>
               <view class="jointText">壁厚: {{item.Thickness}}</view>
               <view class="jointText">管径: {{item.Size}}</view>

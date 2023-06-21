@@ -17,6 +17,7 @@ Page({
     spool_num:'',
     joint: [
     ],
+    weldid:[],
     wps: [],
     location: [],
   },
@@ -27,6 +28,7 @@ Page({
       //data:that.spool_num,
       dataType : 'JSON',
       data: {
+        WeldId:this.data.weldid,
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
@@ -111,11 +113,15 @@ Page({
      })
     
     },
-
    radioChange_joint:function(e){
+    var jointok = this.data.joint
+    var index = e.detail.value
+
     this.setData({
     radio_state_joint : 'ture',
-    joint_submit : e.detail.value
+    joint_submit : jointok[index].joint,
+    drawing_num :  jointok[index].drawingnum,
+    weldid : jointok[index].weldid,
     })
   },
     radioChange_wps(e){
@@ -154,24 +160,27 @@ Page({
           var data = result
           var drawing = data[0].DrawingNo
           var lists = []
-          console.log('单管请求结果为')
-          console.log(result)
+          //console.log('单管请求结果为')
+          //console.log(result)
           //for 循环
-          
           for(let i = 0;i<Object.keys(data).length;i++)
           {
             var object = new Object()
             object.value = i
+            //引入图纸号
+            object.drawingnum = data[i].DrawingNo
+            //引入weldid
+            object.weldid = data[i].WeldId
             object.joint = data[i].WeldNo
             //增加管径壁厚
             object.Size = data[i].Size
             object.Thickness = data[i].Thickness
-              lists.push(object)
+            lists.push(object)
 
           }
           this.setData({
           joint : lists,
-          drawing_num : drawing,
+          //drawing_num : drawing,
           spool_num : spool,
           }); 
         }, 

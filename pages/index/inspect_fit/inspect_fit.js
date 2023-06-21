@@ -15,7 +15,7 @@ Page({
     WelderNo :[],
     drawing_num:'',
     spool_num:'',
-    
+    weldid:[],
     joint: [],
   
     result: [
@@ -35,6 +35,7 @@ Page({
       //data:that.spool_num,
       dataType : 'JSON',
       data: {
+        WeldId : this.data.weldid,
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
@@ -123,11 +124,13 @@ Page({
     },
 
    radioChange_joint:function(e){
-    
+    var jointok = this.data.joint
+    var index = e.detail.value
     this.setData({
     radio_state_joint : 'ture',
-    joint_submit : e.detail.value
-    
+    joint_submit : jointok[index].joint,
+    drawing_num :  jointok[index].drawingnum,
+    weldid : jointok[index].weldid,
     })
   },
     radioChange_result(e){
@@ -188,6 +191,9 @@ Page({
             for(let i = 0;i<Object.keys(result).length;i++)
             {
               var object = new Object()
+              //引入图纸号
+              object.drawingnum = result[i].DrawingNo
+              object.weldid = result[i].WeldId
               object.value = i
               object.joint = result[i].WeldNo
               //取消默认首项勾选

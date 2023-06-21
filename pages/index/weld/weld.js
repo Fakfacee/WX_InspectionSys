@@ -20,12 +20,15 @@ Page({
     ],
     jointNotOk : [
     ],
-    inputList: [''],
+    weldid:[],
+    inputList: [],
     wps: [],
     location: [],
     status:[
-      {value: true, name: '是'}
+      {value: true, name: '是'},
+      {value: false, name: '否',checked :true},
     ],
+    test: true,
   },
   addwelder: function() {
     var inputList = this.data.inputList;
@@ -45,19 +48,25 @@ Page({
   submit(e) {
     //合并当前焊工信息
     //inputlist = [0:welde1,1:welder:2]
-    var welderlist = []
-    var inputlist = this.data.inputList
-    welderlist.push(this.data.WelderNo)
-    for(var i in inputlist){
-    welderlist.push(inputlist[i])
+    if(this.radio_state_result == true){
+      var welderlist = []
+      var inputlist = this.data.inputList
+      welderlist.push(this.data.WelderNo)
+      for(var i in inputlist){
+      welderlist.push(inputlist[i])
+      }
+    }else{
+      var welderlist = []
+      welderlist.push(this.data.WelderNo)
     }
-
+   
     wx.request({
       url: app.globalData.url+'addweldinginfo',
       method : 'POST',
       //data:that.spool_num,
       dataType : 'JSON',
       data: {
+        WeldId : this.data.weldid,
         WeldNo: this.data.joint_submit,
         DrawingNo: this.data.drawing_num,
         PipeNo:this.data.spool_num,
@@ -121,7 +130,6 @@ Page({
       this.setData({
         welder:e.detail.value
       })
-       
     },
     
   //获取location信息
@@ -143,9 +151,13 @@ Page({
     },
 
    radioChange_joint:function(e){
+    var jointok = this.data.jointOk
+    var index = e.detail.value
     this.setData({
     radio_state_joint : 'ture',
-    joint_submit : e.detail.value
+    joint_submit : jointok[index].joint,
+    drawing_num :  jointok[index].drawingnum,
+    weldid : jointok[index].weldid,
     })
   },
     radioChange_wps(e){
@@ -162,13 +174,19 @@ Page({
 },
 radio_state_result(e){
   console.log(e.detail.value)
-  this.setData({
-    radio_state_result : e.detail.value,
-  })
-},
+  if(e.detail.value == 'true'){
+    this.setData({
+      radio_state_result : true,
+    })
+  }else{
+    this.setData({
+      radio_state_result : false,
+      inputList: [],
+    })
+  }
 
+},
     onLoad: function (options) {
-      
       var that = this.data;
       var spool = options.spool;
       //var array = JSON.parse(options.spool);
@@ -181,7 +199,7 @@ radio_state_result(e){
         WelderNo : app.globalData.WelderNo,
         Contractor : app.globalData.subcontractor,
       });
-      console.log('------请求满足焊接检验条件焊口-----')
+      //console.log('------请求满足焊接检验条件焊口-----')
       wx.request({
         url: app.globalData.url+'searchallweldbypipeforwelding',
         method : 'POST',
@@ -190,30 +208,32 @@ radio_state_result(e){
         success:(res) =>{
           var result = JSON.parse(res.data)
           var data = result
-
-          console.log('----查询结果为-----')
-          console.log(data)
+          //console.log('----查询结果为-----')
+          //console.log(data)
           var drawing = data[0].DrawingNo
           var listsCanNotWeld = []
           var listsCanWeld = []
           //for 循环
-
           for(let i = 0;i<Object.keys(data).length;i++)
           {
             var object = new Object()
             object.value = i
+            //引入图纸号
+            object.drawingnum = data[i].DrawingNo
+            //引入weldid
+            object.weldid = data[i].WeldId
             object.joint = data[i].WeldNo
             //增加管径壁厚
             object.Size = data[i].Size
             object.Thickness = data[i].Thickness
             if(data[i].IfWelding == 0){
               listsCanNotWeld.push(object)
-
             }else{
               listsCanWeld.push(object)
             }
-            
           }
+        //合并项处理
+
           this.setData({
           jointOk : listsCanWeld,
           jointNotOk : listsCanNotWeld,
