@@ -5,20 +5,30 @@
 </view>
 
 <view class="page-section page-section-gap">
-      <view class="page-section-title">焊口号：</view>
-      <radio-group class="group" bindchange="radioChange_joint">
-        <view class="label-2" wx:for="{{joint}}" wx:for-index="index" wx:key="index">
-          <radio value="{{index}}" checked="{{item.checked}}"></radio>
-          <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
-          <view class = 'label-jointImf'>
-              <view class="jointText">图纸号: {{item.drawingnum}}</view>
-          </view>
-          <view class = 'label-jointImf'>
-              <view class="jointText">壁厚: {{item.Thickness}}</view>
-              <view class="jointText">管径: {{item.Size}}</view>
-          </view> 
-        </view>
-      </radio-group>
+  <view class="page-section-title">预制与总装选择</view>
+  <radio-group class="group" bindchange="checkboxChange">
+    <view class="label-2" wx:for="{{prefabAssembly}}" wx:key="index">
+      <radio value="{{item.value}}" checked="{{item.checked}}"></radio>
+      <label class="label-2-text" for="{{item.value}}"><text>{{item.name}}</text></label>
+    </view>
+  </radio-group>
+</view>
+
+<view class="page-section page-section-gap">
+  <view class="page-section-title">焊口号：</view>
+  <checkbox-group class="group" bindchange="checkboxChange_joint">
+    <view class="label-2" wx:for="{{jointLocation}}" wx:for-index="index" wx:key="index">
+      <checkbox value="{{item.value}}" checked="{{item.checked}}"></checkbox>
+      <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
+      <view class='label-jointImf'>
+        <view class="jointText">图纸号: {{item.drawingnum}}</view>
+      </view>
+      <view class='label-jointImf'>
+        <view class="jointText">壁厚: {{item.Thickness}}</view>
+        <view class="jointText">管径: {{item.Size}}</view>
+      </view> 
+    </view>
+  </checkbox-group>
 </view>
 <!--
 <view class = "grayLine"></view>

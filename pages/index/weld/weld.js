@@ -28,7 +28,6 @@ Page({
       {value: true, name: '是'},
       {value: false, name: '否',checked :true},
     ],
-    test: true,
   },
   addwelder: function() {
     var inputList = this.data.inputList;
@@ -48,7 +47,8 @@ Page({
   submit(e) {
     //合并当前焊工信息
     //inputlist = [0:welde1,1:welder:2]
-    if(this.radio_state_result == true){
+    
+    if(this.radio_state_result){
       var welderlist = []
       var inputlist = this.data.inputList
       welderlist.push(this.data.WelderNo)
@@ -59,7 +59,6 @@ Page({
       var welderlist = []
       welderlist.push(this.data.WelderNo)
     }
-   
     wx.request({
       url: app.globalData.url+'addweldinginfo',
       method : 'POST',
@@ -147,17 +146,23 @@ Page({
          complete: function () {
          }
      })
-    
     },
-
-   radioChange_joint:function(e){
+    checkboxChange_joint:function(e){
     var jointok = this.data.jointOk
-    var index = e.detail.value
+    var values = e.detail.value
+    var joint_submits = [];
+    var drawing_nums = [];
+    var weldids = [];
+    for (var i in values) {
+        joint_submits.push(jointok[i].joint)
+        drawing_nums.push(jointok[i].drawingnum)
+        weldids.push(jointok[i].weldid)
+    }
     this.setData({
     radio_state_joint : 'ture',
-    joint_submit : jointok[index].joint,
-    drawing_num :  jointok[index].drawingnum,
-    weldid : jointok[index].weldid,
+    joint_submit : joint_submits,
+    drawing_num :  drawing_nums,
+    weldid : weldids,
     })
   },
     radioChange_wps(e){

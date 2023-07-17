@@ -18,7 +18,7 @@
 <view class="funcBox">
 <!--间隔灰横条-->
 <view class="graydivide"></view>
-<view wx:if="{{ class_code === 2 || class_code === 1 || class_code === 4 || class_code === 5}}">
+<view wx:if="{{ class_code === 2 || class_code === 1 || class_code === 4}}">
 <view class='function'>
   <view style="width:100%">
     <view class="functioninformation" bindtap="jump2inspect_fit"><!--左边图片&文字-->
@@ -51,7 +51,7 @@
 
 </view>
 <view class="graydivide"></view>
-<view wx:if="{{class_code === 3 || class_code === 1 || class_code === 4}}">
+<view wx:if="{{class_code === 3 || class_code === 1 || class_code === 4| class_code === 5}}">
 <view class='function'>
   <view style="width:100%">
     <view class="functioninformation" bindtap="jump2fitup"><!--左边图片&文字-->

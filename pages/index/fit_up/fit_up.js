@@ -7,9 +7,7 @@ Page({
     currenTime:[],
     location_submit : [],
     joint_submit :[],
-    radio_state_joint: 'false',
-    radio_state_wps: 'false',
-    radio_state_location: 'false',
+    jointLocation:[],
     wps_submit :[],
     UserId:[],
     Contractor:[],
@@ -20,6 +18,7 @@ Page({
     weldid:[],
     wps: [],
     location: [],
+    prefabAssembly:[],
   },
   submit(e) {
     wx.request({
@@ -95,7 +94,6 @@ Page({
       })
        
     },
-    
   //获取location信息
     getCenterLocation: function (){
       var that = this
@@ -110,18 +108,61 @@ Page({
          },
          complete: function () {
          }
-     })
-    
+     }) 
     },
-   radioChange_joint:function(e){
-    var jointok = this.data.joint
-    var index = e.detail.value
-
+    checkboxChange(e) {
+      const value = e.detail.value;
+      const joint = this.data.joint;
+      console.log('joint')
+      console.log(joint)
+      const prefabAssembly = this.data.prefabAssembly;
+      console.log('joint')
+      console.log(joint)
+      let filteredJoint = [];
+      console.log('prefabAssembly')
+      console.log(this.data.prefabAssembly)
+      if (value == 0) {
+        filteredJoint = joint.filter(item => !item.joint.startsWith('FW'));
+      } else{
+        filteredJoint = joint.filter(item => item.joint.startsWith('FW'));
+      }
+      console.log('filteredJoint')
+      console.log(filteredJoint)
+      this.setData({
+        jointLocation: filteredJoint
+      });
+      for(var i in prefabAssembly){
+        if(prefabAssembly[i].value == value){
+           prefabAssembly[i].checked = true
+        }else{
+          prefabAssembly[i].checked = false
+        }
+      }
+      console.log('当前缓存为')
+      console.log(prefabAssembly)
+      wx.setStorageSync('selectedOptions', prefabAssembly );
+    },
+    checkboxChange_joint:function(e){
+    var jointok = this.data.jointLocation;
+    var values = e.detail.value;
+    var joint_submit = [];
+    var drawing_nums = [];
+    var weldids = [];
+    for (var i = 0; i < values.length; i++) {
+      for(var index in jointok){
+        if(jointok[index].value == values[i]){
+          console.log(jointok[index])
+          joint_submit.push(jointok[index].joint);
+          drawing_nums.push(jointok[index].drawingnum);
+          weldids.push(jointok[index].weldid);
+        }
+      }
+    }
     this.setData({
     radio_state_joint : 'ture',
-    joint_submit : jointok[index].joint,
-    drawing_num :  jointok[index].drawingnum,
-    weldid : jointok[index].weldid,
+    joint_submit : joint_submit,
+    drawing_num :  drawing_nums,
+    weldid : weldids,
     })
   },
     radioChange_wps(e){
@@ -132,12 +173,11 @@ Page({
   },
     radioChange_location(e){
       this.setData({
-        radio_state_location : 'ture',
         location_submit:e.detail.value
     })
 },
-
     onLoad: function (options) {
+      var lists = []
       var that = this.data;
       var spool = options.spool;
       //var array = JSON.parse(options.spool);
@@ -157,9 +197,7 @@ Page({
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
           var result = JSON.parse(res.data)
-          var data = result
-          var drawing = data[0].DrawingNo
-          var lists = []
+          var data = result   
           //console.log('单管请求结果为')
           //console.log(result)
           //for 循环
@@ -176,7 +214,6 @@ Page({
             object.Size = data[i].Size
             object.Thickness = data[i].Thickness
             lists.push(object)
-
           }
           this.setData({
           joint : lists,
@@ -198,18 +235,45 @@ Page({
             console.log(data)
             var wpsList = data[0].wps
             var locationList = data[1].location
-
             this.setData({
               wps : wpsList,
               location : locationList,
-              
               }); 
           }
 
         })
     },
-    //地图函数，待完善
     onReady: function (e) {
-      this.mapCtx = wx.createMapContext('myMap')
+      let lastSelectedOptions = wx.getStorageSync('selectedOptions');
+      var e = {type:"",detail:{value:null}};
+      if (!lastSelectedOptions) {
+          lastSelectedOptions =[{value: 0, name: '预制',checked : true},{value: 1, name: '总装',checked : false}];
+      }
+      for(var i in lastSelectedOptions){
+        if(lastSelectedOptions[i].checked == true){
+          e.detail.value = lastSelectedOptions[i].value
+        }
+      }
+      this.setData({
+        prefabAssembly: lastSelectedOptions
+      });
+      // Create a Promise to wait for the joint data to be available
+      const getJointData = new Promise((resolve, reject) => {
+      // Check if the joint data has been loaded
+      if (this.data.joint.length > 0) {
+         resolve();
+      } else {
+      // Wait for the joint data to be loaded
+      const intervalId = setInterval(() => {
+        if (this.data.joint.length > 0) {
+          clearInterval(intervalId);
+          resolve();
+        }
+      }, 100);
+      }
+      });
+      getJointData.then(() => {
+        this.checkboxChange(e);
+      });
     }
   })

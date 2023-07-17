@@ -128,14 +128,22 @@ Page({
     
     },
 
-   radioChange_joint:function(e){
+    checkboxChange_joint:function(e){
     var jointok = this.data.joint
-    var index = e.detail.value
+    var values = e.detail.value
+    var joint_submits = [];
+    var drawing_nums = [];
+    var weldids = [];
+    for (var i in values) {
+        joint_submits.push(jointok[i].joint)
+        drawing_nums.push(jointok[i].drawingnum)
+        weldids.push(jointok[i].weldid)
+    }
     this.setData({
     radio_state_joint : 'ture',
-    joint_submit : jointok[index].joint,
-    drawing_num :  jointok[index].drawingnum,
-    weldid : jointok[index].weldid,
+    joint_submit : joint_submits,
+    drawing_num :  drawing_nums,
+    weldid : weldids,
     })
   },
     radioChange_result(e){

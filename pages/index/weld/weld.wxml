@@ -15,9 +15,9 @@
 
 <view class="page-section page-section-gap">
       <view class="page-section-title">满足焊接条件焊口号：</view>
-      <radio-group class="group" bindchange="radioChange_joint">
+      <checkbox-group class="group"bindchange="checkboxChange_joint">
         <view class="label-2" wx:for="{{jointOk}}" wx:for-index="index" wx:key="index">
-          <radio value="{{index}}" checked="{{item.checked}}"></radio>
+          <checkbox value="{{index}}" checked="{{item.checked}}"></checkbox>
           <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
           <view class = 'label-jointImf'>
               <view class="jointText">图纸号: {{item.drawingnum}}</view>
@@ -27,7 +27,7 @@
               <view class="jointText">管径: {{item.Size}}</view>
           </view> 
         </view>
-      </radio-group>
+      </checkbox-group>
 </view>
 
 <view class="page-section page-section-gap">
@@ -69,7 +69,7 @@
 <view>
   <view wx:if = "{{radio_state_result}}">
   <view class='inputlist'>
-  <view wx:for="{{inputList}}" wx:key="{{index}}">
+  <view wx:for="{{inputList}}" wx:key="index">
     <input type="text" placeholder="请输入焊工号" value="{{item}}" bindinput="inputChange" data-index="{{index}}" />
   </view>
   <button bindtap="addwelder">增加焊工</button>

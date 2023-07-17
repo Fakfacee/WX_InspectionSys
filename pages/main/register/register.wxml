@@ -23,8 +23,8 @@
       <view class="page-section-title">承包商</view>
       <radio-group class="group" bindchange="radioChange_subcontractor">
         <view class="label-2" wx:for="{{subcontractorList}}" wx:key = "value">
-          <radio id="{{item.subcontractor}}" value="{{item.subcontractor}}" checked="{{item.checked}}"></radio>
-          <label class="label-2-text" for="{{item.subcontractor}}"><text>{{item.subcontractor}}</text></label>
+          <radio id="{{item.ContractorId}}" value="{{item.Contractor}}" checked="{{item.checked}}"></radio>
+          <label class="label-2-text" for="{{item.Contractor}}"><text>{{item.Contractor}}</text></label>
         </view>
       </radio-group>
 </view>

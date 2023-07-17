@@ -26,15 +26,10 @@ Page({
     //获取承包商清单
     wx.request({
       url: app.globalData.url + 'searchcontractor',
-      success(res){
-      var result = JSON.parse(res.data)
-      console.log('sub返回值为'+result)
-      var subcontractorList = result.subcontractor
-      this.setData({
-      subcontractorList :  subcontractorList
-
+      success: (res) => {
+        this.setData({
+        subcontractorList : res.data
       })
-
       }
     })
  
@@ -107,19 +102,15 @@ Page({
             }) 
         }else{
           var result = JSON.parse(res.data)
-          if(result.Status =='1'){
-          wx.navigateTo({
-            //重新返回登录界面
-            url: '/pages/main/login/login',
-            success: function () {
-              var page = getCurrentPages().pop();
-              if (page == undefined || page == null) return;
-              page.onLoad(); //重新刷新device-info页面
-            }
-          })
-        }else if(result.Status =='0'){
+          if(result.Status ==3){
+            wx.showToast({   
+              title: '注册成功，请返回登录页面', 
+              icon: 'none',  
+              duration: 2000   
+            })  
+        }else{
           wx.showToast({   
-              title: '该手机号码已注册,请确认后重试', 
+              title: result.Note, 
               icon: 'none',  
               duration: 2000   
             })   
