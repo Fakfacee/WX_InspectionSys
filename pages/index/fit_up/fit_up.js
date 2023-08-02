@@ -172,8 +172,12 @@ Page({
       })
   },
     radioChange_location(e){
+      //e.detail.value值为index值
+      var index = e.detail.value;
+      var location = this.data.location[index];
+      wx.setStorageSync('locationIndex', index)
       this.setData({
-        location_submit:e.detail.value
+        location_submit:location
     })
 },
     onLoad: function (options) {

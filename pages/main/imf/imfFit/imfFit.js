@@ -24,8 +24,8 @@ Page({
           success:(res) =>{
           //[{"ZuDuiId": 12, "WeldId": 1778, "WelderId": 10, "…-A0CA3Z_SHT1", "PipeNo": "2-DO-35622-A0CA3Z-01"}]
           //var result = JSON.parse(res.data)
-          console.log('------******-------')
           var result = JSON.parse(res.data)
+          console.log('------******-------')
           console.log(result)
           var i ;
           var j ;
@@ -54,15 +54,14 @@ Page({
            }
            
          }
-         
-         console.log(locationList)
+        console.log(locationList)
         this.setData({
           result : result,
           locationList : locationList
       
         })
       
-          },
+        },
           fail:function(res){
       
             wx.showToast({

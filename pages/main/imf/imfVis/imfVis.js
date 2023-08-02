@@ -1,32 +1,26 @@
 // pages/main/imf/imfVis/imfVis.js
-
 var app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     locationList:[],
     result: [],
-    
     },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad() {
     wx.request({
-      
       url: app.globalData.url+'searchappearinsforinspect',
           method : 'POST',
           dataType : 'JSON',
-         
           success:(res) =>{
           //[{"ZuDuiId": 12, "WeldId": 1778, "WelderId": 10, "…-A0CA3Z_SHT1", "PipeNo": "2-DO-35622-A0CA3Z-01"}]
           //var result = JSON.parse(res.data)
-          console.log('------******-------')
           var result = JSON.parse(res.data)
+          console.log('------******-------')
           console.log(result)
           var i ;
           var j ;

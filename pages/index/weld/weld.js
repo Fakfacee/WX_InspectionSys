@@ -47,7 +47,6 @@ Page({
   submit(e) {
     //合并当前焊工信息
     //inputlist = [0:welde1,1:welder:2]
-    
     if(this.radio_state_result){
       var welderlist = []
       var inputlist = this.data.inputList
@@ -178,7 +177,7 @@ Page({
     })
 },
 radio_state_result(e){
-  console.log(e.detail.value)
+
   if(e.detail.value == 'true'){
     this.setData({
       radio_state_result : true,
@@ -192,11 +191,13 @@ radio_state_result(e){
 
 },
     onLoad: function (options) {
-      var that = this.data;
+      var that = this;
       var spool = options.spool;
       //var array = JSON.parse(options.spool);
       // 调用函数时，传入new Date()参数，返回值是日期和时间
       var currenTime= util.formatTime(new Date());
+      var listsCanNotWeld = []
+      var listsCanWeld = []
       // 再通过setData更改Page()里面的data，动态更新页面的数据
       this.setData({
         currenTime: currenTime,
@@ -205,19 +206,20 @@ radio_state_result(e){
         Contractor : app.globalData.subcontractor,
       });
       //console.log('------请求满足焊接检验条件焊口-----')
+  
       wx.request({
         url: app.globalData.url+'searchallweldbypipeforwelding',
         method : 'POST',
         dataType : 'JSON',
-        data:{value :'0',spool:that.spool_num},
+        data:{value :'0',spool:that.data.spool_num},
+
         success:(res) =>{
           var result = JSON.parse(res.data)
           var data = result
           //console.log('----查询结果为-----')
           //console.log(data)
           var drawing = data[0].DrawingNo
-          var listsCanNotWeld = []
-          var listsCanWeld = []
+
           //for 循环
           for(let i = 0;i<Object.keys(data).length;i++)
           {
@@ -238,8 +240,7 @@ radio_state_result(e){
             }
           }
         //合并项处理
-
-          this.setData({
+          that.setData({
           jointOk : listsCanWeld,
           jointNotOk : listsCanNotWeld,
           drawing_num : drawing,
@@ -247,31 +248,46 @@ radio_state_result(e){
           }); 
         }, 
         });
-
-
-        wx.request({
-          url: app.globalData.url+'searchWpsAndLocation',
-          method : 'POST',
-          dataType : 'JSON',
-          success:(res) =>{
-            var result = JSON.parse(res.data)
-            var data = result
-            console.log('-------工艺地点请求结果--------')
-            console.log(data)
-            var wpsList = data[0].wps
-            var locationList = data[1].location
-
-            this.setData({
-              wps : wpsList,
-              location : locationList,
-              
-              }); 
-          }
-
-        })
     },
+    checkJointOk(){
+      var jointOk = this.data.jointOk;
+      var that = this;
+      if (jointOk.length === 0) {
+        setTimeout(function(){
+          that.checkJointOk()
+        }, 200);
+      } else {
+        // 执行下一步请求函数
+        this.nextRequestFunction();
+      }
+    },
+    nextRequestFunction() {
+      var that = this
+      console.log(that.data.jointOk)
+      wx.request({
+        url: app.globalData.url+'searchWpsAndLocation',
+        method : 'POST',
+        dataType : 'JSON',
+        data:{data:this.data.jointOk},
+        success:(res) =>{
+          var result = JSON.parse(res.data)
+          var data = result
+          console.log('-------工艺地点请求结果--------')
+          console.log(data)
+          var wpsList = data[0].wps
+          var locationList = data[1].location
+          this.setData({
+            wps : wpsList,
+            location : locationList,
+            }); 
+        }
+      })
+      // 在这里执行下一步请求函数的代码
+    },
+
     //地图函数，待完善
     onReady: function (e) {
-      this.mapCtx = wx.createMapContext('myMap')
+      this.checkJointOk()
+
     }
   })

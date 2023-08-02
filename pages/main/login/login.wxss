@@ -96,7 +96,26 @@ height: 100%;
 width: 100%;
 
 }
+.visitor-box{
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+
+}
 .visitor{
+  width: 40%;
   text-align: right;
   margin-top: 10px;
+}
+.pickerBox{
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.picker{
+  width: 120px;
+  text-align: center;
+  border: 1px solid #ffffff;
 }

@@ -1,13 +1,16 @@
 var app = getApp()
 Page({ 
-  data: { 
+  data: {
+    options: ['HZ26-6'],
+    selectedValue: 0, // 当前选中的值的索引
+    selectedOption: 'HZ26-6', // 当前选中的值 
     phone: '', 
     password:'' ,
     movies:[
       {url:'/pages/image/Login1.jpg'},
       {url:'/pages/image/Login2.jpg'},
       {url:'/pages/image/Login3.jpeg'},
-      ]
+      ],
   }, 
  
 //访客模式登录
@@ -24,12 +27,9 @@ Page({
   app.globalData.class_code = 1,
   app.globalData.WelderNo = null
   wx.switchTab({
-     
     url: '/pages/main/main_page',
   })
-
   },
-
 // 获取输入账号 
   phoneInput :function (e) { 
     this.setData({ 
@@ -44,6 +44,20 @@ Page({
     })
     wx.setStorageSync('password', e.detail.value)   
   }, 
+  onPickerChange: function (e) {
+    wx.setStorageSync('optionIndex', e.detail.value)
+    const index = e.detail.value; // 获取选中的索引
+    const option = this.data.options[index]; // 获取选中的值
+    this.setData({
+      selectedValue: index,
+      selectedOption: option
+    });
+    if(option == 'HZ26-6'){
+      app.globalData.url = app.globalData.url_HZ
+    }else if(option == 'XJ30-2'){
+      app.globalData.url = app.globalData.url_XJ
+    }
+  },
 // 登录 
   login: function () { 
     if(this.data.phone.length == 0 || this.data.password.length == 0){ 
@@ -53,7 +67,6 @@ Page({
         duration: 2000   
       })   
 }else { 
-  // 这里修改成跳转的页面 
   wx.request({
     url: app.globalData.url+'login',
     method : 'POST',
@@ -63,15 +76,11 @@ Page({
     strPwd:this.data.password
     },
     success:(res) =>{
-    
     try {
       var result = JSON.parse(res.data)
-      
       //Status,UserId,Name,User_Identity,Contractor,Email,PhoneNo,PowerId,WelderNo
       if(result.Status == '0'){
-        
         wx.showToast({
-
           title: '用户名不存在,请进行注册',   
           icon: 'none',   
           duration: 2000   
@@ -89,16 +98,12 @@ Page({
       app.globalData.class_code = result.PowerId,
       app.globalData.WelderNo = result.WelderNo
      
-      //result.UserId
-      
       wx.switchTab({
-     
         url: '/pages/main/main_page',
       })
       }
     }catch(Exception){
       wx.showToast({
-
         title: '与服务器连接失败，请重新尝试',   
         icon: 'none',   
         duration: 2000   
@@ -106,22 +111,16 @@ Page({
     }
     },
     fail:function(){
-      
       wx.showToast({
-
         title: '无法连接服务器',   
         icon: 'none',   
         duration: 2000   
         }) 
-
       }
-  })
-
-     
+  }) 
     }   
   },
   registe: function () { 
-
   wx.navigateTo({
     url: '../register/register',
   })
@@ -146,15 +145,25 @@ onLoad: function (options){
     })
   })
   updateManager.onUpdateFailed(function () {
-
-    
     // 新版本下载失败
   })
-
   this.setData({ 
     phone: wx.getStorageSync('phone'),
-    password : wx.getStorageSync('password')
+    password : wx.getStorageSync('password'),
+    
   }) 
+},
+onReady(){
+//构造模拟事件
+var e = {type:"",detail:{value:null}};
+let optionIndex = wx.getStorageSync('optionIndex');
+if (!optionIndex) {
+  e.detail.value = 0
+}else{
+  e.detail.value = optionIndex
+}
+//根据历史缓存，刷新显示
+this.onPickerChange(e)
 
 }
 
