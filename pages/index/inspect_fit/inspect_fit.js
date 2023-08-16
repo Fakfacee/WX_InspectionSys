@@ -14,6 +14,7 @@ Page({
     UserId:null,
     WelderNo :[],
     drawing_num:'',
+    drawing_nums:[],
     spool_num:'',
     weldid:[],
     joint: [],
@@ -28,7 +29,6 @@ Page({
   },
 
   submit(e) {
-   
     wx.request({
       url: app.globalData.url+'zuduiinspectionrequest',
       method : 'POST',
@@ -37,7 +37,7 @@ Page({
       data: {
         WeldId : this.data.weldid,
         WeldNo: this.data.joint_submit,
-        DrawingNo: this.data.drawing_num,
+        DrawingNo: this.data.drawing_nums,
         PipeNo:this.data.spool_num,
         UserId : this.data.UserId,
         Result : this.data.result_submit,
@@ -129,15 +129,16 @@ Page({
     var joint_submits = [];
     var drawing_nums = [];
     var weldids = [];
-    for (var i in values) {
-        joint_submits.push(jointok[i].joint)
-        drawing_nums.push(jointok[i].drawingnum)
-        weldids.push(jointok[i].weldid)
+    for (var i = 0; i < values.length; i++) {
+        const value = values[i]
+        joint_submits.push(jointok[value].joint)
+        drawing_nums.push(jointok[value].drawingnum)
+        weldids.push(jointok[value].weldid)
     }
     this.setData({
     radio_state_joint : 'ture',
     joint_submit : joint_submits,
-    drawing_num :  drawing_nums,
+    drawing_nums :  drawing_nums,
     weldid : weldids,
     })
   },

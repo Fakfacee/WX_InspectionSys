@@ -91,7 +91,6 @@ Page({
         //{"Status":0,"Note":"此焊口有未申请"}
         console.log('-------焊接信息提交返回code------------')
         console.log(res.statusCode)
-      
           console.log('-------组对信息提交返回Status------------')
           console.log(result.Status)
           if(result.Status == 0){
@@ -152,10 +151,12 @@ Page({
     var joint_submits = [];
     var drawing_nums = [];
     var weldids = [];
-    for (var i in values) {
-        joint_submits.push(jointok[i].joint)
-        drawing_nums.push(jointok[i].drawingnum)
-        weldids.push(jointok[i].weldid)
+    for (let i = 0;i<values.length;i++) {
+        const value = values[i]
+        joint_submits.push(jointok[value].joint)
+        drawing_nums.push(jointok[value].drawingnum)
+        weldids.push(jointok[value].weldid)
+      
     }
     this.setData({
     radio_state_joint : 'ture',
@@ -171,13 +172,13 @@ Page({
       })
   },
     radioChange_location(e){
+      var index = e.detail.value;
+      var location = this.data.location[index];
       this.setData({
-        radio_state_location : 'ture',
-        location_submit:e.detail.value
+        location_submit:location.LocationName
     })
 },
 radio_state_result(e){
-
   if(e.detail.value == 'true'){
     this.setData({
       radio_state_result : true,
@@ -212,7 +213,6 @@ radio_state_result(e){
         method : 'POST',
         dataType : 'JSON',
         data:{value :'0',spool:that.data.spool_num},
-
         success:(res) =>{
           var result = JSON.parse(res.data)
           var data = result
@@ -266,11 +266,11 @@ radio_state_result(e){
       console.log(that.data.jointOk)
       wx.request({
         url: app.globalData.url+'searchWpsAndLocation',
-        method : 'POST',
-        dataType : 'JSON',
-        data:{data:this.data.jointOk},
+        method : 'GET',
+        //dataType : 'JSON',
+        //data:{data:this.data.jointOk},
         success:(res) =>{
-          var result = JSON.parse(res.data)
+          var result = res.data
           var data = result
           console.log('-------工艺地点请求结果--------')
           console.log(data)

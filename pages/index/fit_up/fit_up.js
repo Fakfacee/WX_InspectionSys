@@ -175,9 +175,9 @@ Page({
       //e.detail.value值为index值
       var index = e.detail.value;
       var location = this.data.location[index];
-      wx.setStorageSync('locationIndex', index)
+      //wx.setStorageSync('locationIndex', index)
       this.setData({
-        location_submit:location
+        location_submit:location.LocationName
     })
 },
     onLoad: function (options) {

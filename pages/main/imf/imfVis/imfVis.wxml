@@ -2,9 +2,10 @@
 <view class ='mainBox'>
     <view class = 'leftBox'></view>
     <view class = 'rightBox'>
-      <view  wx:if="{{ocationList.length > 0}}">
-      <view  wx:for="{{locationList}}">
+      <view  wx:if="{{locationList.length > 0}}">
+      <view  wx:for = "{{locationList}}" >
        <view class = 'title' >地区 ： {{item.location}} | 总焊口数 ：{{item.inf.length}}
+       
        </view>
        <view class = 'list' wx:for = "{{item.inf}}">
              <view class = 'text'>图纸号 : {{item.DrawingNo}}</view>
@@ -16,5 +17,4 @@
       </view>
       <view wx:else="">当前无待检验焊口</view>
     </view>
-
 </view>

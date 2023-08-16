@@ -12,9 +12,9 @@ WelderNo : [''],
 UserId : [''],
 url:null,
 //上线测试
-//url_HZ : ['https://cyhdl1ttleyuming.cn/wx/'],
+url_HZ : ['https://cyhdl1ttleyuming.cn/wx/'],
 //本地测试
-url_HZ : ['http://127.0.0.1:8080/wx/'],
+//url_HZ : ['http://127.0.0.1:8080/wx/'],
 //url_XJ : ['http://127.0.0.1:8000/wx/']
 
 

@@ -27,65 +27,32 @@ Page({
           //var result = JSON.parse(res.data)
           console.log('------******-------')
           var result = JSON.parse(res.data)
+          console.log(result)
           var i ;
           var resultList = [];
-          //方案2--查询结果为返回所有值
-          //object类枚举
-          /** 
-          for(var i in result){
-            console.log(i) //获取键
-            console.log(result[i])
-          }
-          
-          for(i in result){
-                for(j= 0;j<locationList.length;j++){
-                if(result[i].IfWelding == 1){
-                if(result[i].LocationName == locationList[j].location){
-                  locationList[j].inf.push(result[i])
-                  status = 1
-                  break
-                  //locationList[j].inf.push(result[i])
-                  //break
-             }
-            }else{
-              break
+          if(result.Status == 0){
+            resultList = []
+          }else{
+            for(i in result){
+              resultList.push(result[i])  //转LIST格式  
             }
           }
-           if(status ==1){
-           status = 0
-           continue
-           }else{
-            locationList.push({location:result[i].LocationName,inf:[result[i]]})
-            status = 0
-           }
-        }
-        */
-        //方案1
-        for(i in result){
-          resultList.push(result[i])  //转LIST格式  
-        }
-        console.log(resultList)
-        this.setData({
-          result : resultList,  
-        })
-      
+          this.setData({
+            result : resultList,  
+          })
           },
           fail:function(res){
-      
             wx.showToast({
-      
               title: "访问失败，当前网络连接不可用",   
               icon: 'none',   
               duration: 2000   
               }) 
-      
             },
             complete: function(res) {
               wx.hideLoading();
             }
-
-    })
-
+  
+      })
 
   },
 
