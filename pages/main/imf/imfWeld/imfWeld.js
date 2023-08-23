@@ -9,7 +9,20 @@ Page({
     result:[],
     //locationList:[],
   },
-
+  copytext(e){
+    console.log('触发长按')
+    let key = e.currentTarget.dataset.key;
+    console.log(key)
+      wx.setClipboardData({
+        data: key,
+        success(res) {
+          wx.showToast({
+            title: '复制成功',
+          })
+        }
+      })
+    
+    },
   /**
    * 生命周期函数--监听页面加载
    */

@@ -166,9 +166,10 @@ Page({
     })
   },
     radioChange_wps(e){
+      var index = e.detail.value
+      var wps = this.data.wps[index]
       this.setData({
-        radio_state_wps : 'ture',
-        wps_submit:e.detail.value
+        wps_submit:wps
       })
   },
     radioChange_location(e){
@@ -266,16 +267,14 @@ radio_state_result(e){
       console.log(that.data.jointOk)
       wx.request({
         url: app.globalData.url+'searchWpsAndLocation',
-        method : 'GET',
-        //dataType : 'JSON',
-        //data:{data:this.data.jointOk},
+        method : 'POST',
+        dataType : 'JSON',
+        data:{data:this.data.jointOk},
         success:(res) =>{
-          var result = res.data
-          var data = result
-          console.log('-------工艺地点请求结果--------')
-          console.log(data)
-          var wpsList = data[0].wps
-          var locationList = data[1].location
+          var result = JSON.parse(res.data)
+          var wpsList = result[0].wps
+          var locationList = result[1].location
+          //console.log(locationList)
           this.setData({
             wps : wpsList,
             location : locationList,

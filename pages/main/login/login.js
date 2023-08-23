@@ -1,7 +1,7 @@
 var app = getApp()
 Page({ 
   data: {
-    options: ['HZ26-6'],
+    options: ['HZ26-6','XJ30-2'],
     selectedValue: 0, // 当前选中的值的索引
     selectedOption: 'HZ26-6', // 当前选中的值 
     phone: '', 

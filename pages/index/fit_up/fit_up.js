@@ -138,8 +138,8 @@ Page({
           prefabAssembly[i].checked = false
         }
       }
-      console.log('当前缓存为')
-      console.log(prefabAssembly)
+      //console.log('当前缓存为')
+      //console.log(prefabAssembly)
       wx.setStorageSync('selectedOptions', prefabAssembly );
     },
     checkboxChange_joint:function(e){
@@ -226,10 +226,10 @@ Page({
           }); 
         }, 
         });
-        
         //第二次请求
+         //更改-不再获取工艺
         wx.request({
-          url: app.globalData.url+'searchWpsAndLocation',
+          url: app.globalData.url+'searchLocation',
           method : 'POST',
           dataType : 'JSON',
           success:(res) =>{
@@ -237,10 +237,8 @@ Page({
             var data = result
             console.log('-------工艺地点请求结果--------')
             console.log(data)
-            var wpsList = data[0].wps
-            var locationList = data[1].location
+            var locationList = data[0].location
             this.setData({
-              wps : wpsList,
               location : locationList,
               }); 
           }

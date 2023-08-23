@@ -8,8 +8,9 @@
        
        </view>
        <view class = 'list' wx:for = "{{item.inf}}">
-             <view class = 'text'>图纸号 : {{item.DrawingNo}}</view>
-             <view class = 'graydivide'></view>
+             <view class = 'text'>单管号:</view>
+             <text class = "text" bind:longpress="copytext" data-key='{{item.PipeNo}}'>{{item.PipeNo}}</text>
+             <view class="whitedivide"></view>
              <view class = 'text'>焊口号 : {{item.WeldNo}} 承包商 : {{item.Contractor}}</view>
              <view class = 'graydivide'></view>
        </view>

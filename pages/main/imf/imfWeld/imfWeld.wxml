@@ -2,14 +2,13 @@
 <view class ='mainBox'>
     <view class = 'leftBox'></view>
     <view class = 'rightBox'>
-  
        <view class = 'title' > 总焊口数 ：{{result.length}}</view>
         <view class = 'list' wx:for = "{{result}}">
-             <view class = 'text'>图纸号 : {{item.DrawingNo}}</view>
-             <view class = 'graydivide'></view>
+             <view class = 'text'>单管号:</view>
+             <text class = "text" bind:longpress="copytext" data-key='{{item.PipeNo}}'>{{item.PipeNo}}</text>
+             <view class="whitedivide"></view>
              <view class = 'text'>焊口号 : {{item.WeldNo}}</view>
              <view class = 'graydivide'></view>
         </view>
-    
     </view>
 </view>
