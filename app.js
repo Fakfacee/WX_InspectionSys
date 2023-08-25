@@ -12,10 +12,10 @@ WelderNo : [''],
 UserId : [''],
 url:null,
 //上线测试
-//url_HZ : ['https://cyhdl1ttleyuming.cn/wx/HZ26-6'],
-//url_XJ : ['https://cyhdl1ttleyuming.cn/wx/XJ30-2'],
+url_HZ : ['https://cyhdl1ttleyuming.cn/wx2/HZ26-6/'],
+url_XJ : ['https://cyhdl1ttleyuming.cn/wx2/XJ30-2/'],
 //本地测试
-url_HZ : ['http://127.0.0.1:8080/wx/'],
+//url_HZ : ['http://127.0.0.1:8080/wx/'],
 //url_XJ : ['http://127.0.0.1:8081/wx/']
 },
   onLaunch: function () {

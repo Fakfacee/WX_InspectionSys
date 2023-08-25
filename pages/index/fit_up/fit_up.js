@@ -19,74 +19,74 @@ Page({
     wps: [],
     location: [],
     prefabAssembly:[],
+    isSubmitting:false,
   },
   submit(e) {
-    wx.request({
-      url: app.globalData.url+'addzuduiinfo',
-      method : 'POST',
-      //data:that.spool_num,
-      dataType : 'JSON',
-      data: {
-        WeldId:this.data.weldid,
-        WeldNo: this.data.joint_submit,
-        DrawingNo: this.data.drawing_num,
-        PipeNo:this.data.spool_num,
-        //WelderNo : this.data.WelderNo,
-        //在onload中更改为返回userid
-        WelderNo : (this.data.UserId).toString(),
-        Contractor: this.data.Contractor,
-        //Wps : this.data.wps_submit,
-        Wps : '默认',
-        WeldDate : this.data.currenTime,
-        Longitude: this.data.longitude,
-        Latitude : this.data.latitude,
-        Location : this.data.location_submit
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success (res) {
-        if(res.statusCode !=200 ){
+      wx.request({
+        url: app.globalData.url+'addzuduiinfo',
+        method : 'POST',
+        //data:that.spool_num,
+        dataType : 'JSON',
+        data: {
+          WeldId:this.data.weldid,
+          WeldNo: this.data.joint_submit,
+          DrawingNo: this.data.drawing_num,
+          PipeNo:this.data.spool_num,
+          //WelderNo : this.data.WelderNo,
+          //在onload中更改为返回userid
+          WelderNo : (this.data.UserId).toString(),
+          Contractor: this.data.Contractor,
+          //Wps : this.data.wps_submit,
+          Wps : '默认',
+          WeldDate : this.data.currenTime,
+          Longitude: this.data.longitude,
+          Latitude : this.data.latitude,
+          Location : this.data.location_submit
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success (res){
+          if(res.statusCode !=200 ){
+            wx.showToast({
+              title: res.statusCode+"提交失败，请检查数据的完整性",   
+              icon: 'none',   
+              duration: 2000   
+              }) 
+          }else{
+            var result = JSON.parse(res.data)
+            //{"Status":0,"Note":"此焊口有未申请"}
+            console.log('-------组对信息提交返回Status------------')
+            console.log(result.Status)
+            if(result.Status == 0){
+                console.log('提交失败，提示后端返回错误信息')
+                wx.showToast({
+                  title: result.Note,   
+                  icon: 'none',   
+                  duration: 2000   
+                  })
+            }else if(result.Status == 1){
+                wx.navigateTo({
+                  url: '../../main/success/up_success',
+                })
+            }else{
+                wx.showToast({
+                  title: "数据提交失败，请与管理员取得联系",   
+                  icon: 'none',   
+                  duration: 2000   
+                  })    
+            }
+          }
+        },
+        fail:function(res){
           wx.showToast({
-            title: res.statusCode+"提交失败，请检查数据的完整性",   
+            title: "访问失败，当前网络连接不可用",   
             icon: 'none',   
             duration: 2000   
             }) 
-        }else{
-          var result = JSON.parse(res.data)
-          //{"Status":0,"Note":"此焊口有未申请"}
-          console.log('-------组对信息提交返回Status------------')
-          console.log(result.Status)
-          if(result.Status == 0){
-              console.log('提交失败，提示后端返回错误信息')
-              wx.showToast({
-                title: result.Note,   
-                icon: 'none',   
-                duration: 2000   
-                })
-          }else if(result.Status == 1){
-              wx.navigateTo({
-                url: '../../main/success/up_success',
-              })
-          }else{
-              wx.showToast({
-                title: "数据提交失败，请与管理员取得联系",   
-                icon: 'none',   
-                duration: 2000   
-                })    
           }
-        }
-      },
-      fail:function(res){
-        wx.showToast({
-          title: "访问失败，当前网络连接不可用",   
-          icon: 'none',   
-          duration: 2000   
-          }) 
-        }
-    })   
+      })   
   },
-
   //获取焊工信息
    get_text: function(e){
       this.setData({
@@ -235,8 +235,8 @@ Page({
           success:(res) =>{
             var result = JSON.parse(res.data)
             var data = result
-            console.log('-------工艺地点请求结果--------')
-            console.log(data)
+            //console.log('-------工艺地点请求结果--------')
+            //console.log(data)
             var locationList = data[0].location
             this.setData({
               location : locationList,

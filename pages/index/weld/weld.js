@@ -234,6 +234,8 @@ radio_state_result(e){
             //增加管径壁厚
             object.Size = data[i].Size
             object.Thickness = data[i].Thickness
+            //引入材质
+            object.Materia = data[i].Materia
             if(data[i].IfWelding == 0){
               listsCanNotWeld.push(object)
             }else{
