@@ -190,7 +190,6 @@ Page({
               });
 
           }else{
-            
             //var jointLists = []
             //var drawingList = []
             var drawing = result[0].DrawingNo
@@ -205,11 +204,12 @@ Page({
               object.weldid = result[i].WeldId
               object.value = i
               object.joint = result[i].WeldNo
+              //增加工艺反馈
+              object.WPS = result[i].WPS
               //取消默认首项勾选
               //if(i ==0){
                 //object.checked = 'true'
                 //}
-  
                 lists.push(object)
   
             }

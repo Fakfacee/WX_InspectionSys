@@ -1,9 +1,11 @@
 var app = getApp()
 Page({ 
   data: {
-    options: ['HZ26-6','XJ30-2'],
-    selectedValue: 0, // 当前选中的值的索引
-    selectedOption: 'HZ26-6', // 当前选中的值 
+    options: ['HZ26-6','XJ30-2','PY10-1&11-12','WC19-1&9-7'],
+    //防止跨项目误操作，取消默认勾选
+    //selectedValue: 0, // 当前选中的值的索引
+    selectedOption: '项目选择', // 当前选中的值 
+    selectedValue : null,
     phone: '', 
     password:'' ,
     movies:[
@@ -44,6 +46,7 @@ Page({
     })
     wx.setStorageSync('password', e.detail.value)   
   }, 
+  
   onPickerChange: function (e) {
     wx.setStorageSync('optionIndex', e.detail.value)
     const index = e.detail.value; // 获取选中的索引
@@ -51,13 +54,19 @@ Page({
     this.setData({
       selectedValue: index,
       selectedOption: option
+
     });
     if(option == 'HZ26-6'){
       app.globalData.url = app.globalData.url_HZ
     }else if(option == 'XJ30-2'){
       app.globalData.url = app.globalData.url_XJ
+    }else if(option == 'PY10-1&11-12'){
+      app.globalData.url = app.globalData.url_PY
+    }else if(option == 'WC19-1&9-7'){
+      app.globalData.url = app.globalData.url_WC
     }
   },
+   
 // 登录 
   login: function () { 
     if(this.data.phone.length == 0 || this.data.password.length == 0){ 
@@ -96,8 +105,8 @@ Page({
       app.globalData.class_id = result.UserId,
       //class_code 区分界面显示
       app.globalData.class_code = result.PowerId,
-      app.globalData.WelderNo = result.WelderNo
-     
+      app.globalData.WelderNo = result.WelderNo,
+      app.globalData.isLogin = true 
       wx.switchTab({
         url: '/pages/main/main_page',
       })
@@ -151,8 +160,15 @@ onLoad: function (options){
     phone: wx.getStorageSync('phone'),
     password : wx.getStorageSync('password'),
     
-  }) 
+  })
+  if (!getApp().globalData.isLogin) {
+    wx.redirectTo({
+      url: '/pages/main/login/login'
+    })
+    app.globalData.isLogin = true
+  }
 },
+/** 
 onReady(){
 //构造模拟事件
 var e = {type:"",detail:{value:null}};
@@ -164,7 +180,6 @@ if (!optionIndex) {
 }
 //根据历史缓存，刷新显示
 this.onPickerChange(e)
-
 }
-
+*/
 })

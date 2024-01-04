@@ -22,6 +22,15 @@ Page({
     isSubmitting:false,
   },
   submit(e) {
+      console.log(this.data.location_submit)
+      if(!this.data.location_submit[0]){
+        wx.showToast({
+          title: "提交失败，请勾选位置信息",   
+          icon: 'none',   
+          duration: 2000   
+          }) 
+      }else{
+
       wx.request({
         url: app.globalData.url+'addzuduiinfo',
         method : 'POST',
@@ -85,7 +94,8 @@ Page({
             duration: 2000   
             }) 
           }
-      })   
+      })
+    }   
   },
   //获取焊工信息
    get_text: function(e){

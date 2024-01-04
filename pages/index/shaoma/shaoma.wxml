@@ -7,7 +7,14 @@
 <!--
 <button bindtap="to_hand_write">手动输入</button>
 -->
-<input class ="type_input_1" bindinput="get_text" placeholder="单管号" value = "{{spool}}"></input>
+<view class="main_text">单管号：{{spool}}</view>
+<input class ="type_input_1" bindinput="get_text" placeholder="手动输入单管号" value = "{{spool}}"></input>
+<view class="main_text">匹配结果</view>
+<view wx:for="{{autoCompleteList}}">
+  <view class="whitedivide"></view>
+  <view class="main_text" bind:longpress="copytext" data-key='{{item}}'>{{item}}</view>
+</view>
+
 
 
 <view class="blank2"></view>

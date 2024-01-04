@@ -52,4 +52,19 @@
   </view>
 </view>
 
+<view class="graydivide"></view>
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation" bindtap="jump2weldsearch"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src=""></image>
+      </view>
+      <view class="text">焊口状态扫码查询</view><!--文字-->
+      <view class="right-icon">
+        <image class="icon-picture" src="/pages/image/箭头.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
 </view>

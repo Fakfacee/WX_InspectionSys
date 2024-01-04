@@ -9,19 +9,31 @@ Page({
   data: {
   active_type : [''],
   spool : [],
+  spoolList : [],
+  autoCompleteList :[],
   },
+  copytext(e){
+    console.log('触发长按')
+    let key = e.currentTarget.dataset.key;
+    console.log(key)
+      wx.setClipboardData({
+        data: key,
+        success(res) {
+          wx.showToast({
+            title: '复制成功',
+          })
+        }
+      })
+    
+    },
   scanCodeEvent: function(){
     //增加扫码清除文本框内容功能
-
-
     var that = this
     wx.scanCode({
       success(res){
-      
         //10-CR-15001-B0CF3S-HT46-W-02
         var spool_num = res.result
         // 扫码成功后  在此处理接下来的逻辑
-
         that.setData({
           spool: spool_num
         })
@@ -38,10 +50,21 @@ Page({
   },
 
   get_text: function(e){
+    const inputValue = e.detail.value; // 获取用户输入的值
+    const autoCompleteList = this.getAutoCompleteList(inputValue); // 获取自动补齐的列表
     this.setData({
-      spool:e.detail.value
-    })
+      spool: inputValue,
+      autoCompleteList: autoCompleteList,
+    });
   },
+  getAutoCompleteList(inputValue) {
+  const regex = new RegExp(inputValue, 'i'); // 创建不区分大小写的正则表达式
+  const filteredData = this.data.spoolList.filter(item => {
+      return regex.test(item); // 使用正则表达式进行模糊匹配
+  });
+  return filteredData
+  },
+
   submit(e) {
     var that = this.data;
     wx.request({
@@ -51,7 +74,7 @@ Page({
       dataType : 'JSON',
       data:{value :'0',spool:that.spool},
       success:(res) =>{
-        var result = JSON.parse(res.data)
+      var result = JSON.parse(res.data)
     
       if (result.Status =='0') {
 
@@ -100,6 +123,13 @@ Page({
           url: '../weldInspectApply/weldInspectApply?spool='+that.spool,
 
       })
+      }else if(that.active_type == 'weldsearch'){
+        wx.navigateTo({
+
+          url: '../../main/imf/weldsearch/weldsearch?spool='+that.spool,
+
+      })
+
       }
 
     }
@@ -121,6 +151,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.request({
+      url: app.globalData.url + 'searchallpipeno',
+      method : 'POST',
+      //data:that.spool_num,
+      dataType : 'JSON',
+      success:(res) =>{
+      var result = JSON.parse(res.data)
+      this.setData({
+        spoolList : result,
+      });
+      }
+    });
     var active_type = options.active_type;
     this.setData({
       active_type : active_type,

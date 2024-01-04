@@ -10,13 +10,6 @@
     "miniprogram": {
       "list": [
         {
-          "name": "主页面",
-          "pathName": "pages/main/main_page",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
           "name": "",
           "pathName": "pages/index/fit_up/fit_up",
           "query": "",

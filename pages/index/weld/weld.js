@@ -168,6 +168,7 @@ Page({
     radioChange_wps(e){
       var index = e.detail.value
       var wps = this.data.wps[index]
+      console.log(wps)
       this.setData({
         wps_submit:wps
       })
@@ -226,6 +227,8 @@ radio_state_result(e){
           {
             var object = new Object()
             object.value = i
+            console.log('data[i]')
+            console.log(data[i])
             //引入图纸号
             object.drawingnum = data[i].DrawingNo
             //引入weldid
@@ -235,7 +238,7 @@ radio_state_result(e){
             object.Size = data[i].Size
             object.Thickness = data[i].Thickness
             //引入材质
-            object.Materia = data[i].Materia
+            object.Material = data[i].Material
             if(data[i].IfWelding == 0){
               listsCanNotWeld.push(object)
             }else{

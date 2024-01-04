@@ -1,0 +1,23 @@
+<!--pages/main/imf/weldsearch/weldsearch.wxml-->
+<text  class = 'title'>当前单管状态查询结果：</text>
+<view class="blanke"> </view>
+<view class ='mainBox'>
+    <view class = 'leftBox'></view>
+   
+      <view wx:for="{{resultList}}">
+        <view class = 'rightBox'>
+           <view class = 'text'>图纸号：{{item.drawing}}</view>
+           <view class = 'text'>焊口号：{{item.joint}}</view>
+           <view class = 'text'>材质：{{item.materia}}</view>
+           <view class = 'text'>组对日期:{{item.fitupdate}}</view>
+           <view class = 'text'>组对检验日期:{{item.fitupinspectdate}}</view>
+           <view class = 'text'>焊接日期:{{item.welddate}}</view>
+           <view class = 'text'>承包商:{{item.weldsub}}</view>
+           <view class = 'text'>外观检验日期:{{item.visualinspectdate}}</view>
+        </view>
+      </view>
+</view>
+  
+
+
+

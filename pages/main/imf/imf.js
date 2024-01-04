@@ -26,6 +26,11 @@ Page({
       url: '../imf/imfWeld/imfWeld',
     }) 
    },
+   jump2weldsearch(e){
+    wx.navigateTo({
+      url:'../../index/shaoma/shaoma?active_type='+ 'weldsearch'
+    })
+   },
   /**
    * 生命周期函数--监听页面加载
    */

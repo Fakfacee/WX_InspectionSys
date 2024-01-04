@@ -13,6 +13,9 @@
         <view class="label-2" wx:for="{{joint}}"wx:for-index="index" wx:key="index">
           <checkbox value="{{index}}" checked="{{item.checked}}"></checkbox>
           <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
+          <view class = 'label-jointImf'>
+              <view class="jointText">WPS:{{item.WPS}}</view>
+          </view>
         </view>
       </checkbox-group>
 </view>
