@@ -2,6 +2,7 @@ var util = require('../../../util/util.js')
 var app = getApp()
 Page({
   data:{
+    lastTapTime:0,
     latitude: '',
     longitude: '',
     currenTime:[],
@@ -22,7 +23,19 @@ Page({
     isSubmitting:false,
   },
   submit(e) {
-      console.log(this.data.location_submit)
+      wx.showLoading({
+       title: '数据提交中...',
+      })
+      var now = new Date().getTime();
+      if(now - this.data.lastTapTime < 1000){
+        wx.hideLoading();
+        wx.showToast({
+          title: "请勿重复提交",   
+          icon: 'none',   
+          duration: 2000   
+          });
+        return;
+      }     
       if(!this.data.location_submit[0]){
         wx.showToast({
           title: "提交失败，请勾选位置信息",   
@@ -30,7 +43,6 @@ Page({
           duration: 2000   
           }) 
       }else{
-
       wx.request({
         url: app.globalData.url+'addzuduiinfo',
         method : 'POST',
@@ -95,7 +107,11 @@ Page({
             }) 
           }
       })
-    }   
+    }
+    this.setData({
+      lastTapTime:now
+    });
+    wx.hideLoading();   
   },
   //获取焊工信息
    get_text: function(e){
@@ -123,21 +139,17 @@ Page({
     checkboxChange(e) {
       const value = e.detail.value;
       const joint = this.data.joint;
-      console.log('joint')
-      console.log(joint)
       const prefabAssembly = this.data.prefabAssembly;
-      console.log('joint')
-      console.log(joint)
       let filteredJoint = [];
-      console.log('prefabAssembly')
-      console.log(this.data.prefabAssembly)
+      //console.log('prefabAssembly')
+      //console.log(this.data.prefabAssembly)
       if (value == 0) {
         filteredJoint = joint.filter(item => !item.joint.startsWith('FW'));
       } else{
         filteredJoint = joint.filter(item => item.joint.startsWith('FW'));
       }
-      console.log('filteredJoint')
-      console.log(filteredJoint)
+      //console.log('filteredJoint')
+      //console.log(filteredJoint)
       this.setData({
         jointLocation: filteredJoint
       });
@@ -191,7 +203,10 @@ Page({
     })
 },
     onLoad: function (options) {
-      var lists = []
+      wx.showLoading({
+        title: '数据加载中..',
+      });    
+      var lists = [];
       var that = this.data;
       var spool = options.spool;
       //var array = JSON.parse(options.spool);
@@ -204,56 +219,65 @@ Page({
         UserId : app.globalData.class_id,
         Contractor : app.globalData.subcontractor,
       });
+      //request三端口合并
       wx.request({
-        url: app.globalData.url+'searchallweldbypipe',
+        url: app.globalData.url+'searchbypipe_fit',
         method : 'POST',
-        dataType : 'JSON',
-        data:{value :'0',spool:that.spool_num},
-        success:(res) =>{
+        dataType:'JSON',
+        data:{value:'0',spool:that.spool_num},
+        success:(res)=>{
           var result = JSON.parse(res.data)
-          var data = result   
-          //console.log('单管请求结果为')
-          //console.log(result)
-          //for 循环
-          for(let i = 0;i<Object.keys(data).length;i++)
+          var status = result[0].status
+          //查询无此单管
+          if(status[0].Status == 0){
+            wx.showToast({
+              title: status.Note,
+              icon: 'none',   
+              duration: 2000,   
+            })
+          }else if(status[0].Status == 1){
+            var weld = result[1].weld
+            var location = result[2].location
+            //添加焊口信息
+            for(let i = 0;i<Object.keys(weld).length;i++)
           {
             var object = new Object()
             object.value = i
             //引入图纸号
-            object.drawingnum = data[i].DrawingNo
+            object.drawingnum = weld[i].DrawingNo
             //引入weldid
-            object.weldid = data[i].WeldId
-            object.joint = data[i].WeldNo
+            object.weldid = weld[i].WeldId
+            object.joint = weld[i].WeldNo
             //增加管径壁厚
-            object.Size = data[i].Size
-            object.Thickness = data[i].Thickness
+            object.Size = weld[i].Size
+            object.Thickness = weld[i].Thickness
             lists.push(object)
           }
-          this.setData({
-          joint : lists,
-          //drawing_num : drawing,
-          spool_num : spool,
-          }); 
-        }, 
-        });
-        //第二次请求
-         //更改-不再获取工艺
-        wx.request({
-          url: app.globalData.url+'searchLocation',
-          method : 'POST',
-          dataType : 'JSON',
-          success:(res) =>{
-            var result = JSON.parse(res.data)
-            var data = result
-            //console.log('-------工艺地点请求结果--------')
-            //console.log(data)
-            var locationList = data[0].location
-            this.setData({
-              location : locationList,
-              }); 
-          }
 
-        })
+          this.setData({
+            joint : lists,
+            //drawing_num : drawing,
+            spool_num : spool,
+            location : location,
+          })
+          }else if(status[0].Status == 2){
+          wx.showToast({
+            title: status[0].Note,
+            icon: 'none',   
+            duration: 2000 
+          })
+
+          }
+          wx.hideLoading();
+        },
+        fail: function(res) {
+          wx.showToast({
+            title: "访问失败，当前网络连接不可用",   
+            icon: 'none',   
+            duration: 2000   
+            }) 
+        }
+      })
     },
     onReady: function (e) {
       let lastSelectedOptions = wx.getStorageSync('selectedOptions');

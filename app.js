@@ -13,13 +13,14 @@ UserId : [''],
 url:null,
 isLogin: false ,
 //上线测试
-url_HZ : ['https://cyhdl1ttleyuming.cn/wx2/HZ26-6/'],
-url_XJ : ['https://cyhdl1ttleyuming.cn/wx2/XJ30-2/'],
-url_PY : ['https://cyhdl1ttleyuming.cn/wx2/PY/'],
-url_WC : ['https://cyhdl1ttleyuming.cn/wx2/WC/'],
+//url_HZ : ['https://cyhdl1ttleyuming.cn/wx2/HZ26-6/'],
+//url_XJ : ['https://cyhdl1ttleyuming.cn/wx2/XJ30-2/'],
+//url_PY : ['https://cyhdl1ttleyuming.cn/wx2/PY/'],
+//url_WC : ['https://cyhdl1ttleyuming.cn/wx2/WC/'],
 //本地测试
-//url_HZ : ['http://127.0.0.1:8080/wx/'],
-//url_XJ : ['http://127.0.0.1:8081/wx/']
+url_HZ : ['http://127.0.0.1:8080/wx/'],
+url_XJ : ['http://127.0.0.1:8081/wx/'],
+url_WC : ['http://127.0.0.1:8080/wx/']
 },
   onLaunch: function () {
   },

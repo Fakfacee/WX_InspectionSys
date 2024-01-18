@@ -56,10 +56,24 @@ Page({
   onReady() {
   },
   onLoad(){
+  wx.showLoading({
+    title: '数据缓存中...',
+  });
+  //登录时即获取单管LIST
+  wx.request({
+    url: app.globalData.url + 'searchallpipeno',
+    method : 'POST',
+    //data:that.spool_num,
+    dataType : 'JSON',
+    success:(res) =>{
+    var result = JSON.parse(res.data)
+    wx.setStorageSync('spoolList', result);
+    }
+  }); 
   this.setData({
     class_code : app.globalData.class_code
-  })
- 
+  });
+  wx.hideLoading();
 },
   /**
    * 生命周期函数--监听页面显示

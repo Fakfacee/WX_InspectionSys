@@ -209,36 +209,38 @@ radio_state_result(e){
         Contractor : app.globalData.subcontractor,
       });
       //console.log('------请求满足焊接检验条件焊口-----')
-  
       wx.request({
-        url: app.globalData.url+'searchallweldbypipeforwelding',
+        url: app.globalData.url+'searchbypipe_welding',
         method : 'POST',
         dataType : 'JSON',
         data:{value :'0',spool:that.data.spool_num},
         success:(res) =>{
-          var result = JSON.parse(res.data)
-          var data = result
-          //console.log('----查询结果为-----')
-          //console.log(data)
-          var drawing = data[0].DrawingNo
-
-          //for 循环
-          for(let i = 0;i<Object.keys(data).length;i++)
+          var status = result[0].status
+          //查询无此单管
+          if(status[0].Status == 0){
+            wx.showToast({
+              title: status.Note,
+              icon: 'none',   
+              duration: 2000,   
+            })
+          }else if(status[0].Status == 1){
+            var weld = result[1].weld
+            var location = result[2].location
+            var wps = result[3].location
+          for(let i = 0;i<Object.keys(weld).length;i++)
           {
             var object = new Object()
             object.value = i
-            console.log('data[i]')
-            console.log(data[i])
             //引入图纸号
-            object.drawingnum = data[i].DrawingNo
+            object.drawingnum = weld[i].DrawingNo
             //引入weldid
-            object.weldid = data[i].WeldId
-            object.joint = data[i].WeldNo
+            object.weldid = weld[i].WeldId
+            object.joint = weld[i].WeldNo
             //增加管径壁厚
-            object.Size = data[i].Size
-            object.Thickness = data[i].Thickness
+            object.Size = weld[i].Size
+            object.Thickness = weld[i].Thickness
             //引入材质
-            object.Material = data[i].Material
+            object.Material = weld[i].Material
             if(data[i].IfWelding == 0){
               listsCanNotWeld.push(object)
             }else{
@@ -251,42 +253,26 @@ radio_state_result(e){
           jointNotOk : listsCanNotWeld,
           drawing_num : drawing,
           spool_num : spool,
+          location:location,
+          wps:wps
           }); 
-        }, 
-        });
-    },
-    checkJointOk(){
-      var jointOk = this.data.jointOk;
-      var that = this;
-      if (jointOk.length === 0) {
-        setTimeout(function(){
-          that.checkJointOk()
-        }, 200);
-      } else {
-        // 执行下一步请求函数
-        this.nextRequestFunction();
-      }
-    },
-    nextRequestFunction() {
-      var that = this
-      console.log(that.data.jointOk)
-      wx.request({
-        url: app.globalData.url+'searchWpsAndLocation',
-        method : 'POST',
-        dataType : 'JSON',
-        data:{data:this.data.jointOk},
-        success:(res) =>{
-          var result = JSON.parse(res.data)
-          var wpsList = result[0].wps
-          var locationList = result[1].location
-          //console.log(locationList)
-          this.setData({
-            wps : wpsList,
-            location : locationList,
-            }); 
+        }else if(status[0].Status == 2){
+          wx.showToast({
+            title: status[0].Note,
+            icon: 'none',   
+            duration: 2000 
+          })
+
+          } 
+        },
+        fail: function(res) {
+          wx.showToast({
+            title: "访问失败，当前网络连接不可用",   
+            icon: 'none',   
+            duration: 2000   
+            }) 
         }
-      })
-      // 在这里执行下一步请求函数的代码
+        });
     },
 
     //地图函数，待完善

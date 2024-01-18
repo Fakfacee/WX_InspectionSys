@@ -21,6 +21,7 @@
     "pages/main/imf/imfWeld/imfWeld",
     "pages/main/imf/weldsearch/weldsearch"
   ],
+  "version":"1.6.5",
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

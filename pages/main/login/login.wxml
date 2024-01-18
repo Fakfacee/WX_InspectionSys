@@ -1,7 +1,7 @@
 <view class="container"> 
   <view class="blanke"></view>
   <swiper class = "swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
-    <block wx:for="{{movies}}" wx:for-index= "index">
+    <block wx:for="{{movies}}" wx:for-index= "index" wx:key = "index">
       <swiper-item>
          
          <image src = "{{item.url}}" class = "slide-image" mode="aspectFill"/>
@@ -24,7 +24,8 @@ bindinput="phoneInput" />
     <view class="inputView"> 
       <image class="keyImage" src="/pages/image/key.png"></image> 
       <label class="loginLab">密码</label> 
-      <input class="inputText" password="true" placeholder="请输入密码" value="{{password}}"bindinput="passwordInput" /> 
+      <input class="inputText" password="{{passwordStatus}}" placeholder="请输入密码" value="{{password}}"bindinput="passwordInput" />
+      <image class="eye" src="{{passwordStatus ? '/pages/image/passwordunvisible.png' : '/pages/image/passwordvisible.png'}}" catchtap="switchlog" />
     </view> 
     <view class="visitor-box">
     <view class = 'visitor'bindtap = 'visitor' >访客模式</view>
@@ -42,15 +43,12 @@ bindinput="phoneInput" />
 
     <!--按钮--> 
     <view class="loginBtnView"> 
-      <button class="loginBtn"  size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" 
-bindtap="login">登录</button> 
+      <button class="loginBtn" bindtap="login">登录</button> 
     </view> 
     <view class="loginBtnView"> 
-      <button class="loginBtn" size="{{primarySize}}" 
-loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" 
-bindtap="registe">注册</button> 
+      <button class="loginBtn" bindtap="registe">注册</button> 
     </view> 
   </view> 
   
-
+  <view class="version">当前版本:v{{version}}</view>
 </view> 

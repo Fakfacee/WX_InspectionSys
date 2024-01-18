@@ -14,7 +14,10 @@
           <checkbox value="{{index}}" checked="{{item.checked}}"></checkbox>
           <label class="label-2-text" for="{{item.joint}}"><text>{{item.joint}}</text></label>
           <view class = 'label-jointImf'>
-              <view class="jointText">WPS:{{item.WPS}}</view>
+              <view class="jointText">WPS:{{item.wps}}</view>
+          </view>
+          <view class = 'label-jointImf'>
+              <view class="jointText">焊工号:{{item.welder}}</view>
           </view>
         </view>
       </checkbox-group>

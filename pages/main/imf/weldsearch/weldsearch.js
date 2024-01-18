@@ -24,8 +24,7 @@ Page({
     //dataType : 'JSON',
     data:{value :'0',spool:this.data.spool_num},
     success:(res) =>{
-      console.log(res)
-      console.log(res.data)
+
       var result = res.data
       if (result.length ==0) {
 //未查询到检验结果

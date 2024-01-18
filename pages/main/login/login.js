@@ -6,8 +6,10 @@ Page({
     //selectedValue: 0, // 当前选中的值的索引
     selectedOption: '项目选择', // 当前选中的值 
     selectedValue : null,
+    passwordStatus : true,
     phone: '', 
     password:'' ,
+    version:'1.6.5',
     movies:[
       {url:'/pages/image/Login1.jpg'},
       {url:'/pages/image/Login2.jpg'},
@@ -65,6 +67,11 @@ Page({
     }else if(option == 'WC19-1&9-7'){
       app.globalData.url = app.globalData.url_WC
     }
+  },
+  switchlog () {
+     this.setData({
+       passwordStatus:!this.data.passwordStatus
+     })
   },
    
 // 登录 
@@ -126,8 +133,9 @@ Page({
         duration: 2000   
         }) 
       }
-  }) 
-    }   
+  });
+
+  }   
   },
   registe: function () { 
   wx.navigateTo({

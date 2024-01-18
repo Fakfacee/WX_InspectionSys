@@ -178,47 +178,46 @@ Page({
         dataType : 'JSON',
         data:{value :'0',spool:that.spool_num},
         success:(res) =>{
-          console.log('------searchappearinsbypipeforinspect查询结果------')
           var result = JSON.parse(res.data)
-          console.log(result)
+          var status = result[0].status
           //增加无返回结果判断
-          if(result[0] == null){
+          if(status[0].Status == 0){
             this.setData({
               joint : [],
               drawing_num : '此单管下未查询到满足检验条件焊口',
               spool_num : spool,
               });
 
-          }else{
-            //var jointLists = []
-            //var drawingList = []
-            var drawing = result[0].DrawingNo
+          }else if(status[0].Status == 1){
+            var weld = result[1].weld
+            var drawing = weld[0].DrawingNo
             var lists = []
             //for 循环
-  
-            for(let i = 0;i<Object.keys(result).length;i++)
+            for(let i = 0;i<Object.keys(weld).length;i++)
             {
               var object = new Object()
               //引入图纸号
-              object.drawingnum = result[i].DrawingNo
-              object.weldid = result[i].WeldId
+              object.drawingnum = weld[i].DrawingNo
+              object.weldid = weld[i].WeldId
               object.value = i
-              object.joint = result[i].WeldNo
-              //增加工艺反馈
-              object.WPS = result[i].WPS
-              //取消默认首项勾选
-              //if(i ==0){
-                //object.checked = 'true'
-                //}
-                lists.push(object)
-  
+              object.joint = weld[i].WeldNo
+              //增加焊工号
+              object.welder = weld[i].WelderNo
+              object.wps = weld[i].WPS
+              lists.push(object)
             }
             this.setData({
             joint : lists,
             drawing_num : drawing,
             spool_num : spool,
             }); 
-                      }//if
+          }else if(status[0].Status == 2){
+            wx.showToast({
+              title: status[0].Note,
+              icon: 'none',   
+              duration: 2000 
+            })
+            }
         }//success
         
       })//request

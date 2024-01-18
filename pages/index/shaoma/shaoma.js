@@ -41,14 +41,6 @@ Page({
       })
  },
 
-  to_hand_write(){
-   
-  wx.navigateTo({
-    url: '/pages/index/hand_write',
-  })
-
-  },
-
   get_text: function(e){
     const inputValue = e.detail.value; // 获取用户输入的值
     const autoCompleteList = this.getAutoCompleteList(inputValue); // 获取自动补齐的列表
@@ -66,28 +58,8 @@ Page({
   },
 
   submit(e) {
-    var that = this.data;
-    wx.request({
-      url: app.globalData.url + 'searchaspool',
-      method : 'POST',
-      //data:that.spool_num,
-      dataType : 'JSON',
-      data:{value :'0',spool:that.spool},
-      success:(res) =>{
-      var result = JSON.parse(res.data)
-    
-      if (result.Status =='0') {
-
-//未查询到检验结果
-      wx.showToast({   
-          title: '无法查询到此单管，请检查后重试',   
-          icon: 'none',   
-          duration: 2000   
-      }) 
-//判断活动类型
-    }else if (result.Status =='1'){
     //加全局变量，图纸，单管，焊口这些信息
-    
+    var that = this.data;
     if(that.active_type == 'fit_up'){
         wx.navigateTo({
           url: '../fit_up/fit_up?spool='+that.spool,
@@ -130,44 +102,25 @@ Page({
 
       })
 
-      }
-
     }
-      
-      },
-    fail(){
-      wx.showToast({   
-        title: '系统繁忙，请稍后重试',   
-        icon: 'none',   
-        duration: 2000   
-    }) 
-
-
-    }
-  })
 },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    wx.request({
-      url: app.globalData.url + 'searchallpipeno',
-      method : 'POST',
-      //data:that.spool_num,
-      dataType : 'JSON',
-      success:(res) =>{
-      var result = JSON.parse(res.data)
+    
+    var spoolList = wx.getStorageSync('spoolList');
+    if (spoolList) {
       this.setData({
-        spoolList : result,
+        autoCompleteList: spoolList,
+        spoolList : spoolList
       });
-      }
-    });
+    }
     var active_type = options.active_type;
     this.setData({
       active_type : active_type,
     });
-   
   },
 
   /**
