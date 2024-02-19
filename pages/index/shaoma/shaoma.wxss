@@ -11,7 +11,7 @@
 
   }
 .blank2{
-  height: 125px;
+  height: 100rpx;
 }
 .window{
 display: flex;
@@ -21,4 +21,8 @@ flex-direction: column;
 padding-top: 15px;
 padding: 6px;
 font-size: 18px;
+}
+.spoollist{
+font-size: 40rpx;
+
 }

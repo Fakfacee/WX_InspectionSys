@@ -215,6 +215,7 @@ radio_state_result(e){
         dataType : 'JSON',
         data:{value :'0',spool:that.data.spool_num},
         success:(res) =>{
+          var result = JSON.parse(res.data)
           var status = result[0].status
           //查询无此单管
           if(status[0].Status == 0){
@@ -225,8 +226,8 @@ radio_state_result(e){
             })
           }else if(status[0].Status == 1){
             var weld = result[1].weld
-            var location = result[2].location
-            var wps = result[3].location
+            var location = result[3].location
+            var wps = result[2].wps
           for(let i = 0;i<Object.keys(weld).length;i++)
           {
             var object = new Object()
@@ -241,7 +242,7 @@ radio_state_result(e){
             object.Thickness = weld[i].Thickness
             //引入材质
             object.Material = weld[i].Material
-            if(data[i].IfWelding == 0){
+            if(weld[i].IfWelding == 0){
               listsCanNotWeld.push(object)
             }else{
               listsCanWeld.push(object)
@@ -251,7 +252,7 @@ radio_state_result(e){
           that.setData({
           jointOk : listsCanWeld,
           jointNotOk : listsCanNotWeld,
-          drawing_num : drawing,
+          //drawing_num : drawing,
           spool_num : spool,
           location:location,
           wps:wps
@@ -277,7 +278,7 @@ radio_state_result(e){
 
     //地图函数，待完善
     onReady: function (e) {
-      this.checkJointOk()
+      //this.checkJointOk()
 
     }
   })

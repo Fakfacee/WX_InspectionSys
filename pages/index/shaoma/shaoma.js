@@ -44,9 +44,10 @@ Page({
   get_text: function(e){
     const inputValue = e.detail.value; // 获取用户输入的值
     const autoCompleteList = this.getAutoCompleteList(inputValue); // 获取自动补齐的列表
+    
     this.setData({
       spool: inputValue,
-      autoCompleteList: autoCompleteList,
+      autoCompleteList: autoCompleteList.slice(0,20),
     });
   },
   getAutoCompleteList(inputValue) {
@@ -109,14 +110,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
-    var spoolList = wx.getStorageSync('spoolList');
-    if (spoolList) {
+    var result = wx.getStorageSync('spoolList')
+    if(result){
       this.setData({
-        autoCompleteList: spoolList,
-        spoolList : spoolList
-      });
+        spoolList : result
+      })
+    }else{
+      this.setData({
+        spoolList : ['单管清单获取失败，请重新登录']
+      })
     }
+      
     var active_type = options.active_type;
     this.setData({
       active_type : active_type,

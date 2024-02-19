@@ -16,6 +16,6 @@
        </view>
       </view>
       </view>
-      <view wx:else="">当前无待检验焊口</view>
+
     </view>
 </view>

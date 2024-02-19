@@ -9,7 +9,7 @@ Page({
     passwordStatus : true,
     phone: '', 
     password:'' ,
-    version:'1.6.5',
+    version:'1.7.0',
     movies:[
       {url:'/pages/image/Login1.jpg'},
       {url:'/pages/image/Login2.jpg'},

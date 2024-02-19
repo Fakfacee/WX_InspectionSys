@@ -10,10 +10,15 @@
 <view class="main_text">单管号：{{spool}}</view>
 <input class ="type_input_1" bindinput="get_text" placeholder="支持手动输入" value = "{{spool}}"></input>
 <view class="main_text">单管清单(长按复制)</view>
-<view wx:for="{{autoCompleteList}}" wx:key = "index">
-  <view class="whitedivide"></view>
-  <view class="main_text" bind:longpress="copytext" data-key='{{item}}'>{{item}}</view>
-</view>
+<scroll-view scroll-y="true" style="max-height: 400rpx;">
+  <view wx:for="{{autoCompleteList}}" wx:key = "index" >
+        <view class="whitedivide"></view>
+        <view class="spoollist" bind:longpress="copytext" data-key='{{item}}'>{{item}}</view>
+
+  </view>
+  
+</scroll-view>
+
 
 <view class="blank2"></view>
 <button type="primary" bindtap="submit">提交</button>

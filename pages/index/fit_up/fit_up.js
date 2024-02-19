@@ -25,6 +25,7 @@ Page({
   submit(e) {
       wx.showLoading({
        title: '数据提交中...',
+       mask:true
       })
       var now = new Date().getTime();
       if(now - this.data.lastTapTime < 1000){
@@ -32,7 +33,8 @@ Page({
         wx.showToast({
           title: "请勿重复提交",   
           icon: 'none',   
-          duration: 2000   
+          duration: 2000,
+          mask: true   
           });
         return;
       }     
@@ -205,6 +207,7 @@ Page({
     onLoad: function (options) {
       wx.showLoading({
         title: '数据加载中..',
+        mask:true
       });    
       var lists = [];
       var that = this.data;

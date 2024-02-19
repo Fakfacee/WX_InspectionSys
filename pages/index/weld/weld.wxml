@@ -26,6 +26,9 @@
         <view class="label-2" wx:for="{{jointNotOk}}">
           <label class="label-2-text" for="{{item.joint}}"><text class = 'jointText'>{{item.joint}}</text></label>
           <view class = 'label-jointImf'>
+              <view class="jointText">图纸号: {{item.drawingnum}}</view>
+          </view>
+          <view class = 'label-jointImf'>
               <view class="jointText">壁厚: {{item.Thickness}}</view>
               <view class="jointText">管径: {{item.Size}}</view>
           </view> 

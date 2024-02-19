@@ -15,7 +15,7 @@
     "preloadBackgroundData": false,
     "minified": true,
     "autoAudits": false,
-    "uglifyFileName": false,
+    "uglifyFileName": true,
     "uploadWithSourceMap": true,
     "enhance": true,
     "showShadowRootInWxmlPanel": true,

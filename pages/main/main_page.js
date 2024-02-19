@@ -58,6 +58,7 @@ Page({
   onLoad(){
   wx.showLoading({
     title: '数据缓存中...',
+    mask:true
   });
   //登录时即获取单管LIST
   wx.request({
@@ -66,14 +67,43 @@ Page({
     //data:that.spool_num,
     dataType : 'JSON',
     success:(res) =>{
-    var result = JSON.parse(res.data)
-    wx.setStorageSync('spoolList', result);
+    if(res.statusCode == 200){
+      if(res.data){
+        var result = JSON.parse(res.data)
+        wx.setStorageSync('spoolList', result)
+        wx.hideLoading()
+      }else{
+        wx.showToast({
+          title: '数据加载失败，请重新登录',
+          icon: 'none',   
+          duration: 2000  
+        })
+        wx.navigateTo({
+          url: './login/login',
+        })
+
+      }
+  
+    }else{
+      wx.showToast({
+        title: '数据加载失败，请重新登录',
+        icon: 'none',   
+        duration: 2000  
+      })
+      wx.navigateTo({
+        url: './login/login',
+      })
     }
+    },
+    fail:function(){
+
+    }
+    
   }); 
   this.setData({
     class_code : app.globalData.class_code
   });
-  wx.hideLoading();
+  
 },
   /**
    * 生命周期函数--监听页面显示

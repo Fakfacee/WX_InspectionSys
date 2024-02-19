@@ -28,6 +28,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
+    wx.showLoading({
+      title: '数据加载中...',
+      mask: true
+    });
     wx.request({
       url: app.globalData.url+'searchzuduiinsforinspect',
           method : 'POST',
@@ -64,13 +68,13 @@ Page({
            }
            
          }
-        console.log(locationList)
+       
         this.setData({
           result : result,
           locationList : locationList
       
-        })
-      
+        });
+        wx.hideLoading();
         },
           fail:function(res){
       
