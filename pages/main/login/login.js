@@ -9,7 +9,7 @@ Page({
     passwordStatus : true,
     phone: '', 
     password:'' ,
-    version:'1.7.0',
+    version:'1.7.1',
     movies:[
       {url:'/pages/image/Login1.jpg'},
       {url:'/pages/image/Login2.jpg'},
@@ -97,7 +97,7 @@ Page({
       //Status,UserId,Name,User_Identity,Contractor,Email,PhoneNo,PowerId,WelderNo
       if(result.Status == '0'){
         wx.showToast({
-          title: '用户名不存在,请进行注册',   
+          title: result.Note,   
           icon: 'none',   
           duration: 2000   
           })   

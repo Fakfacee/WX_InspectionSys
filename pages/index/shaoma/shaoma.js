@@ -13,14 +13,18 @@ Page({
   autoCompleteList :[],
   },
   copytext(e){
-    console.log('触发长按')
+    console.log('长按选择目标单管')
     let key = e.currentTarget.dataset.key;
     console.log(key)
+    this.setData({
+      spool : key
+
+    })
       wx.setClipboardData({
         data: key,
         success(res) {
           wx.showToast({
-            title: '复制成功',
+            title: '选择成功',
           })
         }
       })

@@ -11,9 +11,11 @@
            <view class = 'text'>材质：{{item.materia}}</view>
            <view class = 'text'>组对日期:{{item.fitupdate}}</view>
            <view class = 'text'>组对检验日期:{{item.fitupinspectdate}}</view>
+           <view class = 'text'>组对检验结果:{{item.fitresult}}</view>
            <view class = 'text'>焊接日期:{{item.welddate}}</view>
            <view class = 'text'>承包商:{{item.weldsub}}</view>
            <view class = 'text'>外观检验日期:{{item.visualinspectdate}}</view>
+           <view class = 'text'>外观检验结果:{{item.visualresult}}</view>
         </view>
       </view>
 </view>

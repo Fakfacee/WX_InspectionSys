@@ -68,20 +68,19 @@ Page({
     dataType : 'JSON',
     success:(res) =>{
     if(res.statusCode == 200){
-      if(res.data){
+      var result = res.data
+
+      if(result[0] == '['){
+        wx.showToast({
+          title: '单管数据获取失败',
+          icon: 'none',   
+          duration: 3000  
+        })
+
+      }else{
         var result = JSON.parse(res.data)
         wx.setStorageSync('spoolList', result)
         wx.hideLoading()
-      }else{
-        wx.showToast({
-          title: '数据加载失败，请重新登录',
-          icon: 'none',   
-          duration: 2000  
-        })
-        wx.navigateTo({
-          url: './login/login',
-        })
-
       }
   
     }else{

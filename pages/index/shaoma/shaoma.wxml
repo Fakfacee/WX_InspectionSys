@@ -7,9 +7,9 @@
 <!--
 <button bindtap="to_hand_write">手动输入</button>
 -->
-<view class="main_text">单管号：{{spool}}</view>
+<view class="main_text">单管号：</view>
 <input class ="type_input_1" bindinput="get_text" placeholder="支持手动输入" value = "{{spool}}"></input>
-<view class="main_text">单管清单(长按复制)</view>
+<view class="main_text">单管清单(长按选择单管)</view>
 <scroll-view scroll-y="true" style="max-height: 400rpx;">
   <view wx:for="{{autoCompleteList}}" wx:key = "index" >
         <view class="whitedivide"></view>
