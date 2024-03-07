@@ -68,9 +68,9 @@ Page({
     dataType : 'JSON',
     success:(res) =>{
     if(res.statusCode == 200){
-      var result = res.data
-
-      if(result[0] == '['){
+      var result = JSON.parse(res.data)
+      console.log(result[0].Status)
+      if(result[0].Status == 0){
         wx.showToast({
           title: '单管数据获取失败',
           icon: 'none',   
